@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小红书货品供给策略框架</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f4f0;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+
+  /* ─── Header ─── */
+  .page-header {
+    background: #fff;
+    border-bottom: 2px solid #ff2442;
+    padding: 28px 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .page-header .logo {
+    width: 36px; height: 36px;
+    background: #ff2442;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 900; font-size: 18px;
+  }
+  .page-header h1 {
+    font-size: 22px; font-weight: 700; color: #1a1a1a;
+  }
+  .page-header .subtitle {
+    font-size: 13px; color: #888; margin-left: auto;
+  }
+
+  /* ─── Layout ─── */
+  .page-body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  /* ─── Section titles ─── */
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 16px;
+  }
+
+  /* ─── Core question card ─── */
+  .hero-question {
+    background: #ff2442;
+    color: #fff;
+    border-radius: 16px;
+    padding: 32px 40px;
+    margin-bottom: 40px;
+  }
+  .hero-question .label {
+    font-size: 11px; letter-spacing: 2px; opacity: 0.7; margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .hero-question h2 {
+    font-size: 26px; font-weight: 800; line-height: 1.3; margin-bottom: 12px;
+  }
+  .hero-question p {
+    font-size: 14px; opacity: 0.85; max-width: 640px;
+  }
+  .hero-question .hypothesis {
+    margin-top: 20px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-size: 14px;
+  }
+  .hero-question .hypothesis strong { opacity: 1; }
+
+  /* ─── Flow: 3 modules ─── */
+  .modules-flow {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .module-card {
+    flex: 1;
+    background: #fff;
+    border-radius: 0;
+    padding: 28px 24px;
+    position: relative;
+    border: 1.5px solid #e8e8e8;
+  }
+  .module-card:first-child { border-radius: 16px 0 0 16px; }
+  .module-card:last-child  { border-radius: 0 16px 16px 0; }
+  .module-card + .module-card { border-left: none; }
+
+  .module-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .module-card h3 {
+    font-size: 15px; font-weight: 700; margin-bottom: 6px;
+  }
+  .module-card .module-q {
+    font-size: 12px; color: #888; margin-bottom: 14px;
+  }
+  .module-card ul {
+    list-style: none; padding: 0;
+  }
+  .module-card ul li {
+    font-size: 12.5px; color: #444;
+    padding: 5px 0;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .module-card ul li:last-child { border-bottom: none; }
+  .module-card ul li .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    margin-top: 6px; flex-shrink: 0;
+  }
+
+  /* Arrow between modules */
+  .module-arrow {
+    display: flex; align-items: center; justify-content: center;
+    width: 0;
+    position: relative;
+    z-index: 10;
+  }
+  .module-arrow::before {
+    content: '→';
+    position: absolute;
+    background: #ff2442;
+    color: #fff;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    left: -14px;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(255,36,66,0.3);
+  }
+
+  /* Color themes per module */
+  .m1 .module-num { background: #fff3f5; color: #ff2442; }
+  .m1 .dot        { background: #ff2442; }
+  .m2 .module-num { background: #fff8e1; color: #f59e0b; }
+  .m2 .dot        { background: #f59e0b; }
+  .m3 .module-num { background: #e8f5e9; color: #22c55e; }
+  .m3 .dot        { background: #22c55e; }
+
+  /* ─── Key hypothesis section ─── */
+  .hypothesis-section {
+    background: #fff;
+    border-radius: 16px;
+    border: 1.5px solid #e8e8e8;
+    padding: 32px 36px;
+    margin-bottom: 48px;
+  }
+  .hypothesis-section h3 {
+    font-size: 16px; font-weight: 700; margin-bottom: 20px;
+  }
+
+  .hypo-flow {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .hypo-box {
+    background: #f7f7f7;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    min-width: 120px;
+  }
+  .hypo-box.highlight {
+    background: #fff3f5;
+    color: #ff2442;
+    border: 1.5px solid #ffd0d8;
+  }
+  .hypo-arrow {
+    font-size: 20px; color: #ccc; font-weight: 300;
+  }
+  .hypo-label {
+    font-size: 10px; color: #aaa; margin-top: 4px; font-weight: 400;
+  }
+  .hypo-note {
+    margin-top: 20px;
+    background: #fffbeb;
+    border-left: 3px solid #f59e0b;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: #78350f;
+  }
+
+  /* ─── Strategy matrix ─── */
+  .matrix-section {
+    margin-bottom: 48px;
+  }
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid #e8e8e8;
+    position: relative;
+  }
+
+  .matrix-cell {
+    background: #fff;
+    padding: 24px 26px;
+    position: relative;
+  }
+  .matrix-cell .tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    padding: 3px 8px; border-radius: 4px;
+    margin-bottom: 10px; text-transform: uppercase;
+  }
+  .matrix-cell h4 { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .matrix-cell .desc { font-size: 12px; color: #666; margin-bottom: 12px; line-height: 1.5; }
+  .matrix-cell .action {
+    font-size: 12px; font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: inline-block;
+  }
+  .matrix-cell .examples {
+    margin-top: 12px; font-size: 11px; color: #999;
+  }
+
+  /* Cell A: top-left – 供给不足蓝海 */
+  .cell-a { background: #f0fdf4; }
+  .cell-a .tag { background: #dcfce7; color: #15803d; }
+  .cell-a .action { background: #dcfce7; color: #15803d; }
+
+  /* Cell B: top-right – 均衡成熟 */
+  .cell-b { background: #eff6ff; }
+  .cell-b .tag { background: #dbeafe; color: #1d4ed8; }
+  .cell-b .action { background: #dbeafe; color: #1d4ed8; }
+
+  /* Cell C: bottom-left – 待观察 */
+  .cell-c { background: #fafafa; }
+  .cell-c .tag { background: #f0f0f0; color: #666; }
+  .cell-c .action { background: #f0f0f0; color: #555; }
+
+  /* Cell D: bottom-right – 该改/该清 */
+  .cell-d { background: #fff5f5; }
+  .cell-d .tag { background: #fee2e2; color: #dc2626; }
+  .cell-d .action { background: #fee2e2; color: #dc2626; }
+
+  /* Axis labels */
+  .matrix-wrapper { position: relative; padding: 30px 0 0 30px; }
+  .axis-y {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px;
+  }
+  .axis-y .axis-label {
+    writing-mode: vertical-rl; text-orientation: mixed;
+    font-size: 11px; font-weight: 700; color: #888; letter-spacing: 1px;
+    transform: rotate(180deg);
+  }
+  .axis-y .axis-arrow { font-size: 18px; color: #ccc; transform: rotate(270deg); }
+  .axis-x {
+    display: flex; justify-content: space-between;
+    padding: 8px 4px 0;
+    font-size: 11px; color: #888; font-weight: 700; letter-spacing: 0.5px;
+  }
+
+  /* ─── Indicator table ─── */
+  .indicators-section {
+    background: #fff;
+    border-radius: 16px;
+    border: 1.5px solid #e8e8e8;
+    padding: 32px 36px;
+    margin-bottom: 48px;
+  }
+  .indicators-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 24px; }
+
+  .ind-group { margin-bottom: 24px; }
+  .ind-group-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #aaa;
+    margin-bottom: 10px; padding-bottom: 6px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .ind-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 200px;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f8f8f8;
+    font-size: 12.5px;
+  }
+  .ind-row:last-child { border-bottom: none; }
+  .ind-name { font-weight: 600; color: #1a1a1a; }
+  .ind-def  { color: #666; }
+  .ind-signal { }
+  .signal-tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 7px; border-radius: 4px;
+  }
+  .signal-blue { background: #dbeafe; color: #1d4ed8; }
+  .signal-red  { background: #fee2e2; color: #dc2626; }
+
+  /* ─── Health score example ─── */
+  .score-section {
+    background: #fff;
+    border-radius: 16px;
+    border: 1.5px solid #e8e8e8;
+    padding: 32px 36px;
+    margin-bottom: 48px;
+  }
+  .score-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 24px; }
+  .score-rows { display: flex; flex-direction: column; gap: 16px; }
+  .score-row {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .score-name { width: 140px; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+  .score-bar-bg {
+    flex: 1; height: 10px; background: #f0f0f0; border-radius: 5px; overflow: hidden;
+  }
+  .score-bar { height: 100%; border-radius: 5px; }
+  .score-val { width: 80px; text-align: right; font-size: 12px; color: #666; }
+  .score-badge {
+    width: 72px; font-size: 10px; font-weight: 700;
+    padding: 3px 8px; border-radius: 5px; text-align: center; flex-shrink: 0;
+  }
+
+  /* ─── Footer note ─── */
+  .footer-note {
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ HEADER ══════════════════════════════ -->
+<div class="page-header">
+  <div class="logo">书</div>
+  <h1>货品供给策略框架</h1>
+  <div class="subtitle">小红书商业化运营 · 大健康赛道适用</div>
+</div>
+
+<div class="page-body">
+
+  <!-- ══════════ HERO ══════════ -->
+  <div class="hero-question">
+    <div class="label">Framework Purpose</div>
+    <h2>我们在回答一个问题：<br>应该引入什么货品，不应该引入什么？</h2>
+    <p>
+      小红书作为种草平台，天然积累了大量用户需求信号（搜索行为、内容互动）。
+      我们希望用这些数据，系统性地判断哪些子赛道供给不足、哪些已经内卷，
+      从而指导招商策略和供给调控动作。
+    </p>
+    <div class="hypothesis">
+      <strong>核心假设：</strong>
+      在需求旺盛但供给不足的赛道，引入新的品牌/SKU（SPU增长）能够带来 GMV 的 YoY 正向增长。
+      这不一定是严格因果关系，但可以通过数据验证其相关性强弱。
+    </div>
+  </div>
+
+  <!-- ══════════ 3-MODULE FLOW ══════════ -->
+  <div class="section-title">分析三步走</div>
+  <div class="modules-flow">
+
+    <!-- Module 1 -->
+    <div class="module-card m1">
+      <div class="module-num">01</div>
+      <h3>行业趋势诊断</h3>
+      <div class="module-q">这个行业行不行？</div>
+      <ul>
+        <li><span class="dot"></span>外部市场规模增速（第三方数据）</li>
+        <li><span class="dot"></span>别的平台行不行（抖音/淘宝 GMV 增速）</li>
+        <li><span class="dot"></span>小红书站内搜索量 YoY</li>
+        <li><span class="dot"></span>笔记互动量 YoY</li>
+      </ul>
+    </div>
+
+    <div class="module-arrow"></div>
+
+    <!-- Module 2 -->
+    <div class="module-card m2">
+      <div class="module-num">02</div>
+      <h3>供需水位诊断</h3>
+      <div class="module-q">我们的供给够不够？</div>
+      <ul>
+        <li><span class="dot"></span>需求：搜索渗透率 / 购买用户渗透率</li>
+        <li><span class="dot"></span>供给：动销 SPU 数 / 品牌数</li>
+        <li><span class="dot"></span>匹配：搜索→购买转化率</li>
+        <li><span class="dot"></span>效率：GMV / SPU（每 SPU 产出密度）</li>
+        <li><span class="dot"></span>竞争：品牌数 / 搜索量占比</li>
+      </ul>
+    </div>
+
+    <div class="module-arrow"></div>
+
+    <!-- Module 3 -->
+    <div class="module-card m3">
+      <div class="module-num">03</div>
+      <h3>供给策略决策</h3>
+      <div class="module-q">该怎么调？</div>
+      <ul>
+        <li><span class="dot"></span>该引没引 → 主动招商</li>
+        <li><span class="dot"></span>引了表现好 → 持续扶持</li>
+        <li><span class="dot"></span>引了表现差 → 改策略</li>
+        <li><span class="dot"></span>该清退 → 清退（违规/严重内卷）</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ══════════ KEY HYPOTHESIS ══════════ -->
+  <div class="hypothesis-section">
+    <h3>📐 核心假设验证：SPU 增长 → GMV 增长？</h3>
+    <div class="hypo-flow">
+      <div class="hypo-box">
+        引入新品牌<br>/ 新 SKU
+        <div class="hypo-label">招商动作</div>
+      </div>
+      <div class="hypo-arrow">→</div>
+      <div class="hypo-box">
+        动销 SPU<br>数量增长
+        <div class="hypo-label">供给侧变化</div>
+      </div>
+      <div class="hypo-arrow">→</div>
+      <div class="hypo-box highlight">
+        类目 GMV<br>YoY 增长
+        <div class="hypo-label">目标结果</div>
+      </div>
+    </div>
+
+    <div class="hypo-note">
+      ⚠️ <strong>注意：</strong>这不是严格因果关系。影响 GMV 的因素还有内容生态、算法分发、品牌营销投入等。
+      建议通过子赛道拆分，找到「SPU 增 → GMV 增」相关性更强的赛道类型，作为招商优先级判断依据。
+      <br><br>
+      <strong>GMV 拆解公式：</strong>
+      GMV YoY = 新增 SPU 带来的增量GMV + 存量 SPU GMV 留存 − 流失 SPU 损失 GMV
+    </div>
+  </div>
+
+  <!-- ══════════ STRATEGY MATRIX ══════════ -->
+  <div class="section-title">供给策略四象限</div>
+  <div class="matrix-section">
+    <div class="matrix-wrapper">
+      <div class="axis-y">
+        <span class="axis-label">行业增速</span>
+        <span class="axis-arrow">→</span>
+      </div>
+      <div class="matrix-grid">
+
+        <!-- A: 供给不足·蓝海 -->
+        <div class="matrix-cell cell-a">
+          <div class="tag">A · 该引没引</div>
+          <h4>🟢 供给不足 · 蓝海</h4>
+          <div class="desc">行业高增长，搜索需求旺，但平台品牌数少、SKU 稀缺。每个 SKU 承接大量需求，GMV 密度极高。</div>
+          <div class="action">→ 主动招商，引入新品牌 / 新 SKU</div>
+          <div class="examples">大健康示例：女性健康（高端）、睡眠健康、银发健康</div>
+        </div>
+
+        <!-- B: 均衡成熟 -->
+        <div class="matrix-cell cell-b">
+          <div class="tag">B · 持续做</div>
+          <h4>🔵 均衡 · 成熟</h4>
+          <div class="desc">行业高增长，供给数量合理，转化率稳定，SPU → GMV 相关性验证成立。</div>
+          <div class="action">→ 维持供给，提升品质，扶持头部</div>
+          <div class="examples">大健康示例：运动健康 / 智能健身设备</div>
+        </div>
+
+        <!-- C: 待观察 -->
+        <div class="matrix-cell cell-c">
+          <div class="tag">C · 待观察</div>
+          <h4>⚪ 冷门 · 待激活</h4>
+          <div class="desc">行业增速低，搜索需求弱，供给也少。可能是需求尚未被内容激活，或是真正的小众赛道。</div>
+          <div class="action">→ 观察，不主动扩供给</div>
+          <div class="examples">需根据实际数据识别，定期复盘</div>
+        </div>
+
+        <!-- D: 内卷/清退 -->
+        <div class="matrix-cell cell-d">
+          <div class="tag">D · 该改 / 该清</div>
+          <h4>🔴 内卷 · 红海</h4>
+          <div class="desc">供给数量大，但 GMV 增速跑不赢 SPU 增速。价格战加剧，GMV 密度持续下滑，CPE 上升。</div>
+          <div class="action">→ 停止扩供，引导差异化 / 清退</div>
+          <div class="examples">大健康示例：基础保健品（维矿）、个人护理 / 医美</div>
+        </div>
+
+      </div>
+      <div class="axis-x">
+        <span>◀ 供给水位低</span>
+        <span>供给水位高 ▶</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ INDICATOR DETAILS ══════════ -->
+  <div class="indicators-section">
+    <h3>📊 关键指标说明</h3>
+
+    <!-- Group 1: Demand -->
+    <div class="ind-group">
+      <div class="ind-group-title">需求侧指标</div>
+      <div class="ind-row">
+        <div class="ind-name">搜索量 / 增速</div>
+        <div class="ind-def">该子赛道关键词的搜索 UV 及 YoY 增速（灵犀搜索洞察）</div>
+        <div class="ind-signal">高增速 → <span class="signal-tag signal-blue">需求旺盛</span></div>
+      </div>
+      <div class="ind-row">
+        <div class="ind-name">搜索无结果率</div>
+        <div class="ind-def">搜索后无有效商品展示的比例</div>
+        <div class="ind-signal">高 → <span class="signal-tag signal-blue">供给缺口大</span></div>
+      </div>
+      <div class="ind-row">
+        <div class="ind-name">购买用户渗透率</div>
+        <div class="ind-def">该赛道购买用户数 ÷ 平台总活跃用户数</div>
+        <div class="ind-signal">低 → <span class="signal-tag signal-blue">需求尚未释放</span></div>
+      </div>
+      <div class="ind-row">
+        <div class="ind-name">热词跃迁值</div>
+        <div class="ind-def">搜索词环比增长率，用于发现新兴需求爆发</div>
+        <div class="ind-signal">快速上升 → <span class="signal-tag signal-blue">新需求出现</span></div>
+      </div>
+    </div>
+
+    <!-- Group 2: Supply -->
+    <div class="ind-group">
+      <div class="ind-group-title">供给侧指标</div>
+      <div class="ind-row">
+        <div class="ind-name">动销 SPU 数</div>
+        <div class="ind-def">有交易产生的 SKU / 商品数量</div>
+        <div class="ind-signal">少 → <span class="signal-tag signal-blue">供给不足</span></div>
+      </div>
+      <div class="ind-row">
+        <div class="ind-name">动销品牌数</div>
+        <div class="ind-def">有交易产生的品牌数量</div>
+        <div class="ind-signal">持续增加 → <span class="signal-tag signal-red">竞争加剧</span></div>
+      </div>
+      <div class="ind-row">
+        <div class="ind-name">GMV / SPU 密度</div>
+        <div class="ind-def">类目 GMV ÷ 动销 SPU 数（单品产出效率）</div>
+        <div class="ind-signal">持续走低 → <span class="signal-tag signal-red">内卷信号</span></div>
+      </div>
+      <div class="ind-row">
+        <div class="ind-name">新增 SPU 增速</div>
+        <div class="ind-def">月均新增 SKU 数 YoY</div>
+        <div class="ind-signal">持续高企 → <span class="signal-tag signal-red">可能过热</span></div>
+      </div>
+    </div>
+
+    <!-- Group 3: Matching -->
+    <div class="ind-group">
+      <div class="ind-group-title">供需匹配指标（核心）</div>
+      <div class="ind-row">
+        <div class="ind-name">需求密度比</div>
+        <div class="ind-def">搜索量 ÷ 动销 SPU 数（每 SPU 对应的搜索需求量）</div>
+        <div class="ind-signal">高 → <span class="signal-tag signal-blue">供给明显不足</span></div>
+      </div>
+      <div class="ind-row">
+        <div class="ind-name">搜索→购买转化率</div>
+        <div class="ind-def">搜索后发生购买的用户比例</div>
+        <div class="ind-signal">持续走低 → <span class="signal-tag signal-red">匹配效率差</span></div>
+      </div>
+      <div class="ind-row">
+        <div class="ind-name">品牌竞争强度系数</div>
+        <div class="ind-def">品牌数 ÷ 搜索量占比（僧多粥少程度）</div>
+        <div class="ind-signal">高 → <span class="signal-tag signal-red">内卷严重</span></div>
+      </div>
+      <div class="ind-row">
+        <div class="ind-name">动销率</div>
+        <div class="ind-def">有销售的 SPU 数 ÷ 在架总 SPU 数</div>
+        <div class="ind-signal">低 → <span class="signal-tag signal-red">大量货卖不动</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ HEALTH SCORE EXAMPLE ══════════ -->
+  <div class="score-section">
+    <h3>🩺 大健康子赛道供给诊断示例（基于研究数据预判，需实际数据验证）</h3>
+    <div class="score-rows">
+
+      <div class="score-row">
+        <div class="score-name">女性健康（高端）</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:88%;background:#22c55e;"></div></div>
+        <div class="score-val">供给缺口 88%</div>
+        <div class="score-badge" style="background:#dcfce7;color:#15803d;">A · 主动引入</div>
+      </div>
+
+      <div class="score-row">
+        <div class="score-name">睡眠 / 心理健康</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:85%;background:#22c55e;"></div></div>
+        <div class="score-val">供给缺口 85%</div>
+        <div class="score-badge" style="background:#dcfce7;color:#15803d;">A · 主动引入</div>
+      </div>
+
+      <div class="score-row">
+        <div class="score-name">银发健康 / 养老</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:80%;background:#22c55e;"></div></div>
+        <div class="score-val">供给缺口 80%</div>
+        <div class="score-badge" style="background:#dcfce7;color:#15803d;">A · 主动引入</div>
+      </div>
+
+      <div class="score-row">
+        <div class="score-name">运动健康 / 智能设备</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:55%;background:#3b82f6;"></div></div>
+        <div class="score-val">竞争强度 55%</div>
+        <div class="score-badge" style="background:#dbeafe;color:#1d4ed8;">B · 持续做</div>
+      </div>
+
+      <div class="score-row">
+        <div class="score-name">功能性食品（差异化）</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:48%;background:#f59e0b;"></div></div>
+        <div class="score-val">竞争强度 48%</div>
+        <div class="score-badge" style="background:#fef3c7;color:#92400e;">B/A · 精选</div>
+      </div>
+
+      <div class="score-row">
+        <div class="score-name">基础保健品（维矿类）</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:82%;background:#ef4444;"></div></div>
+        <div class="score-val">内卷程度 82%</div>
+        <div class="score-badge" style="background:#fee2e2;color:#dc2626;">D · 停止扩供</div>
+      </div>
+
+      <div class="score-row">
+        <div class="score-name">个人护理 / 医美</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:90%;background:#ef4444;"></div></div>
+        <div class="score-val">内卷程度 90%</div>
+        <div class="score-badge" style="background:#fee2e2;color:#dc2626;">D · 停止扩供</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <div class="footer-note">
+    框架基于阿里、抖音、快手、京东供给管理策略研究 & 大健康赛道公开数据整理 · 具体数值需结合小红书灵犀 / RedBI 实际数据校验
+  </div>
+
+</div>
+</body>
+</html>
