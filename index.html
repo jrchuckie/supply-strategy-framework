@@ -529,66 +529,6 @@
 const canvas = document.getElementById('bubbleCanvas');
 const ctx = canvas.getContext('2d');
 
-// ── 真实数据（2026-04-29 分区）──
-// 原始数据
-const rawData = [
-  { cat: '保健品（普通膳食）',    sku: 77265,  gmv: 109677068, out_gmv: 6258483,  out_brand: 583,  gpm: 0,      avg_price: 326.9 },
-  { cat: '海外保健品',            sku: 19236,  gmv: 26738005,  out_gmv: 19705993, out_brand: 1222, gpm: 0,      avg_price: 348.5 },
-  { cat: '彩色隐形眼镜',          sku: 684897, gmv: 33279487,  out_gmv: 1575181,  out_brand: 109,  gpm: 171.79, avg_price: 44.3  },
-  { cat: '隐形眼镜（透明）',      sku: 20078,  gmv: 2007037,   out_gmv: 774577,   out_brand: 40,   gpm: 326.60, avg_price: 76.5  },
-  { cat: '情趣用品',              sku: 3102,   gmv: 6988413,   out_gmv: 208995,   out_brand: 64,   gpm: 103.83, avg_price: 123.0 },
-  { cat: '避孕套',                sku: 3424,   gmv: 8115284,   out_gmv: 0,        out_brand: 0,    gpm: 0,      avg_price: 114.5 },
-  { cat: 'OTC药品',               sku: 21580,  gmv: 2251813,   out_gmv: 111945,   out_brand: 196,  gpm: 0,      avg_price: 51.2  },
-  { cat: '蓝帽保健食品',          sku: 3655,   gmv: 3192524,   out_gmv: 653224,   out_brand: 104,  gpm: 0,      avg_price: 165.7 },
-  { cat: '医疗服务',              sku: 2238,   gmv: 1907379,   out_gmv: 0,        out_brand: 0,    gpm: 0,      avg_price: 563.6 },
-  { cat: '膏药贴',                sku: 10086,  gmv: 5469556,   out_gmv: 22311,    out_brand: 30,   gpm: 0,      avg_price: 65.3  },
-  { cat: '皮肤消毒护理',          sku: 8494,   gmv: 2843817,   out_gmv: 471,      out_brand: 48,   gpm: 0,      avg_price: 37.5  },
-  { cat: '冷热敷器具',            sku: 3222,   gmv: 1937093,   out_gmv: 726,      out_brand: 8,    gpm: 0,      avg_price: 68.9  },
-  { cat: '医用乳膏',              sku: 18121,  gmv: 15426891,  out_gmv: 0,        out_brand: 0,    gpm: 0,      avg_price: 47.8  },
-];
-
-// Z-score 归一化工具
-function zscore(arr) {
-  const mean = arr.reduce((a,b) => a+b, 0) / arr.length;
-  const std  = Math.sqrt(arr.reduce((s,x) => s+(x-mean)**2, 0) / arr.length) || 1;
-  return arr.map(x => (x - mean) / std);
-}
-// 归一化到 [5, 95]
-function normTo95(zArr) {
-  const mn = Math.min(...zArr), mx = Math.max(...zArr);
-  return zArr.map(z => 5 + ((z - mn) / (mx - mn || 1)) * 90);
-}
-
-// X轴：需求强度 = 站内GMV（60%）+ 站外GMV（20%）+ SKU数（代理内容需求 20%）
-// 注：搜索/阅读量暂无，以GMV/SKU量代理需求强度
-const xRaw = rawData.map(d => d.gmv * 0.6 + d.out_gmv * 0.2 + d.sku * 0.2 * 500);
-const xNorm = normTo95(zscore(xRaw));
-
-// Y轴：供给满足度 = SKU数（40%）+ 价格多样性（35%，用avg_price离散度代理）+ 供给集中度（25%，SKU越多分散越高）
-// 价格多样性：abs(avg_price - 全赛道均价) 越小越覆盖中段，暂用avg_price>50且<500 计分
-const avgPriceAll = rawData.reduce((s,d) => s+d.avg_price, 0) / rawData.length;
-const priceScore = rawData.map(d => {
-  const p = d.avg_price;
-  if (p >= 50 && p <= 500) return 1;
-  if (p > 500) return 0.5;
-  return 0.3; // <50元 价格带偏窄
-});
-const yRaw = rawData.map((d,i) => d.sku * 0.4 + priceScore[i] * 30000 * 0.35 + Math.min(d.sku, 20000) * 0.25);
-const yNorm = normTo95(zscore(yRaw));
-
-// GMV → 气泡半径
-const gmvArr = rawData.map(d => d.gmv);
-const gmvMin = Math.min(...gmvArr), gmvMax = Math.max(...gmvArr);
-function gmvToR(gmv) { return 8 + ((gmv - gmvMin) / (gmvMax - gmvMin)) * 28; }
-
-// 站外品牌渗透率：站外品牌数 / (站外品牌数 + 100)，没有站外数据设为0.5
-function penetration(d) {
-  if (!d.out_brand) return 0.5;
-  // 站外有多少品牌，站内有多少SKU（粗算渗透）
-  const ratio = d.sku / (d.sku + d.out_brand * 5);
-  return Math.min(ratio, 0.95);
-}
-
 // ── 真实数据：灵犀四级类目搜索量+阅读量（近30天）+ RedBI站内GMV ──
 const tracks = [
   { name: '胶原蛋白', x: 9.4, y: 21.8, gmv: 4000000, pen: 0.55, search: 1423552, read: 64729862, parent: '口服美容' },
@@ -631,11 +571,39 @@ const PAD = { top: 30, right: 40, bottom: 40, left: 30 };
 const plotW = W - PAD.left - PAD.right;
 const plotH = H - PAD.top - PAD.bottom;
 
+// ── 归一化：用 P10~P90 作为轴范围，outlier 被 clip 但仍显示 ──
+function robustNorm(arr, lo = 0.05, hi = 0.9) {
+  const sorted = [...arr].sort((a, b) => a - b);
+  const n = sorted.length;
+  const vLo = sorted[Math.floor(n * lo)];
+  const vHi = sorted[Math.floor(n * hi)];
+  const span = vHi - vLo || 1;
+  return arr.map(v => {
+    const norm = (v - vLo) / span;        // 可能 <0 或 >1（outlier）
+    return Math.min(Math.max(norm, 0.01), 0.99) * 90 + 5;  // clip 到 [5,95]
+  });
+}
+
+const rawX = tracks.map(t => t.search * 0.4 + t.read * 0.6);
+const rawY = tracks.map(t => t.gmv * 0.5 + t.pen * 20000000 * 0.5);
+// 归一化时排除各维度的离群值对坐标轴范围的影响
+const normX = robustNorm(rawX, 0.05, 0.85);
+const normY = robustNorm(rawY, 0.05, 0.85);
+
+// 用归一化后的值覆盖 tracks 的 x/y
+tracks.forEach((t, i) => { t.x = normX[i]; t.y = normY[i]; });
+
 function toCanvasX(x) { return PAD.left + (x / 100) * plotW; }
 function toCanvasY(y) { return PAD.top + ((100 - y) / 100) * plotH; }
-const gmvMin2 = Math.min(...tracks.map(t=>t.gmv));
-const gmvMax2 = Math.max(...tracks.map(t=>t.gmv));
-function gmvToR(gmv) { return 10 + ((gmv - gmvMin2)/(gmvMax2 - gmvMin2))*32; }
+
+// 气泡大小也用 P85 截断
+const gmvArr2 = tracks.map(t => t.gmv).sort((a,b)=>a-b);
+const gmvMin2 = gmvArr2[0];
+const gmvMax2 = gmvArr2[Math.floor(gmvArr2.length * 0.85)];
+function gmvToR(gmv) {
+  const capped = Math.min(gmv, gmvMax2);
+  return 10 + ((capped - gmvMin2) / (gmvMax2 - gmvMin2)) * 28;
+}
 function penToColor(pen) {
   if (pen < 0.30) return 'rgba(239,68,68,0.82)';
   if (pen < 0.60) return 'rgba(245,158,11,0.82)';
