@@ -298,8 +298,8 @@
   <!-- BUBBLE CHART -->
   <div class="section-title">供需水位气泡图</div>
   <div class="bubble-section">
-    <h3>大健康三级类目供需定位（26个子赛道）</h3>
-    <div class="sub">X轴 = 灵犀搜索量×40% + 阅读量×60%（需求强度）· Y轴 = 灵犀站内品牌数（真实供给侧）· 气泡大小 = 站内GMV · 近30天真实数据</div>
+    <h3>大健康三级类目供需定位（25个子赛道）</h3>
+    <div class="sub">X = 搜索量×40% + 阅读量×40% + 站外GMV×20% · Y = SKU数×40% + (1−CR100)×35% + 价格带覆盖度×25% · 气泡大小 = 阅读量 · 气泡颜色 = 品牌数 · 近30天真实数据</div>
 
     <div class="chart-area">
       <div style="position:relative; padding-left:100px;">
@@ -529,35 +529,36 @@
 const canvas = document.getElementById('bubbleCanvas');
 const ctx = canvas.getContext('2d');
 
-// ── 真实数据 v10：X=需求强度(搜索量×40%+阅读量×60%)，Y=站内品牌数（真实供给侧） ──
-// 品牌数来自灵犀 creativityTrack demand 接口（近30天），搜索/阅读来自 trendAnalyze（近30天）
+// ── 真实数据 v11：严格按框架定义计算X/Y轴 ──
+// X轴 = 搜索量×40% + 阅读量×40% + 站外GMV×20%（log scale归一化）
+// Y轴 = SKU数×40% + (1-CR100)×35% + 价格带覆盖度×25%
+// CR100、PBC来自RedBI dataset 1922明细；搜索/阅读来自灵犀；站外GMV来自dataset 10666
 const tracks = [
-  { name: '普通矿维\n综合营养品', x: 95.0, y: 95.0, gmv: 35000000, brand: 2285, search: 40913909, read: 833258299 },
-  { name: '更多成分营养品',       x: 84.9, y: 95.0, gmv: 20000000, brand: 1798, search: 32671433, read: 743287841 },
-  { name: 'OTC',                 x: 95.0, y: 95.0, gmv:  2251813, brand: 1713, search: 189547823, read: 1340539437 },
-  { name: '滋养食补',             x: 95.0, y: 95.0, gmv: 25000000, brand: 1446, search: 129449116, read: 1120486438 },
-  { name: '口服美容营养品',        x: 22.4, y: 95.0, gmv:  9000000, brand:  868, search: 3928168,  read: 169676093 },
-  { name: '益生菌类营养品',        x: 19.5, y: 95.0, gmv:  7000000, brand:  859, search: 2948719,  read: 142893076 },
-  { name: '心脑血管营养品',        x: 48.4, y: 85.9, gmv:  8000000, brand:  773, search: 10470714, read: 411639104 },
-  { name: '运动纤体营养品',        x: 26.2, y: 79.2, gmv:  5000000, brand:  709, search: 2899130,  read: 206665241 },
-  { name: '皮肤护理',             x: 69.3, y: 37.3, gmv:  6000000, brand:  313, search: 17964834, read: 604886917 },
-  { name: '按摩器类',             x: 20.4, y: 34.4, gmv:  5000000, brand:  285, search: 14424673, read: 143943897 },
-  { name: '消化系统营养品',        x: 10.5, y: 34.3, gmv:  2000000, brand:  284, search: 1203515,  read:  58459473 },
-  { name: '隐形眼镜',             x: 77.5, y: 29.4, gmv: 22000000, brand:  238, search: 68651227, read: 648753345 },
-  { name: '卵巢保养营养品',        x: 10.1, y: 27.7, gmv:  3500000, brand:  222, search: 1081194,  read:  54836344 },
-  { name: '养生理疗',             x: 95.0, y: 25.0, gmv: 12000000, brand:  196, search: 43703817, read: 1060059740 },
-  { name: '男性保健营养品',        x: 13.3, y: 24.3, gmv:  3000000, brand:  190, search: 1134966,  read:  85260802 },
-  { name: '防护护具',             x: 95.0, y: 20.1, gmv:  5000000, brand:  150, search: 34016605, read: 938733398 },
-  { name: '睡眠管理营养品',        x:  6.5, y: 19.3, gmv:  3000000, brand:  142, search: 3365110,  read:  19270840 },
-  { name: '骨关节营养品',          x: 11.2, y: 18.5, gmv:  4000000, brand:  135, search: 1465900,  read:  64979517 },
-  { name: '眼部护理',             x: 56.7, y: 10.7, gmv:  8000000, brand:   61, search: 21112090, read: 483712058 },
-  { name: '孕产护理',             x: 53.4, y:  8.4, gmv:  5000000, brand:   39, search: 14207661, read: 456734546 },
-  { name: '健康监测',             x: 95.0, y:  7.4, gmv: 10000000, brand:   30, search: 75315785, read: 815421271 },
-  { name: '居家检测',             x: 12.3, y:  7.1, gmv:  2000000, brand:   27, search: 1397068,  read:  75023506 },
-  { name: '计生用品',             x: 31.3, y:  6.9, gmv: 15103697, brand:   25, search: 9134951,  read: 250052332 },
-  { name: '健身器材',             x: 28.5, y:  6.4, gmv:   500000, brand:   20, search: 6135894,  read: 226106661 },
-  { name: '中式滋补',             x:  5.0, y:  5.3, gmv:  2000000, brand:   10, search: 234736,   read:   7057264 },
-  { name: '美体护理',             x: 43.9, y:  5.0, gmv:  8000000, brand:    7, search: 59961,    read: 375932774 },
+  { name: '普通矿维\n综合营养品', x: 85.0, y: 65.9, gmv: 833258299, brand: 2285, sku: 163, cr100: 0.80, pbc: 1.00, search: 40913909, read: 833258299 },
+  { name: '更多成分营养品',       x: 83.6, y: 95.0, gmv: 743287841, brand: 1798, sku: 17980, cr100: 0.28, pbc: 0.80, search: 32671433, read: 743287841 },
+  { name: 'OTC',                 x: 95.0, y: 95.0, gmv: 833258299, brand: 1713, sku: 17129, cr100: 0.31, pbc: 0.80, search: 189547823, read: 1340539437 },
+  { name: '滋养食补',             x: 95.0, y: 95.0, gmv: 833258299, brand: 1446, sku: 14459, cr100: 0.42, pbc: 0.80, search: 129449116, read: 1120486438 },
+  { name: '口服美容营养品',        x: 48.7, y: 95.0, gmv: 169676093, brand: 868, sku: 8680, cr100: 0.65, pbc: 0.80, search: 3928168, read: 169676093 },
+  { name: '益生菌类营养品',        x: 42.8, y: 94.7, gmv: 142893076, brand: 859, sku: 8589, cr100: 0.66, pbc: 0.80, search: 2948719, read: 142893076 },
+  { name: '心脑血管营养品',        x: 65.5, y: 92.3, gmv: 411639104, brand: 773, sku: 7729, cr100: 0.69, pbc: 0.80, search: 10470714, read: 411639104 },
+  { name: '运动纤体营养品',        x: 48.6, y: 90.5, gmv: 206665241, brand: 709, sku: 7089, cr100: 0.72, pbc: 0.80, search: 2899130, read: 206665241 },
+  { name: '皮肤护理',             x: 73.1, y: 70.7, gmv: 604886917, brand: 313, sku: 3130, cr100: 0.87, pbc: 0.60, search: 17964834, read: 604886917 },
+  { name: '按摩器类',             x: 57.9, y: 69.6, gmv: 143943897, brand: 285, sku: 2849, cr100: 0.89, pbc: 0.60, search: 14424673, read: 143943897 },
+  { name: '消化系统营养品',        x: 16.9, y: 69.6, gmv:  58459473, brand: 284, sku: 2840, cr100: 0.89, pbc: 0.60, search: 1203515, read: 58459473 },
+  { name: '卵巢保养营养品',        x: 13.9, y: 66.9, gmv:  54836344, brand: 222, sku: 2220, cr100: 0.91, pbc: 0.60, search: 1081194, read: 54836344 },
+  { name: '养生理疗',             x: 90.3, y: 58.8, gmv: 833258299, brand: 196, sku: 1960, cr100: 0.92, pbc: 0.40, search: 43703817, read: 1060059740 },
+  { name: '男性保健营养品',        x: 20.2, y: 58.5, gmv:  85260802, brand: 190, sku: 1899, cr100: 0.92, pbc: 0.40, search: 1134966, read: 85260802 },
+  { name: '防护护具',             x: 82.8, y: 56.4, gmv: 833258299, brand: 150, sku: 1499, cr100: 0.94, pbc: 0.40, search: 34016605, read: 938733398 },
+  { name: '睡眠管理营养品',        x: 18.1, y: 56.0, gmv:  19270840, brand: 142, sku: 1420, cr100: 0.94, pbc: 0.40, search: 3365110, read: 19270840 },
+  { name: '骨关节营养品',          x: 23.6, y: 55.5, gmv:  64979517, brand: 135, sku: 1350, cr100: 0.95, pbc: 0.40, search: 1465900, read: 64979517 },
+  { name: '眼部护理',             x: 74.5, y: 51.0, gmv: 483712058, brand:  61, sku:   65, cr100: 1.00, pbc: 0.80, search: 21112090, read: 483712058 },
+  { name: '孕产护理',             x: 67.7, y: 40.1, gmv: 456734546, brand:  39, sku:  390, cr100: 0.98, pbc: 0.20, search: 14207661, read: 456734546 },
+  { name: '健康监测',             x: 95.0, y: 38.5, gmv: 815421271, brand:  30, sku:  299, cr100: 0.99, pbc: 0.20, search: 75315785, read: 815421271 },
+  { name: '居家检测',             x: 17.4, y: 37.9, gmv:  75023506, brand:  27, sku:  270, cr100: 0.99, pbc: 0.20, search: 1397068, read: 75023506 },
+  { name: '计生用品',             x: 44.8, y: 37.4, gmv: 250052332, brand:  25, sku:  249, cr100: 0.99, pbc: 0.20, search: 9134951, read: 250052332 },
+  { name: '健身器材',             x: 55.2, y: 36.1, gmv: 226106661, brand:  20, sku:  200, cr100: 0.99, pbc: 0.20, search: 6135894, read: 226106661 },
+  { name: '美体护理',             x:  5.0, y: 30.7, gmv: 375932774, brand:   7, sku:   70, cr100: 1.00, pbc: 0.20, search: 59961, read: 375932774 },
+  { name: '隐形眼镜',             x: 95.0, y:  5.0, gmv: 648753345, brand: 238, sku:    1, cr100: 1.00, pbc: 0.00, search: 68651227, read: 648753345 },
 ];
 
 const W = canvas.width;
@@ -719,8 +720,8 @@ canvas.addEventListener('mousemove', (e) => {
       hit.name.replace(/\n/g,''),
       `搜索量: ${fmt(hit.search || 0)}`,
       `阅读量: ${fmt(hit.read || 0)}`,
-      `站内品牌数: ${hit.brand || '-'}`,
-      `站内GMV: ${fmt(hit.gmv)}`,
+      `站内品牌数: ${hit.brand || '-'}  SKU数: ${hit.sku || '-'}`,
+      `CR100: ${hit.cr100 ? (hit.cr100*100).toFixed(0)+'%' : '-'}  价格带覆盖: ${hit.pbc ? (hit.pbc*100).toFixed(0)+'%' : '-'}`,
     ].filter(Boolean).join('\n');
     canvas.style.cursor = 'pointer';
   } else {
