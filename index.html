@@ -355,37 +355,37 @@
         <span class="axis-label">↑ 供给满足度</span>
       </div>
       <div class="matrix-grid">
-        <!-- top-left: 高供给·低需求 = C -->
+        <!-- top-left: 低需求·高供给 = C -->
         <div class="matrix-cell cell-c">
-          <div class="tag">C · 待观察</div>
-          <h4>⚪ 供给先行 · 需激活</h4>
-          <div class="desc">货已经进来了，但需求还没被内容激活。小红书特有现象——好货缺内容承接，种草破圈是关键。</div>
-          <div class="action">→ 内容种草破圈，不扩供给</div>
-          <div class="examples">示例：冷门医疗器械、银发健康专业品</div>
+          <div class="tag">C · 供给过剩</div>
+          <h4>🔴 内卷 · 红海</h4>
+          <div class="desc">货已经进来很多，但需求未被激活。SPU 增速跑不赢 GMV 增速，价格战拉低整体效率。小红书特有现象：好货缺内容承接。</div>
+          <div class="action">→ 内容种草破圈激活需求，暂不扩供给</div>
+          <div class="examples">示例：基础保健品（维矿白牌）、同质化器械</div>
         </div>
-        <!-- top-right: 高供给·高需求 = B -->
+        <!-- top-right: 高需求·高供给 = B -->
         <div class="matrix-cell cell-b">
           <div class="tag">B · 持续做</div>
           <h4>🔵 均衡 · 成熟</h4>
-          <div class="desc">需求旺盛，供给充足且结构健康。SPU → GMV 相关性已验证。核心任务是提升品质，防止内卷。</div>
-          <div class="action">→ 维持供给，扶持头部品牌</div>
-          <div class="examples">示例：运动健康、功能性食品（差异化）</div>
+          <div class="desc">需求旺盛，供给充足且结构健康。SPU → GMV 相关性已验证。核心任务是提升品质，扶持头部，防止进一步内卷。</div>
+          <div class="action">→ 维持供给，精细化扶持头部 SPU</div>
+          <div class="examples">示例：隐形眼镜、普通矿维综合营养</div>
         </div>
-        <!-- bottom-left: 低供给·低需求 = D -->
+        <!-- bottom-left: 低需求·低供给 = D -->
         <div class="matrix-cell cell-d">
-          <div class="tag">D · 该改/该清</div>
-          <h4>🔴 内卷 · 红海</h4>
-          <div class="desc">需求疲软，供给却很多（SPU数高但覆盖雷同），GMV 增速跑不赢 SPU 增速。价格战拉低整体效率。</div>
-          <div class="action">→ 停止扩供，清退低效 SKU</div>
-          <div class="examples">示例：基础保健品（维矿）、白牌医美</div>
+          <div class="tag">D · 观察</div>
+          <h4>⚪ 冷启动 · 待验证</h4>
+          <div class="desc">需求和供给都不足，市场尚未成熟。可能是早期教育期品类，也可能是伪需求。SPU 增长不带动 GMV，暂不投入资源。</div>
+          <div class="action">→ 停止扩供，清退低效 SKU 或引导差异化</div>
+          <div class="examples">示例：nmn、谷胱甘肽、睡眠管理营养品</div>
         </div>
-        <!-- bottom-right: 低供给·高需求 = A -->
+        <!-- bottom-right: 高需求·低供给 = A -->
         <div class="matrix-cell cell-a">
           <div class="tag">A · 该引没引</div>
           <h4>🟢 供给不足 · 蓝海</h4>
           <div class="desc">需求强劲但供给严重不足。站外有大量品牌未入驻（颜色越红招商机会越大），每 SPU 承接的需求密度极高。</div>
           <div class="action">→ 主动招商，优先引入站外头部品牌</div>
-          <div class="examples">示例：女性健康（高端）、睡眠健康、银发健康</div>
+          <div class="examples">示例：滋养食补、养生理疗、健康手环/手表</div>
         </div>
       </div>
       <div class="axis-x">
@@ -614,29 +614,29 @@ function penToColor(pen) {
 function drawQuadrants() {
   const mx = toCanvasX(50);
   const my = toCanvasY(50);
-  // A: high X, low Y (bottom-right) → 该引没引 green
+  // A: high X, low Y (bottom-right) → 该引没引，蓝海 green
   ctx.fillStyle = 'rgba(240,253,244,0.6)';
   ctx.fillRect(mx, my, plotW - (mx - PAD.left), plotH - (my - PAD.top));
-  // B: high X, high Y (top-right) → 持续做 blue
+  // B: high X, high Y (top-right) → 持续做，防内卷 blue
   ctx.fillStyle = 'rgba(239,246,255,0.6)';
   ctx.fillRect(mx, PAD.top, plotW - (mx - PAD.left), my - PAD.top);
-  // C: low X, high Y (top-left) → 待观察 gray
-  ctx.fillStyle = 'rgba(250,250,250,0.6)';
-  ctx.fillRect(PAD.left, PAD.top, mx - PAD.left, my - PAD.top);
-  // D: low X, low Y (bottom-left) → 清退 red
+  // C: low X, high Y (top-left) → 供给过剩/内卷，暂不扩 red
   ctx.fillStyle = 'rgba(255,245,245,0.6)';
+  ctx.fillRect(PAD.left, PAD.top, mx - PAD.left, my - PAD.top);
+  // D: low X, low Y (bottom-left) → 观察，停止扩供 gray
+  ctx.fillStyle = 'rgba(250,250,250,0.6)';
   ctx.fillRect(PAD.left, my, mx - PAD.left, plotH - (my - PAD.top));
 
   // quadrant labels
   ctx.font = '700 13px -apple-system, PingFang SC, sans-serif';
-  ctx.fillStyle = 'rgba(34,197,94,0.5)';
+  ctx.fillStyle = 'rgba(34,197,94,0.6)';
   ctx.fillText('A · 该引没引', mx + 10, my + 20);
-  ctx.fillStyle = 'rgba(59,130,246,0.5)';
+  ctx.fillStyle = 'rgba(59,130,246,0.6)';
   ctx.fillText('B · 持续做', mx + 10, PAD.top + 20);
-  ctx.fillStyle = 'rgba(150,150,150,0.5)';
-  ctx.fillText('C · 待观察', PAD.left + 8, PAD.top + 20);
-  ctx.fillStyle = 'rgba(239,68,68,0.5)';
-  ctx.fillText('D · 该改/清退', PAD.left + 8, my + 20);
+  ctx.fillStyle = 'rgba(239,68,68,0.6)';
+  ctx.fillText('C · 供给过剩', PAD.left + 8, PAD.top + 20);
+  ctx.fillStyle = 'rgba(150,150,150,0.6)';
+  ctx.fillText('D · 观察', PAD.left + 8, my + 20);
 
   // midlines
   ctx.setLineDash([4, 4]);
