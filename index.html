@@ -295,59 +295,7 @@
     </div>
   </div>
 
-  <!-- BUBBLE CHART -->
-  <div class="section-title">供需水位气泡图</div>
-  <div class="bubble-section">
-    <h3>大健康三级类目供需定位（25个子赛道）</h3>
-    <div class="sub">X = 搜索量×40% + 阅读量×40% + 站外GMV×20% · Y = SKU数×40% + (1−CR100)×35% + 价格带覆盖度×25% · 气泡大小 = 阅读量 · 气泡颜色 = 品牌数 · 近30天真实数据</div>
 
-    <div class="chart-area">
-      <div style="position:relative; padding-left:100px;">
-        <span class="axis-label-y">↑ 供给满足度（Y轴）</span>
-        <span class="axis-hi-y">高</span>
-        <span class="axis-lo-y">低</span>
-        <div class="chart-canvas-wrap" style="width:100%;">
-          <canvas id="bubbleCanvas" width="900" height="520"></canvas>
-        </div>
-        <div class="axis-label-x">
-          <span class="axis-lo-x">低</span>需求强度（X轴）<span class="axis-hi-x">高</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="chart-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#ef4444;opacity:0.85;"></div> 站内品牌数 &lt;50（供给极稀缺，强招商信号）</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;opacity:0.85;"></div> 站内品牌数 50-300（供给有限，关注）</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#22c55e;opacity:0.85;"></div> 站内品牌数 &gt;300（供给充分）</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#888;border:2px solid #ccc;"></div> 气泡大小 = 站内 GMV 体量</div>
-    </div>
-
-    <!-- Formula cards -->
-    <div class="formula-cards">
-      <div class="formula-card">
-        <div class="fc-title">X轴构成</div>
-        <div class="fc-axis">需求强度</div>
-        <div class="formula-row"><span class="w">40%</span><span class="ind">站内搜索量（绝对值，归一化）</span></div>
-        <div class="formula-row"><span class="w">40%</span><span class="ind">站内笔记阅读量（绝对值，归一化）</span></div>
-        <div class="formula-row"><span class="w">20%</span><span class="ind">站外 GMV 规模</span><span class="note">（淘系/抖音数据）</span></div>
-      </div>
-      <div class="formula-card">
-        <div class="fc-title">Y轴构成</div>
-        <div class="fc-axis">供给满足度</div>
-        <div class="formula-row"><span class="w">40%</span><span class="ind">动销 SPU 数（绝对值，归一化）</span></div>
-        <div class="formula-row"><span class="w">35%</span><span class="ind">价格带覆盖度</span><span class="note">（5段，≥3 SPU 算覆盖）</span></div>
-        <div class="formula-row"><span class="w">25%</span><span class="ind">1 − CR5（头部集中度反向）</span><span class="note">（越分散越健康）</span></div>
-      </div>
-    </div>
-
-    <div class="data-note">
-      ⚠️ <strong>价格带覆盖度定义：</strong>各赛道统一分 5 段（&lt;50元 / 50-200元 / 200-500元 / 500-1500元 / &gt;1500元）。
-      某段有 ≥3 个动销 SPU 则视为覆盖。覆盖度 = 已覆盖段数 / 5。
-      覆盖度低需结合 X 轴（需求强度）判断：高需求赛道低覆盖 → 招商空白；低需求赛道低覆盖 → 用户本身只在某价格段消费，不一定是问题。
-    </div>
-  </div>
-
-  <!-- STRATEGY MATRIX -->
   <div class="section-title">供给策略四象限</div>
   <div class="matrix-section">
     <div class="matrix-wrapper">
@@ -459,65 +407,219 @@
 
   <!-- SCORE BARS -->
   <div class="score-section">
-    <h3>🩺 大健康子赛道诊断预判（模拟数据，需实际验证）</h3>
+    <h3>📊 大健康三级类目供需定位（25个子赛道）</h3>
+    <div class="sub" style="font-size:12px;color:#888;margin-bottom:16px;">综合供给缺口指数 = (需求强度 − 供给满足度 + 100) ÷ 2 &nbsp;·&nbsp; 100 = 供给严重不足，0 = 供给充裕 &nbsp;·&nbsp; 近30天真实数据</div>
     <div class="score-rows">
       <div class="score-row">
-        <div class="score-name">女性健康（高端）</div>
-        <div class="score-bar-bg"><div class="score-bar" style="width:88%;background:#22c55e;"></div></div>
-        <div class="score-val">供给缺口 88%</div>
+        <div class="score-name">隐形眼镜</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:95%;background:#22c55e;"></div></div>
+        <div class="score-val">缺口指数 95.0</div>
         <div class="score-badge" style="background:#dcfce7;color:#15803d;">A · 主动招商</div>
       </div>
       <div class="score-row">
-        <div class="score-name">睡眠 / 心理健康</div>
-        <div class="score-bar-bg"><div class="score-bar" style="width:85%;background:#22c55e;"></div></div>
-        <div class="score-val">供给缺口 85%</div>
+        <div class="score-name">健康监测</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:78%;background:#22c55e;"></div></div>
+        <div class="score-val">缺口指数 78.2</div>
         <div class="score-badge" style="background:#dcfce7;color:#15803d;">A · 主动招商</div>
       </div>
       <div class="score-row">
-        <div class="score-name">银发健康 / 养老</div>
-        <div class="score-bar-bg"><div class="score-bar" style="width:80%;background:#22c55e;"></div></div>
-        <div class="score-val">供给缺口 80%</div>
+        <div class="score-name">养生理疗</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:65%;background:#22c55e;"></div></div>
+        <div class="score-val">缺口指数 65.8</div>
         <div class="score-badge" style="background:#dcfce7;color:#15803d;">A · 主动招商</div>
       </div>
       <div class="score-row">
-        <div class="score-name">运动健康 / 智能设备</div>
-        <div class="score-bar-bg"><div class="score-bar" style="width:72%;background:#3b82f6;"></div></div>
-        <div class="score-val">均衡指数 72%</div>
-        <div class="score-badge" style="background:#dbeafe;color:#1d4ed8;">B · 持续做</div>
+        <div class="score-name">孕产护理</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:63%;background:#22c55e;"></div></div>
+        <div class="score-val">缺口指数 63.8</div>
+        <div class="score-badge" style="background:#dcfce7;color:#15803d;">A · 主动招商</div>
       </div>
       <div class="score-row">
-        <div class="score-name">功能性食品（差异化）</div>
-        <div class="score-bar-bg"><div class="score-bar" style="width:65%;background:#3b82f6;"></div></div>
-        <div class="score-val">均衡指数 65%</div>
-        <div class="score-badge" style="background:#dbeafe;color:#1d4ed8;">B · 持续做</div>
+        <div class="score-name">防护护具</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:63%;background:#22c55e;"></div></div>
+        <div class="score-val">缺口指数 63.2</div>
+        <div class="score-badge" style="background:#dcfce7;color:#15803d;">A · 主动招商</div>
       </div>
       <div class="score-row">
-        <div class="score-name">肠道健康</div>
-        <div class="score-bar-bg"><div class="score-bar" style="width:50%;background:#f59e0b;"></div></div>
-        <div class="score-val">待观察 50%</div>
-        <div class="score-badge" style="background:#fef3c7;color:#92400e;">C · 观察</div>
+        <div class="score-name">眼部护理</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:61%;background:#22c55e;"></div></div>
+        <div class="score-val">缺口指数 61.8</div>
+        <div class="score-badge" style="background:#dcfce7;color:#15803d;">A · 主动招商</div>
       </div>
       <div class="score-row">
-        <div class="score-name">婴童健康</div>
-        <div class="score-bar-bg"><div class="score-bar" style="width:45%;background:#f59e0b;"></div></div>
-        <div class="score-val">待观察 45%</div>
-        <div class="score-badge" style="background:#fef3c7;color:#92400e;">C · 观察</div>
+        <div class="score-name">健身器材</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:59%;background:#22c55e;"></div></div>
+        <div class="score-val">缺口指数 59.5</div>
+        <div class="score-badge" style="background:#dcfce7;color:#15803d;">A · 主动招商</div>
       </div>
       <div class="score-row">
-        <div class="score-name">基础保健品（维矿）</div>
-        <div class="score-bar-bg"><div class="score-bar" style="width:82%;background:#ef4444;"></div></div>
-        <div class="score-val">内卷程度 82%</div>
-        <div class="score-badge" style="background:#fee2e2;color:#dc2626;">D · 停止扩供</div>
+        <div class="score-name">普通矿维综合营养品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:59%;background:#3b82f6;"></div></div>
+        <div class="score-val">缺口指数 59.5</div>
+        <div class="score-badge" style="background:#dbeafe;color:#1d4ed8;">B · 持续维持</div>
       </div>
       <div class="score-row">
-        <div class="score-name">个人护理 / 白牌医美</div>
-        <div class="score-bar-bg"><div class="score-bar" style="width:90%;background:#ef4444;"></div></div>
-        <div class="score-val">内卷程度 90%</div>
-        <div class="score-badge" style="background:#fee2e2;color:#dc2626;">D · 停止扩供</div>
+        <div class="score-name">皮肤护理</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:51%;background:#3b82f6;"></div></div>
+        <div class="score-val">缺口指数 51.2</div>
+        <div class="score-badge" style="background:#dbeafe;color:#1d4ed8;">B · 持续维持</div>
       </div>
+      <div class="score-row">
+        <div class="score-name">滋养食补</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:50%;background:#3b82f6;"></div></div>
+        <div class="score-val">缺口指数 50.0</div>
+        <div class="score-badge" style="background:#dbeafe;color:#1d4ed8;">B · 持续维持</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">OTC</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:50%;background:#3b82f6;"></div></div>
+        <div class="score-val">缺口指数 50.0</div>
+        <div class="score-badge" style="background:#dbeafe;color:#1d4ed8;">B · 持续维持</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">更多成分营养品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:44%;background:#3b82f6;"></div></div>
+        <div class="score-val">缺口指数 44.3</div>
+        <div class="score-badge" style="background:#dbeafe;color:#1d4ed8;">B · 持续维持</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">按摩器类</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:44%;background:#3b82f6;"></div></div>
+        <div class="score-val">缺口指数 44.2</div>
+        <div class="score-badge" style="background:#dbeafe;color:#1d4ed8;">B · 持续维持</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">心脑血管营养品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:36%;background:#3b82f6;"></div></div>
+        <div class="score-val">缺口指数 36.6</div>
+        <div class="score-badge" style="background:#dbeafe;color:#1d4ed8;">B · 持续维持</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">运动纤体营养品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:29%;background:#ef4444;"></div></div>
+        <div class="score-val">缺口指数 29.1</div>
+        <div class="score-badge" style="background:#fee2e2;color:#dc2626;">C · 暂不扩供</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">口服美容营养品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:26%;background:#ef4444;"></div></div>
+        <div class="score-val">缺口指数 26.9</div>
+        <div class="score-badge" style="background:#fee2e2;color:#dc2626;">C · 暂不扩供</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">益生菌类营养品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:24%;background:#ef4444;"></div></div>
+        <div class="score-val">缺口指数 24.0</div>
+        <div class="score-badge" style="background:#fee2e2;color:#dc2626;">C · 暂不扩供</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">计生用品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:53%;background:#9ca3af;"></div></div>
+        <div class="score-val">缺口指数 53.7</div>
+        <div class="score-badge" style="background:#f3f4f6;color:#374151;">D · 观察清退</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">居家检测</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:39%;background:#9ca3af;"></div></div>
+        <div class="score-val">缺口指数 39.8</div>
+        <div class="score-badge" style="background:#f3f4f6;color:#374151;">D · 观察清退</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">美体护理</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:37%;background:#9ca3af;"></div></div>
+        <div class="score-val">缺口指数 37.1</div>
+        <div class="score-badge" style="background:#f3f4f6;color:#374151;">D · 观察清退</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">骨关节营养品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:34%;background:#9ca3af;"></div></div>
+        <div class="score-val">缺口指数 34.0</div>
+        <div class="score-badge" style="background:#f3f4f6;color:#374151;">D · 观察清退</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">睡眠管理营养品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:31%;background:#9ca3af;"></div></div>
+        <div class="score-val">缺口指数 31.1</div>
+        <div class="score-badge" style="background:#f3f4f6;color:#374151;">D · 观察清退</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">男性保健营养品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:30%;background:#9ca3af;"></div></div>
+        <div class="score-val">缺口指数 30.9</div>
+        <div class="score-badge" style="background:#f3f4f6;color:#374151;">D · 观察清退</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">消化系统营养品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:23%;background:#9ca3af;"></div></div>
+        <div class="score-val">缺口指数 23.7</div>
+        <div class="score-badge" style="background:#f3f4f6;color:#374151;">D · 观察清退</div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">卵巢保养营养品</div>
+        <div class="score-bar-bg"><div class="score-bar" style="width:23%;background:#9ca3af;"></div></div>
+        <div class="score-val">缺口指数 23.5</div>
+        <div class="score-badge" style="background:#f3f4f6;color:#374151;">D · 观察清退</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:11.5px;color:#aaa;">
+      需求强度 = 搜索量×40% + 阅读量×40% + 站外GMV×20%（log归一化）&emsp;
+      供给满足度 = SKU数×40% + (1−CR100)×35% + 价格带覆盖度×25%（log归一化）
     </div>
   </div>
 
+  <!-- BUBBLE CHART -->
+  <div class="section-title">供需水位气泡图</div>
+  <div class="bubble-section">
+    <h3>大健康三级类目供需定位（25个子赛道）</h3>
+    <div class="sub">X = 搜索量×40% + 阅读量×40% + 站外GMV×20% · Y = SKU数×40% + (1−CR100)×35% + 价格带覆盖度×25% · 气泡大小 = 阅读量 · 气泡颜色 = 品牌数 · 近30天真实数据</div>
+
+    <div class="chart-area">
+      <div style="position:relative; padding-left:100px;">
+        <span class="axis-label-y">↑ 供给满足度（Y轴）</span>
+        <span class="axis-hi-y">高</span>
+        <span class="axis-lo-y">低</span>
+        <div class="chart-canvas-wrap" style="width:100%;">
+          <canvas id="bubbleCanvas" width="900" height="520"></canvas>
+        </div>
+        <div class="axis-label-x">
+          <span class="axis-lo-x">低</span>需求强度（X轴）<span class="axis-hi-x">高</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#ef4444;opacity:0.85;"></div> 站内品牌数 &lt;50（供给极稀缺，强招商信号）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;opacity:0.85;"></div> 站内品牌数 50-300（供给有限，关注）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#22c55e;opacity:0.85;"></div> 站内品牌数 &gt;300（供给充分）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#888;border:2px solid #ccc;"></div> 气泡大小 = 站内 GMV 体量</div>
+    </div>
+
+    <!-- Formula cards -->
+    <div class="formula-cards">
+      <div class="formula-card">
+        <div class="fc-title">X轴构成</div>
+        <div class="fc-axis">需求强度</div>
+        <div class="formula-row"><span class="w">40%</span><span class="ind">站内搜索量（绝对值，归一化）</span></div>
+        <div class="formula-row"><span class="w">40%</span><span class="ind">站内笔记阅读量（绝对值，归一化）</span></div>
+        <div class="formula-row"><span class="w">20%</span><span class="ind">站外 GMV 规模</span><span class="note">（淘系/抖音数据）</span></div>
+      </div>
+      <div class="formula-card">
+        <div class="fc-title">Y轴构成</div>
+        <div class="fc-axis">供给满足度</div>
+        <div class="formula-row"><span class="w">40%</span><span class="ind">动销 SPU 数（绝对值，归一化）</span></div>
+        <div class="formula-row"><span class="w">35%</span><span class="ind">价格带覆盖度</span><span class="note">（5段，≥3 SPU 算覆盖）</span></div>
+        <div class="formula-row"><span class="w">25%</span><span class="ind">1 − CR5（头部集中度反向）</span><span class="note">（越分散越健康）</span></div>
+      </div>
+    </div>
+
+    <div class="data-note">
+      ⚠️ <strong>价格带覆盖度定义：</strong>各赛道统一分 5 段（&lt;50元 / 50-200元 / 200-500元 / 500-1500元 / &gt;1500元）。
+      某段有 ≥3 个动销 SPU 则视为覆盖。覆盖度 = 已覆盖段数 / 5。
+      覆盖度低需结合 X 轴（需求强度）判断：高需求赛道低覆盖 → 招商空白；低需求赛道低覆盖 → 用户本身只在某价格段消费，不一定是问题。
+    </div>
+  </div>
+
+  <!-- STRATEGY MATRIX -->
   <div class="footer-note">
     小红书商业化运营 · 货品供给策略框架 v2 · 2026.04 · 模拟数据仅供框架验证
   </div>
