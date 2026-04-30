@@ -298,8 +298,8 @@
   <!-- BUBBLE CHART -->
   <div class="section-title">供需水位气泡图</div>
   <div class="bubble-section">
-    <h3>大健康四级类目供需定位（32个子赛道）</h3>
-    <div class="sub">灵犀四级类目搜索量+阅读量（近30天真实数据）+ RedBI站内GMV · 气泡大小 = 站内GMV · 气泡颜色 = 站外品牌渗透率（红=低渗透/招商机会 绿=已充分渗透）· Hover查看详情</div>
+    <h3>大健康三级类目供需定位（26个子赛道）</h3>
+    <div class="sub">X轴 = 灵犀搜索量×40% + 阅读量×60%（需求强度）· Y轴 = 灵犀站内品牌数（真实供给侧）· 气泡大小 = 站内GMV · 近30天真实数据</div>
 
     <div class="chart-area">
       <div style="position:relative; padding-left:100px;">
@@ -316,9 +316,9 @@
     </div>
 
     <div class="chart-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#ef4444;opacity:0.85;"></div> 站外渗透率 &lt;30%（大量品牌未入驻，主动招商机会）</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;opacity:0.85;"></div> 站外渗透率 30-60%（渗透中）</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#22c55e;opacity:0.85;"></div> 站外渗透率 &gt;60%（已充分渗透）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#ef4444;opacity:0.85;"></div> 站内品牌数 &lt;50（供给极稀缺，强招商信号）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;opacity:0.85;"></div> 站内品牌数 50-300（供给有限，关注）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#22c55e;opacity:0.85;"></div> 站内品牌数 &gt;300（供给充分）</div>
       <div class="legend-item"><div class="legend-dot" style="background:#888;border:2px solid #ccc;"></div> 气泡大小 = 站内 GMV 体量</div>
     </div>
 
@@ -529,40 +529,35 @@
 const canvas = document.getElementById('bubbleCanvas');
 const ctx = canvas.getContext('2d');
 
-// ── 真实数据：灵犀四级类目搜索量+阅读量（近30天）+ RedBI站内GMV ──
+// ── 真实数据 v10：X=需求强度(搜索量×40%+阅读量×60%)，Y=站内品牌数（真实供给侧） ──
+// 品牌数来自灵犀 creativityTrack demand 接口（近30天），搜索/阅读来自 trendAnalyze（近30天）
 const tracks = [
-  { name: '胶原蛋白', x: 9.4, y: 21.8, gmv: 4000000, pen: 0.55, search: 1423552, read: 64729862, parent: '口服美容' },
-  { name: 'nmn', x: 5.0, y: 5.0, gmv: 1500000, pen: 0.25, search: 63138, read: 6875842, parent: '口服美容' },
-  { name: '谷胱甘肽', x: 5.9, y: 6.4, gmv: 1200000, pen: 0.30, search: 358830, read: 18817380, parent: '口服美容' },
-  { name: '鱼油', x: 19.0, y: 23.8, gmv: 4000000, pen: 0.60, search: 3859350, read: 191042588, parent: '心脑血管' },
-  { name: '褪黑素', x: 5.9, y: 23.8, gmv: 2000000, pen: 0.70, search: 3071797, read: 16794070, parent: '睡眠管理' },
-  { name: '肠胃益生菌', x: 13.4, y: 19.8, gmv: 3000000, pen: 0.55, search: 1196221, read: 118138315, parent: '益生菌' },
-  { name: '女性益生菌', x: 5.6, y: 8.4, gmv: 1200000, pen: 0.35, search: 312863, read: 14750069, parent: '益生菌' },
-  { name: '氨糖', x: 7.9, y: 15.9, gmv: 2000000, pen: 0.50, search: 679844, read: 44479236, parent: '骨关节' },
-  { name: '健康手环/手表', x: 52.9, y: 25.8, gmv: 8000000, pen: 0.45, search: 63814492, read: 602539078, parent: '健康监测' },
-  { name: '血糖仪', x: 10.5, y: 29.7, gmv: 3000000, pen: 0.80, search: 3613236, read: 77546751, parent: '健康监测' },
-  { name: '按摩仪/枕/垫', x: 20.0, y: 23.8, gmv: 5000000, pen: 0.55, search: 3876468, read: 204219363, parent: '养生理疗' },
-  { name: '艾灸产品', x: 9.8, y: 9.9, gmv: 2000000, pen: 0.35, search: 4948621, read: 68207337, parent: '养生理疗' },
-  { name: '外用膏贴', x: 15.6, y: 25.8, gmv: 4000000, pen: 0.65, search: 5776440, read: 144246645, parent: '养生理疗' },
-  { name: '运动防护', x: 10.9, y: 21.8, gmv: 3000000, pen: 0.60, search: 4223124, read: 82475625, parent: '防护护具' },
-  { name: '洗鼻器/鼻喷剂', x: 7.7, y: 10.9, gmv: 1500000, pen: 0.40, search: 2940096, read: 40597249, parent: '防护护具' },
-  { name: '彩色隐形眼镜', x: 43.9, y: 63.4, gmv: 18000000, pen: 0.90, search: 57690345, read: 487463707, parent: '视力保健' },
-  { name: '透明隐形眼镜', x: 10.5, y: 36.8, gmv: 5000000, pen: 0.88, search: 2263850, read: 79362694, parent: '视力保健' },
-  { name: '角膜塑形镜', x: 6.4, y: 15.9, gmv: 2000000, pen: 0.50, search: 1412109, read: 24710135, parent: '视力保健' },
-  { name: '眼部精华', x: 11.0, y: 25.8, gmv: 3000000, pen: 0.70, search: 831451, read: 86747674, parent: '眼部护理' },
-  { name: '眼膜', x: 9.8, y: 21.8, gmv: 2000000, pen: 0.65, search: 2071338, read: 69755614, parent: '眼部护理' },
-  { name: '肩颈按摩', x: 6.9, y: 19.8, gmv: 3000000, pen: 0.55, search: 2437914, read: 30720641, parent: '按摩器类' },
-  { name: '轻便健身器材', x: 13.0, y: 15.9, gmv: 2000000, pen: 0.50, search: 1638165, read: 112207641, parent: '健身器材' },
-  { name: '滋养食补', x: 95.0, y: 59.4, gmv: 25000000, pen: 0.45, search: 129449116, read: 1120486438, parent: '保健食品' },
-  { name: '普通矿维', x: 69.0, y: 95.0, gmv: 35000000, pen: 0.85, search: 40913909, read: 833258299, parent: '保健食品' },
-  { name: '更多成分营养品', x: 61.9, y: 55.4, gmv: 20000000, pen: 0.60, search: 32671433, read: 743287841, parent: '保健食品' },
-  { name: '心脑血管营养品', x: 35.9, y: 21.8, gmv: 8000000, pen: 0.35, search: 10470714, read: 411639104, parent: '保健食品' },
-  { name: '运动纤体营养品', x: 20.1, y: 13.9, gmv: 5000000, pen: 0.30, search: 2899130, read: 206665241, parent: '保健食品' },
-  { name: '口服美容营养品', x: 17.4, y: 25.8, gmv: 9000000, pen: 0.40, search: 3928168, read: 169676093, parent: '保健食品' },
-  { name: '益生菌营养品', x: 15.3, y: 25.8, gmv: 7000000, pen: 0.50, search: 2948719, read: 142893076, parent: '保健食品' },
-  { name: '睡眠管理营养品', x: 6.1, y: 6.0, gmv: 3000000, pen: 0.20, search: 3365110, read: 19270840, parent: '保健食品' },
-  { name: '骨关节营养品', x: 9.4, y: 11.1, gmv: 4000000, pen: 0.28, search: 1465900, read: 64979517, parent: '保健食品' },
-  { name: '卵巢保养营养品', x: 8.6, y: 7.8, gmv: 3500000, pen: 0.22, search: 1081194, read: 54836344, parent: '保健食品' },
+  { name: '普通矿维\n综合营养品', x: 95.0, y: 95.0, gmv: 35000000, brand: 2285, search: 40913909, read: 833258299 },
+  { name: '更多成分营养品',       x: 84.9, y: 95.0, gmv: 20000000, brand: 1798, search: 32671433, read: 743287841 },
+  { name: 'OTC',                 x: 95.0, y: 95.0, gmv:  2251813, brand: 1713, search: 189547823, read: 1340539437 },
+  { name: '滋养食补',             x: 95.0, y: 95.0, gmv: 25000000, brand: 1446, search: 129449116, read: 1120486438 },
+  { name: '口服美容营养品',        x: 22.4, y: 95.0, gmv:  9000000, brand:  868, search: 3928168,  read: 169676093 },
+  { name: '益生菌类营养品',        x: 19.5, y: 95.0, gmv:  7000000, brand:  859, search: 2948719,  read: 142893076 },
+  { name: '心脑血管营养品',        x: 48.4, y: 85.9, gmv:  8000000, brand:  773, search: 10470714, read: 411639104 },
+  { name: '运动纤体营养品',        x: 26.2, y: 79.2, gmv:  5000000, brand:  709, search: 2899130,  read: 206665241 },
+  { name: '皮肤护理',             x: 69.3, y: 37.3, gmv:  6000000, brand:  313, search: 17964834, read: 604886917 },
+  { name: '按摩器类',             x: 20.4, y: 34.4, gmv:  5000000, brand:  285, search: 14424673, read: 143943897 },
+  { name: '消化系统营养品',        x: 10.5, y: 34.3, gmv:  2000000, brand:  284, search: 1203515,  read:  58459473 },
+  { name: '隐形眼镜',             x: 77.5, y: 29.4, gmv: 22000000, brand:  238, search: 68651227, read: 648753345 },
+  { name: '卵巢保养营养品',        x: 10.1, y: 27.7, gmv:  3500000, brand:  222, search: 1081194,  read:  54836344 },
+  { name: '养生理疗',             x: 95.0, y: 25.0, gmv: 12000000, brand:  196, search: 43703817, read: 1060059740 },
+  { name: '男性保健营养品',        x: 13.3, y: 24.3, gmv:  3000000, brand:  190, search: 1134966,  read:  85260802 },
+  { name: '防护护具',             x: 95.0, y: 20.1, gmv:  5000000, brand:  150, search: 34016605, read: 938733398 },
+  { name: '睡眠管理营养品',        x:  6.5, y: 19.3, gmv:  3000000, brand:  142, search: 3365110,  read:  19270840 },
+  { name: '骨关节营养品',          x: 11.2, y: 18.5, gmv:  4000000, brand:  135, search: 1465900,  read:  64979517 },
+  { name: '眼部护理',             x: 56.7, y: 10.7, gmv:  8000000, brand:   61, search: 21112090, read: 483712058 },
+  { name: '孕产护理',             x: 53.4, y:  8.4, gmv:  5000000, brand:   39, search: 14207661, read: 456734546 },
+  { name: '健康监测',             x: 95.0, y:  7.4, gmv: 10000000, brand:   30, search: 75315785, read: 815421271 },
+  { name: '居家检测',             x: 12.3, y:  7.1, gmv:  2000000, brand:   27, search: 1397068,  read:  75023506 },
+  { name: '计生用品',             x: 31.3, y:  6.9, gmv: 15103697, brand:   25, search: 9134951,  read: 250052332 },
+  { name: '健身器材',             x: 28.5, y:  6.4, gmv:   500000, brand:   20, search: 6135894,  read: 226106661 },
+  { name: '中式滋补',             x:  5.0, y:  5.3, gmv:  2000000, brand:   10, search: 234736,   read:   7057264 },
+  { name: '美体护理',             x: 43.9, y:  5.0, gmv:  8000000, brand:    7, search: 59961,    read: 375932774 },
 ];
 
 const W = canvas.width;
@@ -604,10 +599,12 @@ function gmvToR(gmv) {
   const capped = Math.min(gmv, gmvMax2);
   return 10 + ((capped - gmvMin2) / (gmvMax2 - gmvMin2)) * 28;
 }
-function penToColor(pen) {
-  if (pen < 0.30) return 'rgba(239,68,68,0.82)';
-  if (pen < 0.60) return 'rgba(245,158,11,0.82)';
-  return 'rgba(34,197,94,0.82)';
+// 颜色按品牌数分级：品牌少=红(招商机会)，品牌多=绿(已充分)
+function penToColor(pen, brand) {
+  const b = brand !== undefined ? brand : 500;
+  if (b < 50)   return 'rgba(239,68,68,0.85)';   // 红：品牌极稀缺，强招商信号
+  if (b < 300)  return 'rgba(245,158,11,0.82)';  // 橙：供给有限，关注
+  return 'rgba(34,197,94,0.82)';                  // 绿：供给充分
 }
 
 // draw quadrant backgrounds
@@ -652,7 +649,7 @@ function drawBubbles() {
     const cx = toCanvasX(t.x);
     const cy = toCanvasY(t.y);
     const r  = gmvToR(t.gmv);
-    const color = penToColor(t.pen);
+    const color = penToColor(t.pen, t.brand);
 
     // shadow
     ctx.shadowColor = 'rgba(0,0,0,0.12)';
@@ -719,12 +716,11 @@ canvas.addEventListener('mousemove', (e) => {
   if (hit) {
     const fmt = n => n >= 1e8 ? (n/1e8).toFixed(1)+'亿' : n >= 1e4 ? (n/1e4).toFixed(0)+'万' : n.toFixed(0);
     canvas.title = [
-      hit.name.replace(/\n/g,'') + (hit.parent ? ` [${hit.parent}]` : ''),
+      hit.name.replace(/\n/g,''),
       `搜索量: ${fmt(hit.search || 0)}`,
       `阅读量: ${fmt(hit.read || 0)}`,
+      `站内品牌数: ${hit.brand || '-'}`,
       `站内GMV: ${fmt(hit.gmv)}`,
-      `站外渗透率: ${Math.round(hit.pen*100)}%`,
-      hit.gpm > 0 ? `GPM: ${hit.gpm}` : '',
     ].filter(Boolean).join('\n');
     canvas.style.cursor = 'pointer';
   } else {
