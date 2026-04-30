@@ -580,14 +580,8 @@ function robustNorm(arr, lo = 0.05, hi = 0.9) {
   });
 }
 
-const rawX = tracks.map(t => t.search * 0.4 + t.read * 0.6);
-const rawY = tracks.map(t => t.gmv * 0.5 + t.pen * 20000000 * 0.5);
-// 归一化时排除各维度的离群值对坐标轴范围的影响
-const normX = robustNorm(rawX, 0.05, 0.85);
-const normY = robustNorm(rawY, 0.05, 0.85);
-
-// 用归一化后的值覆盖 tracks 的 x/y
-tracks.forEach((t, i) => { t.x = normX[i]; t.y = normY[i]; });
+// X/Y 已在数据里预算好（严格按框架公式，Python侧 robustNorm 归一化）
+// 直接使用 t.x / t.y，不再重新计算覆盖
 
 function toCanvasX(x) { return PAD.left + (x / 100) * plotW; }
 function toCanvasY(y) { return PAD.top + ((100 - y) / 100) * plotH; }
