@@ -299,7 +299,7 @@
   <div class="section-title">供需水位气泡图</div>
   <div class="bubble-section">
     <h3>大健康子赛道供需定位</h3>
-    <div class="sub">真实数据（2026-04-29 分区）· 气泡大小 = 站内GMV · 气泡颜色 = 站外品牌渗透率（红=低渗透/招商机会 绿=已充分渗透）</div>
+    <div class="sub">真实数据（灵犀搜索/阅读量 + RedBI 站内GMV + 站外竞品数据，近30天）· 气泡大小 = 站内GMV · 气泡颜色 = 站外品牌渗透率（红=低渗透/招商机会 绿=已充分渗透）</div>
 
     <div class="chart-area">
       <div style="position:relative; padding-left:100px;">
@@ -589,16 +589,19 @@ function penetration(d) {
   return Math.min(ratio, 0.95);
 }
 
-const tracks = rawData.map((d, i) => ({
-  name: d.cat,
-  x: xNorm[i],
-  y: yNorm[i],
-  gmv: d.gmv,
-  pen: penetration(d),
-  gpm: d.gpm,
-  sku: d.sku,
-  out_brand: d.out_brand,
-}));
+// ── 最终整合数据（搜索量+阅读量+站内GMV+站外数据，近30天真实值）──
+const tracks = [
+  { name: '运动户外装备', x: 95.0, y: 7.0,  gmv: 567689,    pen: 0.10, gpm: 0.0,   search: 148078870, read: 6283451265 },
+  { name: '运动服装',     x: 84.2, y: 7.0,  gmv: 8651728,   pen: 0.10, gpm: 0.0,   search: 29992615,  read: 1551233221 },
+  { name: '家用医疗器械', x: 64.6, y: 13.1, gmv: 22833540,  pen: 0.95, gpm: 0.0,   search: 189420308, read: 4257421895 },
+  { name: '保健食品\n（含蓝帽）', x: 57.8, y: 19.1, gmv: 112869592, pen: 0.92, gpm: 0.0, search: 246390048, read: 3344549941 },
+  { name: 'OTC药品',      x: 25.6, y: 11.2, gmv: 2251813,   pen: 0.92, gpm: 0.0,   search: 189547823, read: 1340539437 },
+  { name: '视力保健\n（眼镜/护理）', x: 25.6, y: 95.0, gmv: 35286524, pen: 0.95, gpm: 248.5, search: 84405981, read: 1335323569 },
+  { name: '健康机械',     x: 10.5, y: 7.4,  gmv: 861761,    pen: 0.70, gpm: 0.0,   search: 21169902,  read: 386417572  },
+  { name: '保健用品\n（膏贴/护具）', x: 9.0, y: 5.0, gmv: 4962736, pen: 0.95, gpm: 0.0, search: 12712139, read: 287772618 },
+  { name: '成人计生',     x: 8.7,  y: 8.3,  gmv: 15103697,  pen: 0.91, gpm: 0.0,   search: 13425571,  read: 251372597  },
+  { name: '医疗服务',     x: 5.0,  y: 5.3,  gmv: 1907379,   pen: 0.70, gpm: 0.0,   search: 0,         read: 0          },
+];
 
 const W = canvas.width;
 const H = canvas.height;
@@ -608,7 +611,9 @@ const plotH = H - PAD.top - PAD.bottom;
 
 function toCanvasX(x) { return PAD.left + (x / 100) * plotW; }
 function toCanvasY(y) { return PAD.top + ((100 - y) / 100) * plotH; }
-function gmvToR(gmv) { return 6 + gmv * 0.7; }
+const gmvMin2 = Math.min(...tracks.map(t=>t.gmv));
+const gmvMax2 = Math.max(...tracks.map(t=>t.gmv));
+function gmvToR(gmv) { return 10 + ((gmv - gmvMin2)/(gmvMax2 - gmvMin2))*32; }
 function penToColor(pen) {
   if (pen < 0.30) return 'rgba(239,68,68,0.82)';
   if (pen < 0.60) return 'rgba(245,158,11,0.82)';
@@ -722,7 +727,15 @@ canvas.addEventListener('mousemove', (e) => {
   });
 
   if (hit) {
-    canvas.title = `${hit.name.replace('\n','')}\n需求强度: ${hit.x}\n供给满足度: ${hit.y}\n站内GMV权重: ${hit.gmv}\n站外渗透率: ${Math.round(hit.pen*100)}%`;
+    const fmt = n => n >= 1e8 ? (n/1e8).toFixed(1)+'亿' : n >= 1e4 ? (n/1e4).toFixed(0)+'万' : n.toFixed(0);
+    canvas.title = [
+      hit.name.replace(/\n/g,''),
+      `搜索量: ${fmt(hit.search || 0)}`,
+      `阅读量: ${fmt(hit.read || 0)}`,
+      `站内GMV: ${fmt(hit.gmv)}`,
+      `站外渗透率: ${Math.round(hit.pen*100)}%`,
+      hit.gpm > 0 ? `GPM: ${hit.gpm}` : '',
+    ].filter(Boolean).join('\n');
     canvas.style.cursor = 'pointer';
   } else {
     canvas.title = '';
