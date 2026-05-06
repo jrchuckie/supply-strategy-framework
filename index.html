@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>货品供给策略框架 v4</title>
+<title>赛道货品供给机会识别</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -11,851 +11,859 @@
 /* ── Viewport Base ── */
 html, body { height: 100%; overflow-x: hidden; }
 html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Manrope', -apple-system, "PingFang SC", sans-serif;
+  background: #0c0c0c; color: #fff;
+  overflow-y: scroll;
+}
 .slide {
   width: 100vw; height: 100vh; height: 100dvh;
   overflow: hidden; scroll-snap-align: start;
-  display: flex; flex-direction: column; position: relative;
-}
-.slide-content {
-  flex: 1; display: flex; flex-direction: column;
-  justify-content: center; max-height: 100%; overflow: hidden;
-  padding: var(--slide-padding);
+  display: flex; flex-direction: column;
+  position: relative;
 }
 :root {
-  --title-size: clamp(1.5rem, 5vw, 4rem);
-  --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
-  --h3-size: clamp(1rem, 2.5vw, 1.75rem);
-  --body-size: clamp(0.75rem, 1.5vw, 1.05rem);
-  --small-size: clamp(0.65rem, 1vw, 0.85rem);
-  --slide-padding: clamp(1rem, 4vw, 4rem);
-  --content-gap: clamp(0.5rem, 2vw, 2rem);
-  --element-gap: clamp(0.25rem, 1vw, 1rem);
+  --red:    #FF2442;
+  --yellow: #FFD600;
+  --green:  #00C853;
+  --blue:   #2563eb;
+  --dark:   #0c0c0c;
+  --white:  #ffffff;
+  --g100:   #f5f5f5;
+  --g200:   #e5e5e5;
+  --g500:   #888;
+  --g800:   #222;
+  --pad: clamp(2rem, 5vw, 5rem);
+  --gap: clamp(1rem, 2vh, 2rem);
+  --title: clamp(1.8rem, 4.5vw, 3.8rem);
+  --h2:    clamp(1.3rem, 3vw, 2.4rem);
+  --h3:    clamp(1rem, 2vw, 1.5rem);
+  --body:  clamp(0.8rem, 1.4vw, 1.05rem);
+  --small: clamp(0.7rem, 1vw, 0.85rem);
 }
 @media (max-height: 700px) {
-  :root { --slide-padding: clamp(0.75rem, 3vw, 2rem); --title-size: clamp(1.25rem, 4.5vw, 2.5rem); }
+  :root { --pad: clamp(1rem, 3vw, 2.5rem); --title: clamp(1.4rem, 4vw, 2.6rem); --h2: clamp(1.1rem, 2.5vw, 1.8rem); }
 }
-@media (max-height: 600px) {
-  :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem); --title-size: clamp(1.1rem, 4vw, 2rem); }
-  .nav-dots, .keyboard-hint { display: none; }
+@media (max-height: 580px) {
+  .hide-short { display: none !important; }
+  :root { --pad: clamp(0.75rem, 2.5vw, 1.75rem); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; }
   html { scroll-behavior: auto; }
 }
 
-/* ── Design System ── */
-:root {
-  --black: #0a0a0a;
-  --white: #ffffff;
-  --red: #FF2442;
-  --red-dim: #cc1a35;
-  --blue: #1a2eff;
-  --blue-dim: #0f1fb3;
-  --gray-100: #f7f7f7;
-  --gray-200: #e8e8e8;
-  --gray-500: #888888;
-  --gray-800: #2a2a2a;
-  --yellow: #FFD600;
-  --green: #00C853;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Manrope', -apple-system, sans-serif; background: var(--black); color: var(--white); }
-
-/* ── Nav dots ── */
-.nav-dots {
-  position: fixed; right: 28px; top: 50%; transform: translateY(-50%);
-  display: flex; flex-direction: column; gap: 10px; z-index: 100;
+/* ── Nav ── */
+.nav {
+  position: fixed; right: 24px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 9px; z-index: 200;
 }
 .nav-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: rgba(255,255,255,0.25); cursor: pointer;
-  transition: all 0.3s ease;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,0.2); cursor: pointer;
+  transition: all 0.25s; border: none;
 }
-.nav-dot.active { background: var(--white); transform: scale(1.4); }
+.nav-dot.on { background: #fff; transform: scale(1.5); }
 
-/* ── Slide counter ── */
-.slide-counter {
-  position: absolute; bottom: 28px; right: 40px;
+.pg {
+  position: absolute; bottom: 28px; right: var(--pad);
   font-family: 'Space Mono', monospace; font-size: 11px;
-  color: rgba(255,255,255,0.3); letter-spacing: 2px;
+  letter-spacing: 2px; opacity: 0.25;
 }
-.slide-counter.dark { color: rgba(0,0,0,0.25); }
 
 /* ────────────────────────────────
-   SLIDE 1 — TITLE
+   SLIDE 1 — COVER
 ──────────────────────────────── */
-.slide-1 {
-  background: var(--black);
-  display: grid; grid-template-columns: 1fr 1fr;
+#s1 {
+  display: grid; grid-template-columns: 55% 45%;
 }
-.s1-left {
+.s1-l {
   background: var(--red);
   display: flex; flex-direction: column;
   justify-content: space-between;
-  padding: clamp(2rem, 5vw, 5rem);
+  padding: var(--pad);
 }
-.s1-logo {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(0.6rem, 1vw, 0.75rem);
-  letter-spacing: 3px; opacity: 0.7; text-transform: uppercase;
+.s1-l .eyebrow {
+  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+  letter-spacing: 3px; text-transform: uppercase; opacity: 0.6;
+  font-weight: 700;
 }
-.s1-headline {
-  font-size: clamp(2rem, 5vw, 4.5rem);
-  font-weight: 800; line-height: 1.05;
-  letter-spacing: -0.03em;
+.s1-l h1 {
+  font-size: clamp(2.2rem, 5.5vw, 5rem);
+  font-weight: 800; line-height: 1.0; letter-spacing: -0.03em;
 }
-.s1-tag {
-  display: inline-block;
-  background: rgba(0,0,0,0.2);
-  font-size: clamp(0.65rem, 1vw, 0.8rem);
-  font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; padding: 6px 14px; border-radius: 4px;
-  margin-bottom: 20px;
+.s1-l .subtitle {
+  font-size: var(--body); opacity: 0.75; line-height: 1.5;
 }
-.s1-right {
-  display: flex; flex-direction: column;
-  justify-content: center; padding: clamp(2rem, 5vw, 5rem);
-  gap: clamp(1.5rem, 3vh, 3rem);
+.s1-r {
+  background: #111; display: flex; flex-direction: column;
+  justify-content: center; padding: var(--pad);
+  gap: var(--gap);
 }
-.s1-problem {
+.s1-r .q-block {
   border-left: 3px solid var(--red);
-  padding-left: 20px;
+  padding-left: 18px;
 }
-.s1-problem h3 {
-  font-size: clamp(0.65rem, 1vw, 0.75rem);
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--red); margin-bottom: 10px; font-weight: 700;
-}
-.s1-problem p {
-  font-size: var(--body-size); color: rgba(255,255,255,0.65); line-height: 1.6;
-}
-.s1-answer {
-  background: var(--gray-800); border-radius: 12px;
-  padding: clamp(1rem, 2vw, 1.75rem);
-}
-.s1-answer h3 {
-  font-size: clamp(0.65rem, 1vw, 0.75rem);
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--yellow); margin-bottom: 10px; font-weight: 700;
-}
-.s1-answer p { font-size: var(--body-size); line-height: 1.6; }
-.s1-version {
-  font-family: 'Space Mono', monospace; font-size: 11px;
-  color: rgba(255,255,255,0.2); letter-spacing: 2px;
-}
-
-/* ────────────────────────────────
-   SLIDE 2 — 旧逻辑的问题
-──────────────────────────────── */
-.slide-2 {
-  background: var(--white); color: var(--black);
-  display: grid; grid-template-columns: 1fr 1fr; align-items: stretch;
-}
-.s2-left {
-  background: var(--black); color: var(--white);
-  display: flex; flex-direction: column; justify-content: center;
-  padding: clamp(2rem, 5vw, 5rem);
-}
-.s2-step {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px; letter-spacing: 3px; color: var(--red);
-  text-transform: uppercase; margin-bottom: 16px;
-}
-.s2-left h2 {
-  font-size: clamp(1.5rem, 3.5vw, 2.8rem);
-  font-weight: 800; line-height: 1.1; margin-bottom: 24px;
-}
-.old-logic {
-  background: rgba(255,255,255,0.06); border-radius: 10px;
-  padding: 18px 22px; margin-bottom: 16px;
-}
-.old-logic .logic-label {
+.s1-r .q-label {
   font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  color: rgba(255,255,255,0.4); margin-bottom: 8px;
+  color: var(--red); font-weight: 700; margin-bottom: 8px;
 }
-.old-logic .logic-formula {
-  font-family: 'Space Mono', monospace; font-size: clamp(0.7rem, 1.2vw, 0.9rem);
-  color: rgba(255,255,255,0.6); line-height: 1.8;
+.s1-r p { font-size: var(--body); color: rgba(255,255,255,0.6); line-height: 1.6; }
+.s1-r p strong { color: #fff; }
+.agenda {
+  background: rgba(255,255,255,0.05); border-radius: 10px;
+  padding: 16px 20px;
 }
-.old-logic .logic-formula .red { color: #ff6b6b; }
-.s2-right {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: clamp(2rem, 5vw, 5rem); gap: clamp(1rem, 2vh, 2rem);
+.agenda .a-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 10px;
 }
-.s2-right h3 {
-  font-size: clamp(0.65rem, 1vw, 0.75rem);
-  letter-spacing: 2px; text-transform: uppercase;
-  color: var(--gray-500); margin-bottom: 16px;
+.agenda-items { display: flex; flex-direction: column; gap: 8px; }
+.agenda-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: var(--small);
 }
-.flaw-card {
-  background: var(--gray-100); border-radius: 10px;
-  padding: 16px 20px; border-left: 3px solid var(--red);
+.agenda-item .n {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700; flex-shrink: 0;
+  font-family: 'Space Mono', monospace;
 }
-.flaw-card .flaw-num {
-  font-family: 'Space Mono', monospace; font-size: 10px;
-  color: var(--red); letter-spacing: 2px; margin-bottom: 6px;
-}
-.flaw-card p { font-size: var(--body-size); color: var(--gray-800); line-height: 1.5; }
-.flaw-card strong { color: var(--black); }
+.agenda-item span { color: rgba(255,255,255,0.6); }
+.agenda-item span strong { color: #fff; }
 
 /* ────────────────────────────────
-   SLIDE 3 — 新逻辑：核心问题
+   SLIDE 2 — THE QUESTION
 ──────────────────────────────── */
-.slide-3 {
-  background: var(--black);
-  display: flex; flex-direction: column; justify-content: center;
-  align-items: center; text-align: center;
-  padding: var(--slide-padding);
+#s2 {
+  background: var(--dark);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: var(--pad);
 }
-.s3-eyebrow {
+#s2 .eyebrow {
   font-family: 'Space Mono', monospace; font-size: 11px;
   letter-spacing: 3px; text-transform: uppercase;
   color: var(--red); margin-bottom: clamp(1rem, 3vh, 2.5rem);
 }
-.s3-question {
-  font-size: clamp(2rem, 6vw, 5rem);
-  font-weight: 800; line-height: 1.05;
-  letter-spacing: -0.03em; max-width: 900px;
-  margin-bottom: clamp(1.5rem, 4vh, 3.5rem);
+#s2 h2 {
+  font-size: clamp(1.8rem, 5vw, 4.5rem);
+  font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+  max-width: 820px; margin-bottom: clamp(1.5rem, 4vh, 3.5rem);
 }
-.s3-question .accent { color: var(--red); }
-.s3-decompose {
-  display: flex; gap: clamp(1rem, 3vw, 3rem); align-items: stretch;
-  max-width: 860px;
+#s2 h2 em { color: var(--red); font-style: normal; }
+.core-q-cards {
+  display: flex; gap: clamp(1rem, 2.5vw, 2rem); max-width: 900px;
 }
-.s3-track {
-  flex: 1; background: var(--gray-800); border-radius: 14px;
-  padding: clamp(1rem, 2.5vw, 2rem); text-align: left;
-  position: relative; overflow: hidden;
+.cq-card {
+  flex: 1; background: #1a1a1a; border-radius: 14px;
+  padding: clamp(1rem, 2.5vw, 1.75rem); text-align: left;
+  border-top: 3px solid transparent;
 }
-.s3-track::before {
-  content: ''; position: absolute; top: 0; left: 0;
-  width: 100%; height: 3px;
-}
-.s3-track.track-a::before { background: var(--red); }
-.s3-track.track-b::before { background: var(--yellow); }
-.s3-track-label {
-  font-family: 'Space Mono', monospace; font-size: 10px;
-  letter-spacing: 2px; text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.track-a .s3-track-label { color: var(--red); }
-.track-b .s3-track-label { color: var(--yellow); }
-.s3-track h4 {
-  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
-  font-weight: 700; margin-bottom: 8px; line-height: 1.3;
-}
-.s3-track p { font-size: var(--small-size); color: rgba(255,255,255,0.5); line-height: 1.5; }
-
-/* ────────────────────────────────
-   SLIDE 4 — 两轨指标
-──────────────────────────────── */
-.slide-4 {
-  background: var(--white); color: var(--black);
-  display: grid; grid-template-columns: 1fr 1fr;
-}
-.s4-panel {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: clamp(2rem, 5vw, 5rem);
-}
-.s4-panel.left { background: var(--black); color: var(--white); }
-.s4-panel.right { background: var(--white); color: var(--black); }
-.s4-track-id {
-  font-family: 'Space Mono', monospace; font-size: 10px;
-  letter-spacing: 3px; text-transform: uppercase;
-  margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
-}
-.left .s4-track-id { color: var(--red); }
-.right .s4-track-id { color: var(--blue); }
-.s4-panel h2 {
-  font-size: clamp(1.25rem, 3vw, 2.2rem);
-  font-weight: 800; line-height: 1.1;
-  margin-bottom: clamp(1rem, 2.5vh, 2rem);
-}
-.metric-block {
-  background: rgba(255,255,255,0.06); border-radius: 10px;
-  padding: 14px 18px; margin-bottom: 10px;
-}
-.right .metric-block { background: var(--gray-100); }
-.metric-block .m-label {
-  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
-  color: rgba(255,255,255,0.35); margin-bottom: 6px;
-}
-.right .metric-block .m-label { color: var(--gray-500); }
-.metric-block .m-formula {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(0.7rem, 1.3vw, 0.9rem); line-height: 1.7;
-}
-.left .metric-block .m-formula { color: rgba(255,255,255,0.85); }
-.right .metric-block .m-formula { color: var(--gray-800); }
-.m-formula .hl-red { color: var(--red); font-weight: 700; }
-.m-formula .hl-blue { color: var(--blue); font-weight: 700; }
-.s4-action {
-  margin-top: 16px; padding: 12px 16px;
-  border-radius: 8px; font-size: var(--small-size);
-  font-weight: 600; display: flex; align-items: center; gap: 10px;
-}
-.left .s4-action { background: rgba(255,36,66,0.15); color: var(--red); }
-.right .s4-action { background: rgba(26,46,255,0.08); color: var(--blue); }
-
-/* ────────────────────────────────
-   SLIDE 5 — 2×2 图（新轴定义）
-──────────────────────────────── */
-.slide-5 {
-  background: var(--black);
-  display: grid; grid-template-columns: 1fr 1fr; align-items: stretch;
-}
-.s5-left {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: clamp(2rem, 5vw, 5rem);
-}
-.s5-eyebrow {
-  font-family: 'Space Mono', monospace; font-size: 10px;
-  letter-spacing: 3px; text-transform: uppercase;
-  color: var(--red); margin-bottom: 16px;
-}
-.s5-left h2 {
-  font-size: clamp(1.4rem, 3vw, 2.5rem);
-  font-weight: 800; line-height: 1.1; margin-bottom: clamp(1rem, 3vh, 2.5rem);
-}
-.axis-def { margin-bottom: 12px; }
-.axis-def .a-label {
+.cq-card.red { border-color: var(--red); }
+.cq-card.yellow { border-color: var(--yellow); }
+.cq-card .ct-label {
   font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  font-weight: 700; margin-bottom: 6px;
+  font-weight: 700; margin-bottom: 10px;
 }
-.axis-def .a-label.x { color: var(--yellow); }
-.axis-def .a-label.y { color: var(--green); }
-.axis-def .a-label.size { color: rgba(255,255,255,0.4); }
-.axis-def .a-label.color { color: rgba(255,255,255,0.4); }
-.axis-def p { font-size: var(--small-size); color: rgba(255,255,255,0.5); line-height: 1.5; }
-.axis-def p strong { color: rgba(255,255,255,0.85); }
-.axis-def + .axis-def { padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+.cq-card.red .ct-label { color: var(--red); }
+.cq-card.yellow .ct-label { color: var(--yellow); }
+.cq-card h4 {
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem); font-weight: 700;
+  margin-bottom: 8px; line-height: 1.3;
+}
+.cq-card p { font-size: var(--small); color: rgba(255,255,255,0.45); line-height: 1.55; }
 
-.s5-right {
+/* ────────────────────────────────
+   SLIDE 3 — X轴：需求量
+──────────────────────────────── */
+#s3 {
+  display: grid; grid-template-columns: 42% 58%;
+}
+.s3-l {
+  background: var(--red);
+  display: flex; flex-direction: column;
+  justify-content: center; padding: var(--pad);
+}
+.s3-l .step-tag {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 3px; text-transform: uppercase;
+  background: rgba(0,0,0,0.2); display: inline-block;
+  padding: 5px 12px; border-radius: 4px; margin-bottom: 20px;
+}
+.s3-l h2 {
+  font-size: clamp(1.6rem, 4vw, 3.5rem);
+  font-weight: 800; line-height: 1.0; letter-spacing: -0.03em;
+  margin-bottom: 14px;
+}
+.s3-l .axis-def {
+  font-size: var(--body); opacity: 0.75; line-height: 1.6;
+}
+.s3-l .mono-formula {
+  margin-top: 20px;
+  background: rgba(0,0,0,0.2); border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(0.7rem, 1.2vw, 0.88rem); line-height: 1.9;
+}
+.s3-r {
+  background: #f7f6f2; color: #111;
+  display: flex; flex-direction: column;
+  justify-content: center; padding: var(--pad);
+  gap: var(--gap);
+}
+.s3-r h3 {
+  font-size: clamp(0.65rem, 1vw, 0.75rem);
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--g500); margin-bottom: 4px;
+}
+.metric-row {
+  background: #fff; border-radius: 10px;
+  padding: 14px 18px; display: flex; align-items: center; gap: 14px;
+  border-left: 3px solid var(--red);
+}
+.metric-row .mr-icon { font-size: 22px; flex-shrink: 0; }
+.metric-row .mr-body {}
+.metric-row .mr-name {
+  font-size: clamp(0.85rem, 1.5vw, 1rem); font-weight: 700; margin-bottom: 4px;
+}
+.metric-row .mr-why {
+  font-size: var(--small); color: #666; line-height: 1.4;
+}
+.metric-row .mr-caution {
+  margin-top: 6px; font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+  color: var(--red); font-weight: 600;
+}
+
+/* ────────────────────────────────
+   SLIDE 4 — Y轴：需求未覆盖率
+──────────────────────────────── */
+#s4 {
+  display: grid; grid-template-columns: 58% 42%;
+}
+.s4-l {
+  background: #f7f6f2; color: #111;
+  display: flex; flex-direction: column;
+  justify-content: center; padding: var(--pad);
+  gap: var(--gap);
+}
+.s4-l .step-tag {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 3px; text-transform: uppercase;
+  background: rgba(0,0,0,0.08); display: inline-block;
+  padding: 5px 12px; border-radius: 4px; margin-bottom: 4px;
+  color: #555;
+}
+.s4-l h3 {
+  font-size: clamp(0.65rem, 1vw, 0.75rem);
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--g500); margin-bottom: 4px;
+}
+.s4-l h2 {
+  font-size: clamp(1.4rem, 3.2vw, 2.8rem);
+  font-weight: 800; line-height: 1.1; margin-bottom: var(--gap);
+}
+.why-box {
+  background: #fff; border-radius: 10px;
+  padding: 16px 20px; display: flex; gap: 14px; align-items: flex-start;
+}
+.why-box .wb-icon { font-size: 20px; margin-top: 2px; flex-shrink: 0; }
+.why-box .wb-text { font-size: var(--small); color: #555; line-height: 1.55; }
+.why-box .wb-text strong { color: #111; }
+.s4-r {
+  background: var(--dark); color: #fff;
+  display: flex; flex-direction: column;
+  justify-content: center; padding: var(--pad);
+}
+.s4-r .step-tag {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 20px;
+}
+.s4-r h2 {
+  font-size: clamp(1.6rem, 3.5vw, 3rem);
+  font-weight: 800; line-height: 1.0; letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+.formula-box {
+  background: #1a1a1a; border-radius: 10px; padding: 18px 20px;
+  border-left: 3px solid var(--green);
+}
+.formula-box .fl { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+.formula-box .ff {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(0.7rem, 1.3vw, 0.92rem); line-height: 2;
+}
+.formula-box .ff .hl { color: var(--green); font-weight: 700; }
+.s4-note {
+  margin-top: 14px; font-size: var(--small);
+  color: rgba(255,255,255,0.4); line-height: 1.5;
+}
+
+/* ────────────────────────────────
+   SLIDE 5 — 2×2 矩阵
+──────────────────────────────── */
+#s5 {
+  background: var(--dark);
+  display: grid; grid-template-columns: 40% 60%; align-items: stretch;
+}
+.s5-l {
+  display: flex; flex-direction: column;
+  justify-content: center; padding: var(--pad); gap: clamp(0.75rem, 2vh, 1.5rem);
+}
+.s5-l .eyebrow {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--red);
+}
+.s5-l h2 {
+  font-size: clamp(1.3rem, 3vw, 2.4rem);
+  font-weight: 800; line-height: 1.1;
+}
+.axis-summary { display: flex; flex-direction: column; gap: 10px; }
+.as-item { display: flex; gap: 10px; align-items: flex-start; }
+.as-badge {
+  font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+}
+.as-badge.x { background: rgba(255,214,0,0.15); color: var(--yellow); }
+.as-badge.y { background: rgba(0,200,83,0.12); color: var(--green); }
+.as-badge.sz { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+.as-badge.cl { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+.as-item p { font-size: var(--small); color: rgba(255,255,255,0.5); line-height: 1.5; }
+.as-item p strong { color: rgba(255,255,255,0.85); }
+
+.s5-r {
   display: flex; align-items: center; justify-content: center;
-  padding: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(1.5rem, 3vw, 3.5rem);
   position: relative;
 }
-.quadrant-wrap {
-  width: 100%; max-width: 500px; aspect-ratio: 1;
+.matrix-wrap {
+  width: 100%; max-width: 480px; aspect-ratio: 1;
   position: relative;
 }
-.quadrant-grid {
+.matrix {
   width: 100%; height: 100%;
   display: grid; grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 3px;
+  grid-template-rows: 1fr 1fr; gap: 4px;
 }
-.q-cell {
-  border-radius: 8px; padding: clamp(0.75rem, 2vw, 1.5rem);
+.mc {
+  border-radius: 10px; padding: clamp(0.9rem, 2vw, 1.5rem);
   display: flex; flex-direction: column; justify-content: space-between;
-  position: relative; overflow: hidden;
+  overflow: hidden; position: relative;
 }
-.q-cell::after {
-  content: ''; position: absolute; inset: 0; border-radius: 8px;
-  border: 1.5px solid rgba(255,255,255,0.08);
+.mc::after {
+  content: ''; position: absolute; inset: 0;
+  border: 1.5px solid rgba(255,255,255,0.07); border-radius: 10px;
 }
-.q-a { background: rgba(0,200,83,0.12); }
-.q-b { background: rgba(26,46,255,0.12); }
-.q-c { background: rgba(255,255,255,0.04); }
-.q-d { background: rgba(255,36,66,0.08); }
-.q-tag {
-  font-size: 9px; font-weight: 800; letter-spacing: 1.5px;
-  text-transform: uppercase; padding: 3px 7px; border-radius: 4px;
-  display: inline-block; margin-bottom: 8px; align-self: flex-start;
+.mc-a { background: rgba(0,200,83,0.1); }
+.mc-b { background: rgba(37,99,235,0.1); }
+.mc-c { background: rgba(255,255,255,0.03); }
+.mc-d { background: rgba(255,36,66,0.07); }
+.mc-badge {
+  font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 4px; display: inline-block; align-self: flex-start;
+  margin-bottom: 6px;
 }
-.q-a .q-tag { background: rgba(0,200,83,0.25); color: var(--green); }
-.q-b .q-tag { background: rgba(26,46,255,0.25); color: #7b8fff; }
-.q-c .q-tag { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
-.q-d .q-tag { background: rgba(255,36,66,0.2); color: #ff7088; }
-.q-title {
-  font-size: clamp(0.75rem, 1.5vw, 1.05rem);
-  font-weight: 800; line-height: 1.2; margin-bottom: 4px;
-}
-.q-action {
-  font-size: clamp(0.6rem, 1vw, 0.75rem);
-  color: rgba(255,255,255,0.4); line-height: 1.4;
-}
-/* Axis labels */
-.q-axis-y {
-  position: absolute; left: -clamp(2rem, 4vw, 3.5rem); top: 50%;
+.mc-a .mc-badge { background: rgba(0,200,83,0.2); color: var(--green); }
+.mc-b .mc-badge { background: rgba(37,99,235,0.2); color: #7ba4ff; }
+.mc-c .mc-badge { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.4); }
+.mc-d .mc-badge { background: rgba(255,36,66,0.15); color: #ff7088; }
+.mc-title { font-size: clamp(0.8rem, 1.5vw, 1.05rem); font-weight: 800; line-height: 1.2; }
+.mc-desc { font-size: clamp(0.6rem, 0.95vw, 0.75rem); color: rgba(255,255,255,0.4); line-height: 1.4; margin-top: 6px; }
+
+/* axis arrows */
+.m-axis-y {
+  position: absolute; left: -clamp(2.5rem, 4vw, 4rem); top: 50%;
   transform: translateY(-50%) rotate(-90deg);
-  font-size: 10px; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--green); white-space: nowrap;
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--green); white-space: nowrap;
 }
-.q-axis-x {
-  position: absolute; bottom: -clamp(1.5rem, 3vw, 2.5rem); left: 50%;
+.m-axis-x {
+  position: absolute; bottom: -clamp(1.75rem, 3vw, 3rem); left: 50%;
   transform: translateX(-50%);
-  font-size: 10px; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--yellow); white-space: nowrap;
-}
-.q-arrow-h {
-  position: absolute; bottom: -clamp(1.5rem, 3vw, 2.5rem); right: 0;
-  font-size: 14px; color: var(--yellow);
-}
-.q-arrow-v {
-  position: absolute; top: 0; left: -clamp(2rem, 4vw, 3.5rem);
-  font-size: 14px; color: var(--green);
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--yellow); white-space: nowrap;
 }
 
 /* ────────────────────────────────
    SLIDE 6 — 四象限动作
 ──────────────────────────────── */
-.slide-6 {
-  background: var(--white); color: var(--black);
-  display: flex; flex-direction: column; justify-content: center;
-  padding: var(--slide-padding);
+#s6 {
+  background: #f7f6f2; color: #111;
+  display: flex; flex-direction: column;
+  padding: var(--pad); gap: clamp(1rem, 2.5vh, 2rem);
 }
-.s6-header { margin-bottom: clamp(1rem, 3vh, 2.5rem); }
-.s6-header .eyebrow {
+#s6 .top-header {}
+#s6 .eyebrow {
   font-family: 'Space Mono', monospace; font-size: 10px;
   letter-spacing: 3px; text-transform: uppercase;
-  color: var(--gray-500); margin-bottom: 10px;
+  color: var(--g500); margin-bottom: 8px;
 }
-.s6-header h2 {
-  font-size: clamp(1.25rem, 3vw, 2.2rem);
-  font-weight: 800; line-height: 1.1;
+#s6 h2 {
+  font-size: clamp(1.25rem, 2.8vw, 2.2rem); font-weight: 800;
 }
-.action-grid {
+.actions-grid {
   display: grid; grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr; gap: 12px;
-  flex: 1; max-height: 65vh;
+  grid-template-rows: 1fr 1fr; gap: 12px; flex: 1;
+  min-height: 0;
 }
-.action-card {
-  border-radius: 12px; padding: clamp(1rem, 2.5vw, 1.75rem);
+.ac {
+  border-radius: 12px; padding: clamp(1rem, 2vw, 1.5rem);
   display: flex; flex-direction: column; justify-content: space-between;
-  border: 1.5px solid var(--gray-200);
+  border: 1.5px solid var(--g200);
 }
-.action-card .ac-top {}
-.action-card .ac-badge {
-  font-size: 9px; font-weight: 800; letter-spacing: 1.5px;
-  text-transform: uppercase; padding: 3px 8px; border-radius: 4px;
-  display: inline-block; margin-bottom: 10px;
+.ac .top {}
+.ac .ac-badge {
+  font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px;
 }
-.action-card h3 {
-  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
-  font-weight: 800; margin-bottom: 6px;
+.ac h3 { font-size: clamp(0.9rem, 1.7vw, 1.15rem); font-weight: 800; margin-bottom: 6px; }
+.ac p { font-size: var(--small); color: #666; line-height: 1.5; }
+.ac .cta {
+  font-size: clamp(0.65rem, 1vw, 0.78rem); font-weight: 700;
+  padding: 7px 14px; border-radius: 8px; display: inline-block;
+  margin-top: 10px; align-self: flex-start;
 }
-.action-card p {
-  font-size: var(--small-size); color: var(--gray-500); line-height: 1.5;
-}
-.action-card .ac-cta {
-  font-size: clamp(0.65rem, 1vw, 0.8rem); font-weight: 700;
-  padding: 8px 14px; border-radius: 8px;
-  display: inline-block; margin-top: 10px;
-}
-.card-a { background: #f0fdf4; }
-.card-a .ac-badge { background: #dcfce7; color: #15803d; }
-.card-a .ac-cta { background: #dcfce7; color: #15803d; }
-.card-b { background: #eff6ff; }
-.card-b .ac-badge { background: #dbeafe; color: #1d4ed8; }
-.card-b .ac-cta { background: #dbeafe; color: #1d4ed8; }
-.card-c { background: #fafafa; }
-.card-c .ac-badge { background: #f0f0f0; color: #666; }
-.card-c .ac-cta { background: #f0f0f0; color: #555; }
-.card-d { background: #fff5f5; }
-.card-d .ac-badge { background: #fee2e2; color: #dc2626; }
-.card-d .ac-cta { background: #fee2e2; color: #dc2626; }
+.ac-a { background: #f0fdf4; }
+.ac-a .ac-badge { background: #dcfce7; color: #15803d; }
+.ac-a .cta { background: #dcfce7; color: #15803d; }
+.ac-b { background: #eff6ff; }
+.ac-b .ac-badge { background: #dbeafe; color: #1d4ed8; }
+.ac-b .cta { background: #dbeafe; color: #1d4ed8; }
+.ac-c { background: #fafafa; }
+.ac-c .ac-badge { background: #f0f0f0; color: #666; }
+.ac-c .cta { background: #f0f0f0; color: #555; }
+.ac-d { background: #fff5f5; }
+.ac-d .ac-badge { background: #fee2e2; color: #dc2626; }
+.ac-d .cta { background: #fee2e2; color: #dc2626; }
 
 /* ────────────────────────────────
-   SLIDE 7 — 数据链路
+   SLIDE 7 — 三步操作
 ──────────────────────────────── */
-.slide-7 {
-  background: var(--black);
-  display: flex; flex-direction: column; justify-content: center;
-  padding: var(--slide-padding);
+#s7 {
+  background: var(--dark);
+  display: flex; flex-direction: column;
+  justify-content: center; padding: var(--pad);
 }
-.s7-eyebrow {
+#s7 .eyebrow {
   font-family: 'Space Mono', monospace; font-size: 10px;
   letter-spacing: 3px; text-transform: uppercase;
-  color: var(--red); margin-bottom: 16px;
+  color: var(--red); margin-bottom: 14px;
 }
-.s7-title {
+#s7 h2 {
   font-size: clamp(1.4rem, 3.5vw, 2.8rem);
   font-weight: 800; line-height: 1.1;
-  margin-bottom: clamp(1.5rem, 4vh, 3rem);
+  margin-bottom: clamp(1.5rem, 3.5vh, 2.5rem);
 }
-.pipeline {
-  display: flex; align-items: center; gap: 0;
-  margin-bottom: clamp(1rem, 3vh, 2rem);
+.steps { display: flex; gap: clamp(0.75rem, 2vw, 1.5rem); align-items: stretch; }
+.step-card {
+  flex: 1; background: #1a1a1a; border-radius: 14px;
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+  display: flex; flex-direction: column; gap: clamp(0.75rem, 1.5vh, 1.25rem);
+  position: relative; overflow: hidden;
 }
-.pipe-step {
-  flex: 1; background: var(--gray-800); border-radius: 10px;
-  padding: clamp(0.75rem, 2vw, 1.25rem);
+.step-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
 }
-.pipe-arrow {
-  width: clamp(1.5rem, 3vw, 2.5rem); text-align: center;
-  font-size: clamp(1rem, 2vw, 1.5rem); color: rgba(255,255,255,0.2);
-  flex-shrink: 0;
+.step-1::before { background: var(--red); }
+.step-2::before { background: var(--yellow); }
+.step-3::before { background: var(--green); }
+.step-num {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 700; line-height: 1; opacity: 0.08;
+  position: absolute; top: 12px; right: 16px;
 }
-.pipe-step .ps-label {
-  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--red); margin-bottom: 6px; font-weight: 700;
+.step-card .sc-tag {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  font-weight: 700;
 }
-.pipe-step .ps-title {
-  font-size: clamp(0.75rem, 1.3vw, 0.95rem);
-  font-weight: 700; margin-bottom: 4px;
+.step-1 .sc-tag { color: var(--red); }
+.step-2 .sc-tag { color: var(--yellow); }
+.step-3 .sc-tag { color: var(--green); }
+.step-card h3 {
+  font-size: clamp(0.95rem, 1.8vw, 1.25rem); font-weight: 800; line-height: 1.2;
 }
-.pipe-step .ps-source {
-  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
-  color: rgba(255,255,255,0.35); font-family: 'Space Mono', monospace;
+.step-card .sc-items { display: flex; flex-direction: column; gap: 7px; }
+.sc-item {
+  display: flex; gap: 10px; align-items: flex-start;
 }
-.s7-note {
-  background: rgba(255,214,0,0.08); border: 1px solid rgba(255,214,0,0.2);
-  border-radius: 10px; padding: 14px 18px;
-  font-size: var(--small-size); color: rgba(255,255,255,0.55); line-height: 1.6;
+.sc-item .sc-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  margin-top: 7px; flex-shrink: 0;
 }
-.s7-note strong { color: var(--yellow); }
+.step-1 .sc-dot { background: var(--red); }
+.step-2 .sc-dot { background: var(--yellow); }
+.step-3 .sc-dot { background: var(--green); }
+.sc-item .sc-text { font-size: var(--small); color: rgba(255,255,255,0.5); line-height: 1.5; }
+.sc-item .sc-text strong { color: rgba(255,255,255,0.85); }
+.step-card .sc-output {
+  background: rgba(255,255,255,0.04); border-radius: 8px;
+  padding: 10px 14px; font-size: var(--small);
+  color: rgba(255,255,255,0.4);
+}
+.step-card .sc-output strong {
+  display: block; margin-bottom: 3px;
+}
+.step-1 .sc-output strong { color: var(--red); }
+.step-2 .sc-output strong { color: var(--yellow); }
+.step-3 .sc-output strong { color: var(--green); }
 
 /* ── Animations ── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes fadeIn {
-  from { opacity: 0; } to { opacity: 1; }
-}
-
-.slide-1 .s1-tag       { animation: fadeUp 0.5s 0.1s both; }
-.slide-1 .s1-headline  { animation: fadeUp 0.6s 0.2s both; }
-.slide-1 .s1-problem   { animation: fadeUp 0.5s 0.3s both; }
-.slide-1 .s1-answer    { animation: fadeUp 0.5s 0.45s both; }
-
-/* intercept scroll for snap */
-body { overflow-y: scroll; }
+.s1-l h1      { animation: fadeUp 0.5s 0.1s both; }
+.s1-l .subtitle { animation: fadeUp 0.4s 0.3s both; }
 </style>
 </head>
 <body>
 
-<!-- Nav dots -->
-<nav class="nav-dots" id="navDots"></nav>
+<nav class="nav" id="nav"></nav>
 
-<!-- ═══════════════════════════════════
-     SLIDE 1 — TITLE
-════════════════════════════════════ -->
-<section class="slide slide-1" id="slide-1">
-  <div class="s1-left">
-    <div class="s1-logo">小红书商业化 · 货品供给策略</div>
-    <div>
-      <div class="s1-tag">Framework v4</div>
-      <div class="s1-headline">该引货了吗？</div>
-    </div>
-    <div class="s1-version">2026.05 · Supply Strategy</div>
+<!-- ═══════════════════
+     S1 — COVER
+════════════════════ -->
+<section class="slide" id="s1">
+  <div class="s1-l">
+    <div class="eyebrow">小红书商业化运营</div>
+    <h1>赛道货品供给机会识别</h1>
+    <div class="subtitle">如何判断一个赛道是否需要引入新货品供给，以及引什么</div>
   </div>
-  <div class="s1-right">
-    <div class="s1-problem">
-      <h3>旧框架的根本问题</h3>
-      <p>用「搜索量高 + SPU数少」判断缺供给——但没问：<strong style="color:#fff">用户在找的货，有没有在平台？</strong></p>
+  <div class="s1-r">
+    <div class="q-block">
+      <div class="q-label">我们要回答的核心问题</div>
+      <p>这个赛道，有多少用户需求还没被平台现有货品满足到？<strong>哪些货品该引进来？</strong></p>
     </div>
-    <div class="s1-answer">
-      <h3>新框架的核心问题</h3>
-      <p>有多少搜索需求，落在了平台没有供给的货品上？这才是缺货的直接度量。</p>
-    </div>
-  </div>
-  <div class="slide-counter">01 / 07</div>
-</section>
-
-<!-- ═══════════════════════════════════
-     SLIDE 2 — 旧逻辑的漏洞
-════════════════════════════════════ -->
-<section class="slide slide-2" id="slide-2">
-  <div class="s2-left">
-    <div class="s2-step">问题诊断</div>
-    <h2>旧逻辑为什么<br>判断不了缺货？</h2>
-    <div class="old-logic">
-      <div class="logic-label">旧框架 X 轴</div>
-      <div class="logic-formula">需求强度 = 搜索量 × 40%<br>+ 阅读量 × 40%<br>+ 站外GMV × 20%</div>
-    </div>
-    <div class="old-logic">
-      <div class="logic-label">旧框架 Y 轴</div>
-      <div class="logic-formula">供给满足度 = SPU数 × 40%<br>+ 价格带覆盖 × 35%<br>+ (1−CR5) × 25%</div>
-    </div>
-  </div>
-  <div class="s2-right">
-    <h3>核心漏洞</h3>
-    <div class="flaw-card">
-      <div class="flaw-num">FLAW 01</div>
-      <p>搜索量高可能是<strong>单一 SPU 驱动</strong>——平台已经有这个货，但仍会被判定为"需求旺盛缺供给"，触发不必要的招商。</p>
-    </div>
-    <div class="flaw-card">
-      <div class="flaw-num">FLAW 02</div>
-      <p>SPU 数多不等于需求被满足——用户在找的货可能根本<strong>不在平台</strong>，但供给满足度的分数看起来很高。</p>
-    </div>
-    <div class="flaw-card">
-      <div class="flaw-num">FLAW 03</div>
-      <p>转化率低的原因太多（价格、内容、质量），用它来判断"缺货"信号太脏，<strong>不能直接当供给缺口指标</strong>。</p>
-    </div>
-  </div>
-  <div class="slide-counter dark">02 / 07</div>
-</section>
-
-<!-- ═══════════════════════════════════
-     SLIDE 3 — 核心问题重新定义
-════════════════════════════════════ -->
-<section class="slide slide-3" id="slide-3">
-  <div class="s3-eyebrow">新逻辑的核心问题</div>
-  <div class="s3-question">
-    有多少需求，<br>落在平台<span class="accent">没有的货</span>上？
-  </div>
-  <div class="s3-decompose">
-    <div class="s3-track track-a">
-      <div class="s3-track-label">Track A · 类目意图</div>
-      <h4>搜索词是类目 / 功效词</h4>
-      <p>用户在找某类货，但没有指定品牌。赛道内所有未入驻 SPU 的搜索量加总 = 赛道级缺口。</p>
-    </div>
-    <div class="s3-track track-b">
-      <div class="s3-track-label">Track B · 品牌 / SPU 意图</div>
-      <h4>搜索词是具体品牌 / 货品名</h4>
-      <p>用户明确想要某个货，但平台没有。每个未入驻 SPU × 搜索量 = 精准招商 lead，按需求量排序。</p>
-    </div>
-  </div>
-  <div class="slide-counter" style="position:absolute;bottom:28px;right:40px;">03 / 07</div>
-</section>
-
-<!-- ═══════════════════════════════════
-     SLIDE 4 — 两轨指标定义
-════════════════════════════════════ -->
-<section class="slide slide-4" id="slide-4">
-  <div class="s4-panel left">
-    <div class="s4-track-id">Track A · 类目缺口</div>
-    <h2>赛道级<br>缺货信号</h2>
-    <div class="metric-block">
-      <div class="m-label">核心指标</div>
-      <div class="m-formula">
-        需求未覆盖率 =<br>
-        <span class="hl-red">Σ 搜索量(未入驻SPU)</span><br>
-        ÷ 赛道类目词总搜索量
+    <div class="agenda">
+      <div class="a-label">今天要讲的内容</div>
+      <div class="agenda-items">
+        <div class="agenda-item"><div class="n">1</div><span><strong>判断框架</strong> — X轴 Y轴怎么定义</span></div>
+        <div class="agenda-item"><div class="n">2</div><span><strong>策略动作</strong> — 四象限对应什么操作</span></div>
+        <div class="agenda-item"><div class="n">3</div><span><strong>落地三步</strong> — 具体引什么货品进来</span></div>
       </div>
     </div>
-    <div class="metric-block">
-      <div class="m-label">辅助 — 品类宽度缺口</div>
-      <div class="m-formula">
-        count(未入驻SPU)<br>
-        ÷ count(全网活跃SPU)
-      </div>
-    </div>
-    <div class="s4-action">
-      🎯 输出：赛道需不需要补货，引什么品类
-    </div>
   </div>
-  <div class="s4-panel right">
-    <div class="s4-track-id">Track B · SPU 精准缺口</div>
-    <h2>定向招商<br>线索</h2>
-    <div class="metric-block">
-      <div class="m-label">核心指标</div>
-      <div class="m-formula">
-        <span class="hl-blue">SPU 缺口热度</span> =<br>
-        搜索人数 × 搜索频次<br>
-        for SPU not in 平台
-      </div>
-    </div>
-    <div class="metric-block">
-      <div class="m-label">排序输出</div>
-      <div class="m-formula">
-        按 SPU 缺口热度降序<br>
-        → 直接输出招商 leads
-      </div>
-    </div>
-    <div class="s4-action" style="background:rgba(26,46,255,0.08);color:var(--blue);">
-      📋 输出：具体招哪几个品，按优先级
-    </div>
-  </div>
-  <div class="slide-counter dark">04 / 07</div>
+  <div class="pg">01 / 07</div>
 </section>
 
-<!-- ═══════════════════════════════════
-     SLIDE 5 — 新 2×2
-════════════════════════════════════ -->
-<section class="slide slide-5" id="slide-5">
-  <div class="s5-left">
-    <div class="s5-eyebrow">供需定位矩阵 · 重新定义</div>
-    <h2>两轴都在直接<br>回答缺货问题</h2>
-    <div class="axis-def">
-      <div class="a-label x">X 轴 — 赛道需求量</div>
-      <p>类目词总搜索量<br><strong>（去品牌词，避免单 SPU 污染）</strong></p>
+<!-- ═══════════════════
+     S2 — 核心问题
+════════════════════ -->
+<section class="slide" id="s2">
+  <div class="eyebrow">判断缺货的本质</div>
+  <h2>直接问：用户想要的货，<br>平台<em>有没有</em>？</h2>
+  <div class="core-q-cards">
+    <div class="cq-card red">
+      <div class="ct-label">需求侧</div>
+      <h4>这个赛道用户在搜什么？</h4>
+      <p>赛道类目词的搜索量 = 这个赛道有多少真实需求。用类目词口径（"益生菌推荐"），排除品牌词，避免单一爆款货品把赛道需求信号拉高。</p>
     </div>
-    <div class="axis-def">
-      <div class="a-label y">Y 轴 — 需求未覆盖率</div>
-      <p>未入驻 SPU 搜索量 ÷ 赛道总搜索量<br><strong>（直接度量"缺货"，不推断）</strong></p>
-    </div>
-    <div class="axis-def">
-      <div class="a-label size">气泡大小 — 精准 leads 数</div>
-      <p>未入驻 SPU 的数量<br><strong>（每个都是可落地的招商线索）</strong></p>
-    </div>
-    <div class="axis-def">
-      <div class="a-label color">气泡颜色 — 招商难度</div>
-      <p>🔴 有品牌背书未入驻 · 🟡 白牌/待判断 · ⚪ 搜索分散无明确 lead</p>
+    <div class="cq-card yellow">
+      <div class="ct-label">供给侧</div>
+      <h4>他们在找的货，平台有吗？</h4>
+      <p>把搜索词映射到具体 SPU，看这些 SPU 有没有在平台在售。未入驻 SPU 承接了多少搜索需求 = 供给缺口的直接度量。</p>
     </div>
   </div>
-  <div class="s5-right">
-    <div class="quadrant-wrap">
-      <div class="q-axis-y">↑ 需求未覆盖率（高=真缺货）</div>
-      <div class="q-axis-x">需求量（赛道类目词搜索）→</div>
-      <div class="quadrant-grid">
-        <!-- top-left: C 低需求高缺口 -->
-        <div class="q-cell q-c">
-          <div class="q-tag">C 象限</div>
+  <div class="pg">02 / 07</div>
+</section>
+
+<!-- ═══════════════════
+     S3 — X轴：需求量
+════════════════════ -->
+<section class="slide" id="s3">
+  <div class="s3-l">
+    <div class="step-tag">X 轴 · 需求量</div>
+    <h2>赛道有<br>多大需求？</h2>
+    <div class="axis-def">赛道类目词的站内搜索量。用户主动搜索 = 最直接的需求信号，不受平台算法分发影响。</div>
+    <div class="mono-formula">
+      X = 搜索量（类目词）<br>
+      + 搜索量 YoY<br>
+      + 笔记阅读量<br>
+      + 阅读量 YoY
+    </div>
+  </div>
+  <div class="s3-r">
+    <h3>为什么用这四个？</h3>
+    <div class="metric-row">
+      <div class="mr-icon">🔍</div>
+      <div class="mr-body">
+        <div class="mr-name">搜索量（绝对值）</div>
+        <div class="mr-why">赛道现在有多少人在主动找货，来源：灵犀搜索洞察</div>
+      </div>
+    </div>
+    <div class="metric-row">
+      <div class="mr-icon">📈</div>
+      <div class="mr-body">
+        <div class="mr-name">搜索量 YoY</div>
+        <div class="mr-why">需求在增长还是收缩——光看绝对值看不出趋势</div>
+      </div>
+    </div>
+    <div class="metric-row">
+      <div class="mr-icon">📖</div>
+      <div class="mr-body">
+        <div class="mr-name">笔记阅读量</div>
+        <div class="mr-why">捕捉"刷到即买"的被动种草需求，食饮/美妆品类权重更高</div>
+      </div>
+    </div>
+    <div class="metric-row">
+      <div class="mr-icon">↗️</div>
+      <div class="mr-body">
+        <div class="mr-name">阅读量 YoY</div>
+        <div class="mr-why">内容侧需求趋势，判断种草土壤是否在扩大</div>
+        <div class="mr-caution">⚠ 类目词口径，不含品牌词，避免单一爆款污染</div>
+      </div>
+    </div>
+  </div>
+  <div class="pg">03 / 07</div>
+</section>
+
+<!-- ═══════════════════
+     S4 — Y轴：需求未覆盖率
+════════════════════ -->
+<section class="slide" id="s4">
+  <div class="s4-l">
+    <div class="step-tag">Y 轴 · 供给缺口</div>
+    <h2>用户在找的货，<br>平台有多少没有？</h2>
+    <div class="why-box">
+      <div class="wb-icon">💡</div>
+      <div class="wb-text">
+        <strong>为什么不用"SPU 数量"来衡量供给？</strong><br>
+        平台有 1000 个 SPU，但用户搜索的 80% 落在平台没有的货上——这个赛道仍然是严重缺货。SPU 数量多不代表需求被满足，需要直接看<strong>搜索需求有没有被平台供给接住</strong>。
+      </div>
+    </div>
+    <div class="why-box">
+      <div class="wb-icon">🎯</div>
+      <div class="wb-text">
+        <strong>为什么不用成交转化率？</strong><br>
+        转化低的原因太多（内容不够、价格不对、用户在比价）。转化率无法直接判断"缺不缺货"，信号太脏。
+      </div>
+    </div>
+  </div>
+  <div class="s4-r">
+    <div class="step-tag">Y 轴公式</div>
+    <h2>需求<br>未覆盖率</h2>
+    <div class="formula-box">
+      <div class="fl">核心公式</div>
+      <div class="ff">
+        Y =<br>
+        <span class="hl">Σ 搜索量（未入驻 SPU）</span><br>
+        ÷ 赛道总搜索量<br><br>
+        辅助：未入驻SPU数<br>
+        ÷ 全网同类活跃SPU数
+      </div>
+    </div>
+    <div class="s4-note">
+      Y 轴高 → 大量需求落在平台没有的货上，这是真缺货信号<br>
+      Y 轴低 → 用户在搜的货基本上平台都有，不需要扩供给
+    </div>
+  </div>
+  <div class="pg">04 / 07</div>
+</section>
+
+<!-- ═══════════════════
+     S5 — 2×2 矩阵
+════════════════════ -->
+<section class="slide" id="s5">
+  <div class="s5-l">
+    <div class="eyebrow">供需定位矩阵</div>
+    <h2>两轴交叉，<br>定位每个赛道</h2>
+    <div class="axis-summary">
+      <div class="as-item">
+        <div class="as-badge x">X 轴</div>
+        <p><strong>赛道需求量</strong> — 类目词搜索量（含 YoY）+ 阅读量（含 YoY）</p>
+      </div>
+      <div class="as-item">
+        <div class="as-badge y">Y 轴</div>
+        <p><strong>需求未覆盖率</strong> — 未入驻 SPU 搜索量 ÷ 赛道总搜索量</p>
+      </div>
+      <div class="as-item">
+        <div class="as-badge sz">气泡大小</div>
+        <p><strong>精准招商 leads 数</strong> — 未入驻 SPU 的数量，每个都是可落地的线索</p>
+      </div>
+      <div class="as-item">
+        <div class="as-badge cl">气泡颜色</div>
+        <p>🔴 品牌背书强但未入驻 · 🟡 白牌待判断 · ⚪ 搜索分散无精准 lead</p>
+      </div>
+    </div>
+  </div>
+  <div class="s5-r">
+    <div class="matrix-wrap">
+      <div class="m-axis-y">↑ 需求未覆盖率（缺货程度）</div>
+      <div class="m-axis-x">需求量（赛道搜索量）→</div>
+      <div class="matrix">
+        <!-- top-left: C -->
+        <div class="mc mc-c">
+          <div class="mc-badge">C</div>
           <div>
-            <div class="q-title">先验证需求</div>
-            <div class="q-action">缺货但需求本身不大，引货进来也没有量</div>
+            <div class="mc-title">先验证需求</div>
+            <div class="mc-desc">缺货但需求本身小，引货进来也没量</div>
           </div>
         </div>
-        <!-- top-right: A 高需求高缺口 -->
-        <div class="q-cell q-a">
-          <div class="q-tag">A 象限</div>
+        <!-- top-right: A -->
+        <div class="mc mc-a">
+          <div class="mc-badge">A</div>
           <div>
-            <div class="q-title">🔥 主动招商</div>
-            <div class="q-action">需求大且大量搜索落在平台没有的货上</div>
+            <div class="mc-title">🔥 主动招商</div>
+            <div class="mc-desc">需求大 + 大量搜索落在平台没有的货上</div>
           </div>
         </div>
-        <!-- bottom-left: D 低需求低缺口 -->
-        <div class="q-cell q-d">
-          <div class="q-tag">D 象限</div>
+        <!-- bottom-left: D -->
+        <div class="mc mc-d">
+          <div class="mc-badge">D</div>
           <div>
-            <div class="q-title">维持不动</div>
-            <div class="q-action">需求小且已满足，不投资源</div>
+            <div class="mc-title">维持不动</div>
+            <div class="mc-desc">需求小且现有供给已满足</div>
           </div>
         </div>
-        <!-- bottom-right: B 高需求低缺口 -->
-        <div class="q-cell q-b">
-          <div class="q-tag">B 象限</div>
+        <!-- bottom-right: B -->
+        <div class="mc mc-b">
+          <div class="mc-badge">B</div>
           <div>
-            <div class="q-title">防内卷</div>
-            <div class="q-action">需求旺盛且平台货品已覆盖</div>
+            <div class="mc-title">防内卷</div>
+            <div class="mc-desc">需求旺盛且平台货品已覆盖，精细化运营</div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="slide-counter">05 / 07</div>
+  <div class="pg">05 / 07</div>
 </section>
 
-<!-- ═══════════════════════════════════
-     SLIDE 6 — 四象限动作
-════════════════════════════════════ -->
-<section class="slide slide-6" id="slide-6">
-  <div class="s6-header">
+<!-- ═══════════════════
+     S6 — 四象限动作
+════════════════════ -->
+<section class="slide" id="s6">
+  <div class="top-header">
     <div class="eyebrow">Strategy Actions</div>
     <h2>四象限 → 四类策略动作</h2>
   </div>
-  <div class="action-grid">
-    <div class="action-card card-a">
-      <div class="ac-top">
+  <div class="actions-grid">
+    <div class="ac ac-a">
+      <div class="top">
         <div class="ac-badge">A · 高需求 × 高缺口</div>
-        <h3>🟢 主动招商，优先</h3>
-        <p>气泡大 = 具体 leads 多，直接输出招商名单按优先级排序。<br>气泡红 = 先打品牌入驻谈判。</p>
+        <h3>🟢 主动招商，优先级最高</h3>
+        <p>大量用户在找的货平台没有。气泡越大说明精准 leads 越多。气泡越红说明有品牌背书的成熟品牌还没进来，主动出击谈入驻。</p>
       </div>
-      <div class="ac-cta">→ 赛道级招商 + Track B leads 清单</div>
+      <div class="cta">→ 输出招商清单，按缺口热度排序</div>
     </div>
-    <div class="action-card card-b">
-      <div class="ac-top">
+    <div class="ac ac-b">
+      <div class="top">
         <div class="ac-badge">B · 高需求 × 低缺口</div>
-        <h3>🔵 已有货，防内卷</h3>
-        <p>用户在找的货平台基本都有。不需要扩供给，重点是扶持头部 SPU 内容和转化。</p>
-        <p style="margin-top:8px;font-size:0.75rem;color:#888">监控预警：气泡变大 = 有新 SPU 冒头但未入驻，需关注。</p>
+        <h3>🔵 不扩供给，精细化运营</h3>
+        <p>用户搜的货平台基本都有。核心任务是提升头部 SPU 的内容质量和转化效率，防止无意义内卷。<br><br>
+        <strong style="color:#1d4ed8;font-size:0.78rem;">监控预警：</strong>若气泡变大，说明有新 SPU 出现但未入驻，需及时关注。</p>
       </div>
-      <div class="ac-cta">→ 内容/运营投入，不扩供给</div>
+      <div class="cta">→ 内容/运营投入，不扩供给数量</div>
     </div>
-    <div class="action-card card-c">
-      <div class="ac-top">
+    <div class="ac ac-c">
+      <div class="top">
         <div class="ac-badge">C · 低需求 × 高缺口</div>
-        <h3>⚪ 先种草，再引货</h3>
-        <p>缺口率高但赛道本身需求小。引货进来也没量，先做内容验证需求能不能被拉起来。</p>
+        <h3>⚪ 先做内容验证需求</h3>
+        <p>缺口率高但赛道需求本身小。盲目引货进来量不够，先做内容种草，验证需求能否被拉起来后再决定是否引货。</p>
       </div>
-      <div class="ac-cta">→ 种草实验，需求验证后再引</div>
+      <div class="cta">→ 种草实验，需求验证后再引</div>
     </div>
-    <div class="action-card card-d">
-      <div class="ac-top">
+    <div class="ac ac-d">
+      <div class="top">
         <div class="ac-badge">D · 低需求 × 低缺口</div>
-        <h3>🔴 不动，等待观察</h3>
-        <p>需求小且现有供给已满足。资源不往这里投。定期复查象限归属是否变化。</p>
+        <h3>🔴 不投入，定期复查</h3>
+        <p>需求小且现有供给已满足用户需要。资源不往这里投，但每季度复查象限归属，防止赛道需求突然起量。</p>
       </div>
-      <div class="ac-cta">→ 维持，季度复查</div>
+      <div class="cta">→ 维持现状，季度复查</div>
     </div>
   </div>
-  <div class="slide-counter dark">06 / 07</div>
+  <div class="pg" style="color:#999;">06 / 07</div>
 </section>
 
-<!-- ═══════════════════════════════════
-     SLIDE 7 — 数据链路
-════════════════════════════════════ -->
-<section class="slide slide-7" id="slide-7">
-  <div class="s7-eyebrow">数据链路 · 落地路径</div>
-  <div class="s7-title">从搜索词到<br>招商 Lead，三步打通</div>
-  <div class="pipeline">
-    <div class="pipe-step">
-      <div class="ps-label">Step 1</div>
-      <div class="ps-title">搜索词 → SPU 映射</div>
-      <div class="ps-source">灵犀搜索洞察 × SPU 基建</div>
+<!-- ═══════════════════
+     S7 — 三步落地
+════════════════════ -->
+<section class="slide" id="s7">
+  <div class="eyebrow">具体怎么做 · 落地三步</div>
+  <h2>从赛道定位到<br>引入具体货品</h2>
+  <div class="steps">
+    <div class="step-card step-1">
+      <div class="step-num">01</div>
+      <div class="sc-tag">Step 1 · 赛道定位</div>
+      <h3>用供需矩阵<br>找到目标赛道</h3>
+      <div class="sc-items">
+        <div class="sc-item"><div class="sc-dot"></div><div class="sc-text">计算各赛道 <strong>X 轴（需求量）</strong>和 <strong>Y 轴（未覆盖率）</strong>，画出气泡图</div></div>
+        <div class="sc-item"><div class="sc-dot"></div><div class="sc-text">找出落在 <strong>A 象限</strong>（高需求 × 高缺口）的赛道，这是优先招商的赛道</div></div>
+        <div class="sc-item"><div class="sc-dot"></div><div class="sc-text">按气泡大小（leads 数）排序，确定招商资源分配优先级</div></div>
+      </div>
+      <div class="sc-output">
+        <strong>输出</strong>优先招商赛道清单，按缺口量排序
+      </div>
     </div>
-    <div class="pipe-arrow">→</div>
-    <div class="pipe-step">
-      <div class="ps-label">Step 2</div>
-      <div class="ps-title">SPU 在售状态匹配</div>
-      <div class="ps-source">SPU 基建 × 商品库</div>
+    <div class="step-card step-2">
+      <div class="step-num">02</div>
+      <div class="sc-tag">Step 2 · 锁定货品</div>
+      <h3>找出具体要<br>引哪些 SPU</h3>
+      <div class="sc-items">
+        <div class="sc-item"><div class="sc-dot"></div><div class="sc-text">拿到目标赛道内所有<strong>未入驻 SPU 的搜索列表</strong>，按搜索人数 × 频次排序</div></div>
+        <div class="sc-item"><div class="sc-dot"></div><div class="sc-text">区分 <strong>品牌词（已知品牌未入驻）</strong>和<strong>类目词（泛需求空白）</strong>两类</div></div>
+        <div class="sc-item"><div class="sc-dot"></div><div class="sc-text">品牌词 → 直接定向招商；类目词 → 找全网同类销量最高的货品候选</div></div>
+      </div>
+      <div class="sc-output">
+        <strong>输出</strong>按优先级排序的招商 leads 名单
+      </div>
     </div>
-    <div class="pipe-arrow">→</div>
-    <div class="pipe-step">
-      <div class="ps-label">Step 3</div>
-      <div class="ps-title">计算未覆盖需求量</div>
-      <div class="ps-source">Σ 搜索量(未入驻 SPU)</div>
-    </div>
-    <div class="pipe-arrow">→</div>
-    <div class="pipe-step">
-      <div class="ps-label">输出</div>
-      <div class="ps-title">赛道定位 + Leads 清单</div>
-      <div class="ps-source">按缺口热度排序</div>
+    <div class="step-card step-3">
+      <div class="step-num">03</div>
+      <div class="sc-tag">Step 3 · 引入执行</div>
+      <h3>招商谈入驻<br>并持续追踪</h3>
+      <div class="sc-items">
+        <div class="sc-item"><div class="sc-dot"></div><div class="sc-text">优先接触<strong>有品牌背书、全网销量高</strong>的 SPU，用缺口数据作为谈判依据</div></div>
+        <div class="sc-item"><div class="sc-dot"></div><div class="sc-text">入驻后追踪该 SPU 的搜索 → 点击 → 成交链路，验证需求是否被承接</div></div>
+        <div class="sc-item"><div class="sc-dot"></div><div class="sc-text">每月更新气泡图，观察 Y 轴（未覆盖率）是否随新货品入驻而下降</div></div>
+      </div>
+      <div class="sc-output">
+        <strong>结果验证</strong>Y 轴下降 = 供给缺口被填上，框架闭环
+      </div>
     </div>
   </div>
-  <div class="s7-note">
-    <strong>关键前提：</strong>灵犀搜索词能否直接映射到 SPU？小红书有 SPU 基建（变体 → SPU），若搜索词 → 商品 → SPU 的链路存在，
-    框架可直接落地。品牌词层（搜索词含品牌名 → 查该品牌是否入驻）可以先行，SPU 级语义匹配作为第二阶段。
-  </div>
-  <div class="slide-counter">07 / 07</div>
+  <div class="pg">07 / 07</div>
 </section>
 
 <script>
-// ── Nav dots setup ──
 const slides = document.querySelectorAll('.slide');
-const dotsContainer = document.getElementById('navDots');
-const labels = ['封面','旧逻辑漏洞','核心问题','两轨指标','供需矩阵','策略动作','数据链路'];
+const nav = document.getElementById('nav');
+const labels = ['封面','核心问题','X轴 需求量','Y轴 缺口率','供需矩阵','策略动作','落地三步'];
 
 slides.forEach((_, i) => {
-  const dot = document.createElement('button');
-  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-  dot.title = labels[i] || '';
-  dot.onclick = () => slides[i].scrollIntoView({ behavior: 'smooth' });
-  dotsContainer.appendChild(dot);
+  const d = document.createElement('button');
+  d.className = 'nav-dot' + (i === 0 ? ' on' : '');
+  d.title = labels[i] || '';
+  d.onclick = () => slides[i].scrollIntoView({ behavior: 'smooth' });
+  nav.appendChild(d);
 });
 
-// ── Active dot tracking ──
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const idx = Array.from(slides).indexOf(entry.target);
-      document.querySelectorAll('.nav-dot').forEach((d, i) => {
-        d.classList.toggle('active', i === idx);
-      });
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const i = [...slides].indexOf(e.target);
+      document.querySelectorAll('.nav-dot').forEach((d, j) => d.classList.toggle('on', i === j));
     }
   });
 }, { threshold: 0.5 });
+slides.forEach(s => obs.observe(s));
 
-slides.forEach(s => observer.observe(s));
-
-// ── Keyboard navigation ──
 document.addEventListener('keydown', e => {
-  const current = [...slides].findIndex(s => {
-    const rect = s.getBoundingClientRect();
-    return rect.top >= -10 && rect.top < window.innerHeight / 2;
+  const cur = [...slides].findIndex(s => {
+    const r = s.getBoundingClientRect();
+    return r.top > -10 && r.top < window.innerHeight / 2;
   });
-  if (e.key === 'ArrowDown' || e.key === ' ') {
-    e.preventDefault();
-    if (current < slides.length - 1) slides[current + 1].scrollIntoView({ behavior: 'smooth' });
+  if ((e.key === 'ArrowDown' || e.key === ' ') && cur < slides.length - 1) {
+    e.preventDefault(); slides[cur + 1].scrollIntoView({ behavior: 'smooth' });
   }
-  if (e.key === 'ArrowUp') {
-    e.preventDefault();
-    if (current > 0) slides[current - 1].scrollIntoView({ behavior: 'smooth' });
+  if (e.key === 'ArrowUp' && cur > 0) {
+    e.preventDefault(); slides[cur - 1].scrollIntoView({ behavior: 'smooth' });
   }
 });
 </script>
