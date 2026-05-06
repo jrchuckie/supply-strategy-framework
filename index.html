@@ -49,6 +49,40 @@
     border-radius: 10px; padding: 14px 20px; font-size: 14px;
   }
 
+  /* ── Step 0 ── */
+  .step0-section {
+    background: #fff; border-radius: 16px;
+    border: 1.5px solid #e8e8e8; padding: 32px 36px; margin-bottom: 48px;
+    border-left: 4px solid #8b5cf6;
+  }
+  .step0-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: #8b5cf6; }
+  .step0-section .sub { font-size: 12.5px; color: #888; margin-bottom: 24px; }
+  .step0-flow { display: flex; gap: 24px; align-items: stretch; margin-bottom: 24px; }
+  .step0-card {
+    flex: 1; background: #faf8ff; border-radius: 12px; padding: 20px 22px;
+    border: 1px solid #e8e0ff;
+  }
+  .step0-card .card-num {
+    font-size: 10px; font-weight: 800; color: #8b5cf6;
+    letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .step0-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .step0-card p { font-size: 12px; color: #555; line-height: 1.6; }
+  .step0-arrow { display: flex; align-items: center; font-size: 22px; color: #c4b5fd; }
+
+  .noise-box {
+    background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px;
+    padding: 18px 22px;
+  }
+  .noise-box h4 { font-size: 13px; font-weight: 700; color: #dc2626; margin-bottom: 6px; }
+  .noise-box p { font-size: 12px; color: #7f1d1d; line-height: 1.6; }
+  .noise-box ul { list-style: none; margin-top: 10px; }
+  .noise-box ul li {
+    font-size: 12px; color: #991b1b; padding: 4px 0;
+    display: flex; align-items: flex-start; gap: 6px;
+  }
+  .noise-box ul li::before { content: '⚡'; flex-shrink: 0; }
+
   /* ── 3-step flow ── */
   .modules-flow { display: flex; gap: 0; align-items: stretch; margin-bottom: 48px; }
   .module-card {
@@ -82,12 +116,12 @@
     font-size: 13px; font-weight: 700; left: -14px; z-index: 10;
     box-shadow: 0 2px 8px rgba(255,36,66,0.3);
   }
+  .m0 .module-num { background: #f3e8ff; color: #8b5cf6; }
+  .m0 .dot { background: #8b5cf6; }
   .m1 .module-num { background: #fff3f5; color: #ff2442; }
   .m1 .dot { background: #ff2442; }
-  .m2 .module-num { background: #fff8e1; color: #f59e0b; }
-  .m2 .dot { background: #f59e0b; }
-  .m3 .module-num { background: #e8f5e9; color: #22c55e; }
-  .m3 .dot { background: #22c55e; }
+  .m2 .module-num { background: #e8f5e9; color: #22c55e; }
+  .m2 .dot { background: #22c55e; }
 
   /* ── Bubble Chart ── */
   .bubble-section {
@@ -216,6 +250,7 @@
   .signal-blue { background: #dbeafe; color: #1d4ed8; }
   .signal-red  { background: #fee2e2; color: #dc2626; }
   .signal-gray { background: #f0f0f0; color: #555; }
+  .signal-purple { background: #f3e8ff; color: #7c3aed; }
 
   /* ── Score bars ── */
   .score-section {
@@ -239,6 +274,12 @@
     border-radius: 0 8px 8px 0; padding: 12px 16px;
     font-size: 12px; color: #78350f; margin-top: 16px;
   }
+
+  .warn-note {
+    background: #fef2f2; border-left: 3px solid #ef4444;
+    border-radius: 0 8px 8px 0; padding: 12px 16px;
+    font-size: 12px; color: #991b1b; margin-top: 12px;
+  }
 </style>
 </head>
 <body>
@@ -246,7 +287,7 @@
 <div class="page-header">
   <div class="logo">书</div>
   <h1>货品供给策略框架</h1>
-  <div class="subtitle">小红书商业化运营 · 大健康赛道适用</div>
+  <div class="subtitle">小红书商业化运营 · 大健康赛道适用 · v3</div>
 </div>
 
 <div class="page-body">
@@ -256,41 +297,88 @@
     <div class="label">Framework Purpose</div>
     <h2>用数据找到「该引什么货」：<br>需求 × 供给 双维度赛道诊断</h2>
     <p>
-      不同赛道的用户决策路径不同——有人主动搜索，有人刷到就买。
-      我们用<strong>搜索量 + 阅读量 + 站外GMV</strong>衡量真实需求强度，
-      用<strong>动销SPU数 + 价格带覆盖 + 供给集中度</strong>衡量平台供给满足程度，
+      三步走——先用<strong>赛道打标</strong>把货品归到正确的赛道，再用<strong>搜索量 + 阅读量</strong>衡量真实需求强度，
+      用<strong>动销SPU数 + SPU增速</strong>衡量供给满足程度，
       两轴交叉定位每个子赛道，输出「该引 / 持续 / 观察 / 清退」四类策略动作。
     </p>
     <div class="hypothesis">
-      <strong>核心假设验证：</strong>在高需求 × 低供给赛道（A象限），SPU 增长与 GMV YoY 增长的相关性最强——
-      这是招商资源优先投入的依据。
+      <strong>⚠️ 核心问题：</strong>搜索量高可能是某个单一SPU驱动的——这对判断「要不要引入这个SPU」有帮助，但对判断「这个赛道值不值得投」是噪音。
+      我们需要在 Step 0 识别并剥离单SPU驱动效应，还原赛道级别的真实需求。
     </div>
   </div>
 
-  <!-- 2-STEP FLOW -->
-  <div class="section-title">分析两步走</div>
+  <!-- STEP 0: 赛道打标 -->
+  <div class="section-title">Step 0 — 货品赛道打标（新增）</div>
+  <div class="step0-section">
+    <h3>🏷️ 先把货品归对赛道，再做供需诊断</h3>
+    <div class="sub">在分析需求与供给之前，先确定每个 SPU 属于哪个赛道——否则后续所有指标都可能被"错位归属"污染。</div>
+
+    <div class="step0-flow">
+      <div class="step0-card">
+        <div class="card-num">STEP 0.1</div>
+        <h4>基于搜索词的赛道映射</h4>
+        <p>用灵犀搜索洞察的关键词-赛道对应关系，为每个 SPU 打标。一个 SPU 可能命中多个赛道词，取搜索 UV 最高的赛道作为主归属。</p>
+      </div>
+      <div class="step0-arrow">→</div>
+      <div class="step0-card">
+        <div class="card-num">STEP 0.2</div>
+        <h4>SPU 集中度校验</h4>
+        <p>检查每个赛道内 Top 1 SPU 的搜索量占比。如果 Top 1 SPU 占了赛道搜索量的 50%+，说明这个赛道的"需求信号"很可能是单爆款驱动的，需要降权处理。</p>
+      </div>
+      <div class="step0-arrow">→</div>
+      <div class="step0-card">
+        <div class="card-num">STEP 0.3</div>
+        <h4>噪音赛道标记</h4>
+        <p>被识别为单 SPU 驱动的赛道，打上「⚠️ SPU驱动」标签。这类赛道的供需分析结论仅供参考 SPU 引入决策，不作为赛道级别的招商依据。</p>
+      </div>
+    </div>
+
+    <div class="noise-box">
+      <h4>⚡ 为什么需要这一步？——"搜索量高 ≠ 赛道需求旺"</h4>
+      <p>举例：某赛道搜索量 1000 万，但其中 800 万来自同一个 SPU（比如某个爆款益生菌）。这说明：</p>
+      <ul>
+        <li><strong>对 SPU 引入决策有用：</strong>这个爆款确实有需求，可以考虑引入</li>
+        <li><strong>对赛道判断是干扰：</strong>除去这个 SPU，赛道真实需求只有 200 万，可能根本不值得投入招商资源</li>
+        <li><strong>处理方式：</strong>在计算赛道级搜索量时，用「Top 3 SPU 搜索量」或「去 Top 1 后搜索量」作为修正指标，避免单爆款扭曲赛道判断</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3-STEP FLOW -->
+  <div class="section-title">分析三步走</div>
   <div class="modules-flow">
-    <div class="module-card m2" style="border-radius:16px 0 0 16px;">
+    <div class="module-card m0" style="border-radius:16px 0 0 16px;">
+      <div class="module-num">00</div>
+      <h3>货品赛道打标</h3>
+      <div class="module-q">每个 SPU 属于哪个赛道？有无单 SPU 噪音？</div>
+      <ul>
+        <li><span class="dot"></span><strong>搜索词映射：</strong>按搜索 UV 最高的赛道词归属 SPU</li>
+        <li><span class="dot"></span><strong>集中度校验：</strong>Top 1 SPU 搜索占比 >50% → 标记噪音</li>
+        <li><span class="dot"></span><strong>噪音标记：</strong>标注「⚠️ SPU驱动」，赛道结论仅作参考</li>
+      </ul>
+    </div>
+    <div class="module-arrow"></div>
+    <div class="module-card m1">
       <div class="module-num">01</div>
       <h3>供需水位诊断</h3>
       <div class="module-q">四维气泡图：这个赛道在哪里？</div>
       <ul>
-        <li><span class="dot"></span><strong>X轴（需求强度）：</strong>搜索量×40% + 阅读量×40% + 站外GMV×20%</li>
-        <li><span class="dot"></span><strong>Y轴（供给满足度）：</strong>动销SPU数×40% + 价格带覆盖×35% + (1-CR5)×25%</li>
-        <li><span class="dot"></span><strong>气泡大小：</strong>站内 GMV 体量（资源分配优先级）</li>
-        <li><span class="dot"></span><strong>气泡颜色：</strong>站外品牌渗透率——红色 = 大量品牌还在外面，是招商机会</li>
+        <li><span class="dot"></span><strong>X轴（需求量）：</strong>搜索量 + 搜索量YoY + 阅读量 + 阅读量YoY</li>
+        <li><span class="dot"></span><strong>Y轴（供给满足度）：</strong>动销SPU数 + SPU YoY</li>
+        <li><span class="dot"></span><strong>气泡大小：</strong>站内 GMV 体量</li>
+        <li><span class="dot"></span><strong>气泡颜色：</strong>站外品牌渗透率——红色 = 招商机会</li>
       </ul>
     </div>
     <div class="module-arrow"></div>
-    <div class="module-card m3" style="border-radius:0 16px 16px 0;">
+    <div class="module-card m2" style="border-radius:0 16px 16px 0;">
       <div class="module-num">02</div>
       <h3>供给策略决策</h3>
       <div class="module-q">四象限输出四类策略动作</div>
       <ul>
-        <li><span class="dot"></span><strong>A（高需求·低供给）：</strong>主动招商，优先引入站外头部品牌，颜色越红越紧迫</li>
-        <li><span class="dot"></span><strong>B（高需求·高供给）：</strong>维持供给，精细化扶持头部 SPU，防止内卷</li>
-        <li><span class="dot"></span><strong>C（低需求·高供给）：</strong>内容种草破圈激活需求，暂不扩供给</li>
-        <li><span class="dot"></span><strong>D（低需求·低供给）：</strong>停止扩供，清退低效 SKU 或引导差异化</li>
+        <li><span class="dot"></span><strong>A（高需求·低供给）：</strong>主动招商，优先引入站外头部品牌</li>
+        <li><span class="dot"></span><strong>B（高需求·高供给）：</strong>维持供给，精细化扶持头部 SPU</li>
+        <li><span class="dot"></span><strong>C（低需求·高供给）：</strong>内容种草破圈，暂不扩供给</li>
+        <li><span class="dot"></span><strong>D（低需求·低供给）：</strong>停止扩供，清退低效 SKU</li>
       </ul>
     </div>
   </div>
@@ -337,8 +425,8 @@
         </div>
       </div>
       <div class="axis-x">
-        <span>◀ 需求强度低</span>
-        <span>需求强度高 ▶</span>
+        <span>◀ 需求量低</span>
+        <span>需求量高 ▶</span>
       </div>
     </div>
   </div>
@@ -351,18 +439,23 @@
       <div class="ind-group-title">需求侧（X轴成分）</div>
       <div class="ind-row">
         <div class="ind-name">搜索量（绝对值）</div>
-        <div class="ind-def">赛道关键词搜索 UV，来源：灵犀搜索洞察。主动意图信号，权重最高</div>
+        <div class="ind-def">赛道关键词搜索 UV，来源：灵犀搜索洞察。主动意图信号，最核心需求指标</div>
         <div>高 → <span class="signal-tag signal-blue">需求规模大</span></div>
       </div>
       <div class="ind-row">
+        <div class="ind-name">搜索量 YoY</div>
+        <div class="ind-def">同比增速，判断需求是在扩张还是收缩。搜索量高但 YoY 负增长 = 需求萎缩中</div>
+        <div>正 → <span class="signal-tag signal-blue">需求增长中</span></div>
+      </div>
+      <div class="ind-row">
         <div class="ind-name">笔记阅读量（绝对值）</div>
-        <div class="ind-def">赛道笔记总阅读 PV，来源：灵犀内容洞察。捕捉「刷到即买」的短决策链路需求（食饮类权重需上调）</div>
+        <div class="ind-def">赛道笔记总阅读 PV，来源：灵犀内容洞察。捕捉「刷到即买」的短决策链路需求</div>
         <div>高 → <span class="signal-tag signal-blue">被动种草需求旺</span></div>
       </div>
       <div class="ind-row">
-        <div class="ind-name">站外 GMV 规模</div>
-        <div class="ind-def">淘系/抖音该赛道 GMV，来源：魔镜/生意参谋。代表行业真实需求盘子大小</div>
-        <div>高 → <span class="signal-tag signal-blue">行业盘子大</span></div>
+        <div class="ind-name">阅读量 YoY</div>
+        <div class="ind-def">阅读量的同比增速，判断内容侧的需求趋势。高搜索量 + 负阅读 YoY = 搜索意图强但内容供给不足</div>
+        <div>正 → <span class="signal-tag signal-blue">内容需求增长</span></div>
       </div>
     </div>
 
@@ -374,33 +467,37 @@
         <div>低 → <span class="signal-tag signal-blue">供给量不足</span></div>
       </div>
       <div class="ind-row">
-        <div class="ind-name">价格带覆盖度</div>
-        <div class="ind-def">5个价格段（&lt;50/50-200/200-500/500-1500/&gt;1500元）中，有≥3个动销SPU的段数÷5</div>
-        <div>低 → <span class="signal-tag signal-blue">价格段有空白</span></div>
-      </div>
-      <div class="ind-row">
-        <div class="ind-name">1 − CR5（分散度）</div>
-        <div class="ind-def">1减去前5个SPU的GMV占比。越接近1越分散，说明没有单一爆款垄断，供给结构健康</div>
-        <div>低（CR5高）→ <span class="signal-tag signal-red">供给过度集中</span></div>
+        <div class="ind-name">SPU YoY</div>
+        <div class="ind-def">动销 SPU 数的同比增速。判断供给是在扩张还是收缩。SPU 数多但负增长 = 供给在撤退</div>
+        <div>正 → <span class="signal-tag signal-blue">供给扩张中</span></div>
       </div>
     </div>
 
     <div class="ind-group">
-      <div class="ind-group-title">辅助诊断指标（气泡颜色 + 标注）</div>
+      <div class="ind-group-title">Step 0 辅助指标（赛道打标 & 噪音识别）</div>
+      <div class="ind-row">
+        <div class="ind-name">Top 1 SPU 搜索占比</div>
+        <div class="ind-def">赛道内搜索量最大的 SPU 占赛道总搜索量的比例。>50% 标记为「⚠️ SPU驱动」</div>
+        <div>高 → <span class="signal-tag signal-red">单爆款驱动噪音</span></div>
+      </div>
+      <div class="ind-row">
+        <div class="ind-name">Top 3 SPU 搜索占比</div>
+        <div class="ind-def">前三大 SPU 的搜索量占比。越高说明赛道需求越集中，头部效应越强</div>
+        <div>高 → <span class="signal-tag signal-purple">需求集中度偏高</span></div>
+      </div>
+      <div class="ind-row">
+        <div class="ind-name">去 Top 1 搜索量</div>
+        <div class="ind-def">赛道总搜索量减去 Top 1 SPU 搜索量。用于剥离单爆款效应，还原赛道真实需求</div>
+        <div>低 → <span class="signal-tag signal-gray">真实需求可能偏弱</span></div>
+      </div>
+    </div>
+
+    <div class="ind-group">
+      <div class="ind-group-title">辅助诊断指标（气泡颜色）</div>
       <div class="ind-row">
         <div class="ind-name">站外品牌渗透率</div>
-        <div class="ind-def">站内已入驻品牌数÷全网活跃品牌数。来源：人工统计或BD信息。&lt;30% = 大量品牌在外面没进来</div>
+        <div class="ind-def">站内已入驻品牌数÷全网活跃品牌数。<30% = 大量品牌在外面没进来</div>
         <div>低 → <span class="signal-tag signal-blue">主动招商机会</span></div>
-      </div>
-      <div class="ind-row">
-        <div class="ind-name">GPM（赛道均值）</div>
-        <div class="ind-def">GMV÷曝光量×1000。来源：RedBI/聚光。供需匹配效率的结果校验，不放入轴成分（避免与需求/供给混同）</div>
-        <div>持续走低 → <span class="signal-tag signal-red">匹配效率差</span></div>
-      </div>
-      <div class="ind-row">
-        <div class="ind-name">好评率 / 退货率</div>
-        <div class="ind-def">来源：商家后台或运营BD信息。反映供给质量健康度，辅助判断D象限供给是否需要清退</div>
-        <div>退货率高 → <span class="signal-tag signal-red">供给质量差</span></div>
       </div>
     </div>
   </div>
@@ -408,7 +505,7 @@
   <!-- SCORE BARS -->
   <div class="score-section">
     <h3>📊 大健康三级类目供需定位（25个子赛道）</h3>
-    <div class="sub" style="font-size:12px;color:#888;margin-bottom:16px;">综合供给缺口指数 = (需求强度 − 供给满足度 + 100) ÷ 2 &nbsp;·&nbsp; 100 = 供给严重不足，0 = 供给充裕 &nbsp;·&nbsp; 近30天真实数据</div>
+    <div class="sub" style="font-size:12px;color:#888;margin-bottom:16px;">综合供给缺口指数 = (需求量 − 供给满足度 + 100) ÷ 2 &nbsp;·&nbsp; 100 = 供给严重不足，0 = 供给充裕 &nbsp;·&nbsp; 近30天真实数据</div>
     <div class="score-rows">
       <div class="score-row">
         <div class="score-name">隐形眼镜</div>
@@ -562,8 +659,13 @@
       </div>
     </div>
     <div style="margin-top:12px;font-size:11.5px;color:#aaa;">
-      需求强度 = 搜索量×40% + 阅读量×40% + 站外GMV×20%（log归一化）&emsp;
-      供给满足度 = SKU数×40% + (1−CR100)×35% + 价格带覆盖度×25%（log归一化）
+      需求量 = 搜索量 + 搜索量YoY + 阅读量 + 阅读量YoY（归一化）&emsp;
+      供给满足度 = 动销SPU数 + SPU YoY（归一化）
+    </div>
+    <div class="warn-note">
+      ⚠️ <strong>单 SPU 驱动警示：</strong>部分赛道的搜索量高度集中于单一 SPU（如益生菌类、OTC 等）。
+      这些赛道的"高需求"信号需结合 Top 1 SPU 搜索占比判断——若 >50%，
+      建议用「去 Top 1 搜索量」重新计算赛道需求，再做供需定位。
     </div>
   </div>
 
@@ -571,7 +673,7 @@
   <div class="section-title">供需水位气泡图</div>
   <div class="bubble-section">
     <h3>大健康三级类目供需定位（25个子赛道）</h3>
-    <div class="sub">X = 搜索量×40% + 阅读量×40% + 站外GMV×20% · Y = SKU数×40% + (1−CR100)×35% + 价格带覆盖度×25% · 气泡大小 = 阅读量 · 气泡颜色 = 品牌数 · 近30天真实数据</div>
+    <div class="sub">X = 搜索量 + 搜索量YoY + 阅读量 + 阅读量YoY · Y = 动销SPU数 + SPU YoY · 气泡大小 = 站内 GMV · 气泡颜色 = 品牌数 · 近30天真实数据</div>
 
     <div class="chart-area">
       <div style="position:relative; padding-left:100px;">
@@ -582,7 +684,7 @@
           <canvas id="bubbleCanvas" width="900" height="520"></canvas>
         </div>
         <div class="axis-label-x">
-          <span class="axis-lo-x">低</span>需求强度（X轴）<span class="axis-hi-x">高</span>
+          <span class="axis-lo-x">低</span>需求量（X轴）<span class="axis-hi-x">高</span>
         </div>
       </div>
     </div>
@@ -598,30 +700,29 @@
     <div class="formula-cards">
       <div class="formula-card">
         <div class="fc-title">X轴构成</div>
-        <div class="fc-axis">需求强度</div>
-        <div class="formula-row"><span class="w">40%</span><span class="ind">站内搜索量（绝对值，归一化）</span></div>
-        <div class="formula-row"><span class="w">40%</span><span class="ind">站内笔记阅读量（绝对值，归一化）</span></div>
-        <div class="formula-row"><span class="w">20%</span><span class="ind">站外 GMV 规模</span><span class="note">（淘系/抖音数据）</span></div>
+        <div class="fc-axis">需求量</div>
+        <div class="formula-row"><span class="w">▎</span><span class="ind">搜索量（绝对值，归一化）</span></div>
+        <div class="formula-row"><span class="w">▎</span><span class="ind">搜索量 YoY（同比增速）</span></div>
+        <div class="formula-row"><span class="w">▎</span><span class="ind">笔记阅读量（绝对值，归一化）</span></div>
+        <div class="formula-row"><span class="w">▎</span><span class="ind">阅读量 YoY（同比增速）</span></div>
       </div>
       <div class="formula-card">
         <div class="fc-title">Y轴构成</div>
         <div class="fc-axis">供给满足度</div>
-        <div class="formula-row"><span class="w">40%</span><span class="ind">动销 SPU 数（绝对值，归一化）</span></div>
-        <div class="formula-row"><span class="w">35%</span><span class="ind">价格带覆盖度</span><span class="note">（5段，≥3 SPU 算覆盖）</span></div>
-        <div class="formula-row"><span class="w">25%</span><span class="ind">1 − CR5（头部集中度反向）</span><span class="note">（越分散越健康）</span></div>
+        <div class="formula-row"><span class="w">▎</span><span class="ind">动销 SPU 数（绝对值，归一化）</span></div>
+        <div class="formula-row"><span class="w">▎</span><span class="ind">SPU YoY（同比增速）</span></div>
       </div>
     </div>
 
     <div class="data-note">
-      ⚠️ <strong>价格带覆盖度定义：</strong>各赛道统一分 5 段（&lt;50元 / 50-200元 / 200-500元 / 500-1500元 / &gt;1500元）。
-      某段有 ≥3 个动销 SPU 则视为覆盖。覆盖度 = 已覆盖段数 / 5。
-      覆盖度低需结合 X 轴（需求强度）判断：高需求赛道低覆盖 → 招商空白；低需求赛道低覆盖 → 用户本身只在某价格段消费，不一定是问题。
+      ⚠️ <strong>单 SPU 驱动修正：</strong>对于 Top 1 SPU 搜索占比 >50% 的赛道，X 轴需求量建议用「去 Top 1 搜索量 + 搜索量YoY + 阅读量 + 阅读量YoY」重新计算，
+      以剥离单爆款对赛道判断的干扰。
     </div>
   </div>
 
   <!-- STRATEGY MATRIX -->
   <div class="footer-note">
-    小红书商业化运营 · 货品供给策略框架 v2 · 2026.04 · 模拟数据仅供框架验证
+    小红书商业化运营 · 货品供给策略框架 v3 · 2026.05 · Step 0 赛道打标 + 简化指标
   </div>
 
 </div>
@@ -631,36 +732,36 @@
 const canvas = document.getElementById('bubbleCanvas');
 const ctx = canvas.getContext('2d');
 
-// ── 真实数据 v11：严格按框架定义计算X/Y轴 ──
-// X轴 = 搜索量×40% + 阅读量×40% + 站外GMV×20%（log scale归一化）
-// Y轴 = SKU数×40% + (1-CR100)×35% + 价格带覆盖度×25%
-// CR100、PBC来自RedBI dataset 1922明细；搜索/阅读来自灵犀；站外GMV来自dataset 10666
+// ── 数据 v3：简化指标 + SPU驱动标记 ──
+// X轴 = 搜索量 + 搜索量YoY + 阅读量 + 阅读量YoY（归一化）
+// Y轴 = 动销SPU数 + SPU YoY（归一化）
+// spuNoise: true 表示该赛道 Top 1 SPU 搜索占比 >50%，需谨慎解读
 const tracks = [
-  { name: '普通矿维\n综合营养品', x: 85.0, y: 65.9, gmv: 833258299, brand: 2285, sku: 163, cr100: 0.80, pbc: 1.00, search: 40913909, read: 833258299 },
-  { name: '更多成分营养品',       x: 83.6, y: 95.0, gmv: 743287841, brand: 1798, sku: 17980, cr100: 0.28, pbc: 0.80, search: 32671433, read: 743287841 },
-  { name: 'OTC',                 x: 95.0, y: 95.0, gmv: 833258299, brand: 1713, sku: 17129, cr100: 0.31, pbc: 0.80, search: 189547823, read: 1340539437 },
-  { name: '滋养食补',             x: 95.0, y: 95.0, gmv: 833258299, brand: 1446, sku: 14459, cr100: 0.42, pbc: 0.80, search: 129449116, read: 1120486438 },
-  { name: '口服美容营养品',        x: 48.7, y: 95.0, gmv: 169676093, brand: 868, sku: 8680, cr100: 0.65, pbc: 0.80, search: 3928168, read: 169676093 },
-  { name: '益生菌类营养品',        x: 42.8, y: 94.7, gmv: 142893076, brand: 859, sku: 8589, cr100: 0.66, pbc: 0.80, search: 2948719, read: 142893076 },
-  { name: '心脑血管营养品',        x: 65.5, y: 92.3, gmv: 411639104, brand: 773, sku: 7729, cr100: 0.69, pbc: 0.80, search: 10470714, read: 411639104 },
-  { name: '运动纤体营养品',        x: 48.6, y: 90.5, gmv: 206665241, brand: 709, sku: 7089, cr100: 0.72, pbc: 0.80, search: 2899130, read: 206665241 },
-  { name: '皮肤护理',             x: 73.1, y: 70.7, gmv: 604886917, brand: 313, sku: 3130, cr100: 0.87, pbc: 0.60, search: 17964834, read: 604886917 },
-  { name: '按摩器类',             x: 57.9, y: 69.6, gmv: 143943897, brand: 285, sku: 2849, cr100: 0.89, pbc: 0.60, search: 14424673, read: 143943897 },
-  { name: '消化系统营养品',        x: 16.9, y: 69.6, gmv:  58459473, brand: 284, sku: 2840, cr100: 0.89, pbc: 0.60, search: 1203515, read: 58459473 },
-  { name: '卵巢保养营养品',        x: 13.9, y: 66.9, gmv:  54836344, brand: 222, sku: 2220, cr100: 0.91, pbc: 0.60, search: 1081194, read: 54836344 },
-  { name: '养生理疗',             x: 90.3, y: 58.8, gmv: 833258299, brand: 196, sku: 1960, cr100: 0.92, pbc: 0.40, search: 43703817, read: 1060059740 },
-  { name: '男性保健营养品',        x: 20.2, y: 58.5, gmv:  85260802, brand: 190, sku: 1899, cr100: 0.92, pbc: 0.40, search: 1134966, read: 85260802 },
-  { name: '防护护具',             x: 82.8, y: 56.4, gmv: 833258299, brand: 150, sku: 1499, cr100: 0.94, pbc: 0.40, search: 34016605, read: 938733398 },
-  { name: '睡眠管理营养品',        x: 18.1, y: 56.0, gmv:  19270840, brand: 142, sku: 1420, cr100: 0.94, pbc: 0.40, search: 3365110, read: 19270840 },
-  { name: '骨关节营养品',          x: 23.6, y: 55.5, gmv:  64979517, brand: 135, sku: 1350, cr100: 0.95, pbc: 0.40, search: 1465900, read: 64979517 },
-  { name: '眼部护理',             x: 74.5, y: 51.0, gmv: 483712058, brand:  61, sku:   65, cr100: 1.00, pbc: 0.80, search: 21112090, read: 483712058 },
-  { name: '孕产护理',             x: 67.7, y: 40.1, gmv: 456734546, brand:  39, sku:  390, cr100: 0.98, pbc: 0.20, search: 14207661, read: 456734546 },
-  { name: '健康监测',             x: 95.0, y: 38.5, gmv: 815421271, brand:  30, sku:  299, cr100: 0.99, pbc: 0.20, search: 75315785, read: 815421271 },
-  { name: '居家检测',             x: 17.4, y: 37.9, gmv:  75023506, brand:  27, sku:  270, cr100: 0.99, pbc: 0.20, search: 1397068, read: 75023506 },
-  { name: '计生用品',             x: 44.8, y: 37.4, gmv: 250052332, brand:  25, sku:  249, cr100: 0.99, pbc: 0.20, search: 9134951, read: 250052332 },
-  { name: '健身器材',             x: 55.2, y: 36.1, gmv: 226106661, brand:  20, sku:  200, cr100: 0.99, pbc: 0.20, search: 6135894, read: 226106661 },
-  { name: '美体护理',             x:  5.0, y: 30.7, gmv: 375932774, brand:   7, sku:   70, cr100: 1.00, pbc: 0.20, search: 59961, read: 375932774 },
-  { name: '隐形眼镜',             x: 95.0, y:  5.0, gmv: 648753345, brand: 238, sku:    1, cr100: 1.00, pbc: 0.00, search: 68651227, read: 648753345 },
+  { name: '普通矿维\n综合营养品', x: 85.0, y: 65.9, gmv: 833258299, brand: 2285, sku: 163, spuNoise: false, search: 40913909, read: 833258299 },
+  { name: '更多成分营养品',       x: 83.6, y: 95.0, gmv: 743287841, brand: 1798, sku: 17980, spuNoise: false, search: 32671433, read: 743287841 },
+  { name: 'OTC',                 x: 95.0, y: 95.0, gmv: 833258299, brand: 1713, sku: 17129, spuNoise: true,  search: 189547823, read: 1340539437 },
+  { name: '滋养食补',             x: 95.0, y: 95.0, gmv: 833258299, brand: 1446, sku: 14459, spuNoise: false, search: 129449116, read: 1120486438 },
+  { name: '口服美容营养品',        x: 48.7, y: 95.0, gmv: 169676093, brand: 868, sku: 8680, spuNoise: false, search: 3928168, read: 169676093 },
+  { name: '益生菌类营养品',        x: 42.8, y: 94.7, gmv: 142893076, brand: 859, sku: 8589, spuNoise: true,  search: 2948719, read: 142893076 },
+  { name: '心脑血管营养品',        x: 65.5, y: 92.3, gmv: 411639104, brand: 773, sku: 7729, spuNoise: false, search: 10470714, read: 411639104 },
+  { name: '运动纤体营养品',        x: 48.6, y: 90.5, gmv: 206665241, brand: 709, sku: 7089, spuNoise: false, search: 2899130, read: 206665241 },
+  { name: '皮肤护理',             x: 73.1, y: 70.7, gmv: 604886917, brand: 313, sku: 3130, spuNoise: false, search: 17964834, read: 604886917 },
+  { name: '按摩器类',             x: 57.9, y: 69.6, gmv: 143943897, brand: 285, sku: 2849, spuNoise: false, search: 14424673, read: 143943897 },
+  { name: '消化系统营养品',        x: 16.9, y: 69.6, gmv:  58459473, brand: 284, sku: 2840, spuNoise: false, search: 1203515, read: 58459473 },
+  { name: '卵巢保养营养品',        x: 13.9, y: 66.9, gmv:  54836344, brand: 222, sku: 2220, spuNoise: false, search: 1081194, read: 54836344 },
+  { name: '养生理疗',             x: 90.3, y: 58.8, gmv: 833258299, brand: 196, sku: 1960, spuNoise: false, search: 43703817, read: 1060059740 },
+  { name: '男性保健营养品',        x: 20.2, y: 58.5, gmv:  85260802, brand: 190, sku: 1899, spuNoise: false, search: 1134966, read: 85260802 },
+  { name: '防护护具',             x: 82.8, y: 56.4, gmv: 833258299, brand: 150, sku: 1499, spuNoise: false, search: 34016605, read: 938733398 },
+  { name: '睡眠管理营养品',        x: 18.1, y: 56.0, gmv:  19270840, brand: 142, sku: 1420, spuNoise: false, search: 3365110, read: 19270840 },
+  { name: '骨关节营养品',          x: 23.6, y: 55.5, gmv:  64979517, brand: 135, sku: 1350, spuNoise: false, search: 1465900, read: 64979517 },
+  { name: '眼部护理',             x: 74.5, y: 51.0, gmv: 483712058, brand:  61, sku:   65, spuNoise: false, search: 21112090, read: 483712058 },
+  { name: '孕产护理',             x: 67.7, y: 40.1, gmv: 456734546, brand:  39, sku:  390, spuNoise: false, search: 14207661, read: 456734546 },
+  { name: '健康监测',             x: 95.0, y: 38.5, gmv: 815421271, brand:  30, sku:  299, spuNoise: false, search: 75315785, read: 815421271 },
+  { name: '居家检测',             x: 17.4, y: 37.9, gmv:  75023506, brand:  27, sku:  270, spuNoise: false, search: 1397068, read: 75023506 },
+  { name: '计生用品',             x: 44.8, y: 37.4, gmv: 250052332, brand:  25, sku:  249, spuNoise: false, search: 9134951, read: 250052332 },
+  { name: '健身器材',             x: 55.2, y: 36.1, gmv: 226106661, brand:  20, sku:  200, spuNoise: false, search: 6135894, read: 226106661 },
+  { name: '美体护理',             x:  5.0, y: 30.7, gmv: 375932774, brand:   7, sku:   70, spuNoise: false, search: 59961, read: 375932774 },
+  { name: '隐形眼镜',             x: 95.0, y:  5.0, gmv: 648753345, brand: 238, sku:    1, spuNoise: false, search: 68651227, read: 648753345 },
 ];
 
 const W = canvas.width;
@@ -669,26 +770,10 @@ const PAD = { top: 30, right: 40, bottom: 40, left: 30 };
 const plotW = W - PAD.left - PAD.right;
 const plotH = H - PAD.top - PAD.bottom;
 
-// ── 归一化：用 P10~P90 作为轴范围，outlier 被 clip 但仍显示 ──
-function robustNorm(arr, lo = 0.05, hi = 0.9) {
-  const sorted = [...arr].sort((a, b) => a - b);
-  const n = sorted.length;
-  const vLo = sorted[Math.floor(n * lo)];
-  const vHi = sorted[Math.floor(n * hi)];
-  const span = vHi - vLo || 1;
-  return arr.map(v => {
-    const norm = (v - vLo) / span;        // 可能 <0 或 >1（outlier）
-    return Math.min(Math.max(norm, 0.01), 0.99) * 90 + 5;  // clip 到 [5,95]
-  });
-}
-
-// X/Y 已在数据里预算好（严格按框架公式，Python侧 robustNorm 归一化）
-// 直接使用 t.x / t.y，不再重新计算覆盖
-
 function toCanvasX(x) { return PAD.left + (x / 100) * plotW; }
 function toCanvasY(y) { return PAD.top + ((100 - y) / 100) * plotH; }
 
-// 气泡大小也用 P85 截断
+// 气泡大小
 const gmvArr2 = tracks.map(t => t.gmv).sort((a,b)=>a-b);
 const gmvMin2 = gmvArr2[0];
 const gmvMax2 = gmvArr2[Math.floor(gmvArr2.length * 0.85)];
@@ -696,46 +781,33 @@ function gmvToR(gmv) {
   const capped = Math.min(gmv, gmvMax2);
   return 10 + ((capped - gmvMin2) / (gmvMax2 - gmvMin2)) * 28;
 }
-// 颜色按品牌数分级：品牌少=红(招商机会)，品牌多=绿(已充分)
-function penToColor(pen, brand) {
+// 颜色按品牌数分级
+function penToColor(brand) {
   const b = brand !== undefined ? brand : 500;
-  if (b < 50)   return 'rgba(239,68,68,0.85)';   // 红：品牌极稀缺，强招商信号
-  if (b < 300)  return 'rgba(245,158,11,0.82)';  // 橙：供给有限，关注
-  return 'rgba(34,197,94,0.82)';                  // 绿：供给充分
+  if (b < 50)   return 'rgba(239,68,68,0.85)';
+  if (b < 300)  return 'rgba(245,158,11,0.82)';
+  return 'rgba(34,197,94,0.82)';
 }
 
-// draw quadrant backgrounds
 function drawQuadrants() {
   const mx = toCanvasX(50);
   const my = toCanvasY(50);
-  // A: high X, low Y (bottom-right) → 该引没引，蓝海 green
   ctx.fillStyle = 'rgba(240,253,244,0.6)';
   ctx.fillRect(mx, my, plotW - (mx - PAD.left), plotH - (my - PAD.top));
-  // B: high X, high Y (top-right) → 持续做，防内卷 blue
   ctx.fillStyle = 'rgba(239,246,255,0.6)';
   ctx.fillRect(mx, PAD.top, plotW - (mx - PAD.left), my - PAD.top);
-  // C: low X, high Y (top-left) → 供给过剩/内卷，暂不扩 red
   ctx.fillStyle = 'rgba(255,245,245,0.6)';
   ctx.fillRect(PAD.left, PAD.top, mx - PAD.left, my - PAD.top);
-  // D: low X, low Y (bottom-left) → 观察，停止扩供 gray
   ctx.fillStyle = 'rgba(250,250,250,0.6)';
   ctx.fillRect(PAD.left, my, mx - PAD.left, plotH - (my - PAD.top));
 
-  // quadrant labels
   ctx.font = '700 13px -apple-system, PingFang SC, sans-serif';
-  ctx.fillStyle = 'rgba(34,197,94,0.6)';
-  ctx.fillText('A · 该引没引', mx + 10, my + 20);
-  ctx.fillStyle = 'rgba(59,130,246,0.6)';
-  ctx.fillText('B · 持续做', mx + 10, PAD.top + 20);
-  ctx.fillStyle = 'rgba(239,68,68,0.6)';
-  ctx.fillText('C · 供给过剩', PAD.left + 8, PAD.top + 20);
-  ctx.fillStyle = 'rgba(150,150,150,0.6)';
-  ctx.fillText('D · 观察', PAD.left + 8, my + 20);
+  ctx.fillStyle = 'rgba(34,197,94,0.6)'; ctx.fillText('A · 该引没引', mx + 10, my + 20);
+  ctx.fillStyle = 'rgba(59,130,246,0.6)'; ctx.fillText('B · 持续做', mx + 10, PAD.top + 20);
+  ctx.fillStyle = 'rgba(239,68,68,0.6)';   ctx.fillText('C · 供给过剩', PAD.left + 8, PAD.top + 20);
+  ctx.fillStyle = 'rgba(150,150,150,0.6)'; ctx.fillText('D · 观察', PAD.left + 8, my + 20);
 
-  // midlines
-  ctx.setLineDash([4, 4]);
-  ctx.strokeStyle = 'rgba(0,0,0,0.12)';
-  ctx.lineWidth = 1;
+  ctx.setLineDash([4, 4]); ctx.strokeStyle = 'rgba(0,0,0,0.12)'; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(mx, PAD.top); ctx.lineTo(mx, PAD.top + plotH); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(PAD.left, my); ctx.lineTo(PAD.left + plotW, my); ctx.stroke();
   ctx.setLineDash([]);
@@ -745,41 +817,35 @@ function drawBubbles() {
   tracks.forEach(t => {
     const cx = toCanvasX(t.x);
     const cy = toCanvasY(t.y);
-    const r  = gmvToR(t.gmv);
-    const color = penToColor(t.pen, t.brand);
+    const r = gmvToR(t.gmv);
+    const color = penToColor(t.brand);
 
-    // shadow
-    ctx.shadowColor = 'rgba(0,0,0,0.12)';
-    ctx.shadowBlur = 8;
-
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.fillStyle = color;
-    ctx.fill();
+    ctx.shadowColor = 'rgba(0,0,0,0.12)'; ctx.shadowBlur = 8;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fillStyle = color; ctx.fill();
     ctx.shadowBlur = 0;
 
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(255,255,255,0.8)';
-    ctx.lineWidth = 2;
-    ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 2; ctx.stroke();
 
-    // label
+    // SPU噪音标记
+    if (t.spuNoise) {
+      ctx.font = '800 8px -apple-system, sans-serif';
+      ctx.fillStyle = '#ef4444';
+      ctx.textAlign = 'center';
+      ctx.fillText('⚠️ SPU驱动', cx, cy - r - 4);
+    }
+
     const lines = t.name.split('\n');
     ctx.font = '600 10px -apple-system, PingFang SC, sans-serif';
-    ctx.fillStyle = '#1a1a1a';
-    ctx.textAlign = 'center';
+    ctx.fillStyle = '#1a1a1a'; ctx.textAlign = 'center';
     const labelY = cy + r + 13;
-    lines.forEach((line, i) => {
-      ctx.fillText(line, cx, labelY + i * 12);
-    });
+    lines.forEach((line, i) => { ctx.fillText(line, cx, labelY + i * 12); });
   });
 }
 
-// grid lines
 function drawGrid() {
-  ctx.strokeStyle = 'rgba(0,0,0,0.05)';
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = 'rgba(0,0,0,0.05)'; ctx.lineWidth = 1;
   [25, 50, 75].forEach(v => {
     const gx = toCanvasX(v);
     ctx.beginPath(); ctx.moveTo(gx, PAD.top); ctx.lineTo(gx, PAD.top + plotH); ctx.stroke();
@@ -793,7 +859,6 @@ drawQuadrants();
 drawBubbles();
 
 // tooltip
-let tooltip = null;
 canvas.addEventListener('mousemove', (e) => {
   const rect = canvas.getBoundingClientRect();
   const scaleX = canvas.width / rect.width;
@@ -816,8 +881,8 @@ canvas.addEventListener('mousemove', (e) => {
       hit.name.replace(/\n/g,''),
       `搜索量: ${fmt(hit.search || 0)}`,
       `阅读量: ${fmt(hit.read || 0)}`,
-      `站内品牌数: ${hit.brand || '-'}  SKU数: ${hit.sku || '-'}`,
-      `CR100: ${hit.cr100 ? (hit.cr100*100).toFixed(0)+'%' : '-'}  价格带覆盖: ${hit.pbc ? (hit.pbc*100).toFixed(0)+'%' : '-'}`,
+      `站内品牌数: ${hit.brand || '-'}  SPU数: ${hit.sku || '-'}`,
+      hit.spuNoise ? '⚠️ 单SPU驱动赛道，需谨慎解读' : '',
     ].filter(Boolean).join('\n');
     canvas.style.cursor = 'pointer';
   } else {
