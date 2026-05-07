@@ -267,55 +267,101 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
       <p>历史 12 个月，动销 SPU 数量增长 vs 赛道 GMV 增长，计算 Pearson 相关系数。相关性高才继续往下分析。</p>
     </div>
   </div>
-  <div class="p3r" style="background:#e8e8e2;padding:var(--p);display:flex;align-items:center;justify-content:center;overflow:hidden">
-    <div style="width:100%;max-width:480px">
-      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#999;margin-bottom:10px">大健康赛道 · 一级类目 Step 1 实测结果（DS15677 近4个月）</div>
-      <!-- 强供给驱动 -->
-      <div style="margin-bottom:6px">
-        <div style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:#15803d;margin-bottom:4px;font-weight:700">✅ 强供给驱动（r ≥ 0.6）→ 继续 Step 2</div>
-        <div style="display:flex;flex-direction:column;gap:4px">
-          <div style="display:grid;grid-template-columns:1fr auto auto;gap:8px;background:#f0fdf4;border-radius:8px;padding:9px 12px;border-left:3px solid #86efac;align-items:center">
-            <div style="font-size:var(--sm);font-weight:700;color:#111">OTC药品 / 国际医药</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">r = +0.964</div>
-            <div style="font-size:var(--xs);color:#666">月均 SKU 3,533</div>
+  <div class="p3r" style="background:#e8e8e2;padding:var(--p) var(--p) var(--p) calc(var(--p)*0.7);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;flex-direction:column;gap:8px">
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#999;flex-shrink:0">大健康 · 四级类目 Step 1 实测（DS15677 近4个月）</div>
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:#15803d;font-weight:700;flex-shrink:0">✅ 强供给驱动（r ≥ 0.6）→ 进入 Step 2</div>
+    <div style="display:flex;flex-direction:column;gap:3px;width:100%">
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">其他膳食营养补充剂</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.981</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">1.40亿</div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr auto auto;gap:8px;background:#f0fdf4;border-radius:8px;padding:9px 12px;border-left:3px solid #86efac;align-items:center">
-            <div style="font-size:var(--sm);font-weight:700;color:#111">保健食品 / 膳食营养补充食品</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">r = +0.921</div>
-            <div style="font-size:var(--xs);color:#666">月均 SKU 17,418</div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">普通植物提取物</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.989</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">1,836万</div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr auto auto;gap:8px;background:#f0fdf4;border-radius:8px;padding:9px 12px;border-left:3px solid #86efac;align-items:center">
-            <div style="font-size:var(--sm);font-weight:700;color:#111">保健用品</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">r = +0.798</div>
-            <div style="font-size:var(--xs);color:#666">月均 SKU 3,945</div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">锌/铁/硒</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.991</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">1,059万</div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr auto auto;gap:8px;background:#f0fdf4;border-radius:8px;padding:9px 12px;border-left:3px solid #86efac;align-items:center">
-            <div style="font-size:var(--sm);font-weight:700;color:#111">医疗器械</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">r = +0.626</div>
-            <div style="font-size:var(--xs);color:#666">月均 SKU 12,655</div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">海外保健体重管理</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.986</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">2,604万</div>
           </div>
-        </div>
-      </div>
-      <!-- 弱相关 / 停止 -->
-      <div style="margin-bottom:6px">
-        <div style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:#dc2626;margin-bottom:4px;font-weight:700">❌ 弱相关 / 非供给瓶颈（r &lt; 0.6）→ 不引货</div>
-        <div style="display:flex;flex-direction:column;gap:4px">
-          <div style="display:grid;grid-template-columns:1fr auto auto;gap:8px;background:#fff5f5;border-radius:8px;padding:7px 12px;border-left:3px solid #fca5a5;align-items:center">
-            <div style="font-size:var(--sm);color:#888">医疗及健康服务</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#dc2626">r = +0.544</div>
-            <div style="font-size:var(--xs);color:#aaa">月均 SKU 230</div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">维生素D</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.905</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">1,408万</div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr auto auto;gap:8px;background:#fff5f5;border-radius:8px;padding:7px 12px;border-left:3px solid #fca5a5;align-items:center">
-            <div style="font-size:var(--sm);color:#888">成人用品</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#dc2626">r = +0.160</div>
-            <div style="font-size:var(--xs);color:#aaa">月均 SKU 1,108</div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">叶黄素/蓝莓/越橘提取物</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.949</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">1,232万</div>
           </div>
-        </div>
-      </div>
-      <div style="font-size:var(--xs);color:#aaa;text-align:center;margin-top:6px">👆 详细四级类目数据见附录 P7</div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">胶原蛋白</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.952</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">1,781万</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">钙铁锌/钙镁</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.841</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">1,429万</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">辅酶Q10</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.830</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">835万</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">鱼油/深海鱼油</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.714</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">2,509万</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">复合维生素/矿物质</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.713</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">1,787万</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:6px;background:#f0fdf4;border-radius:6px;padding:7px 10px;border-left:3px solid #86efac;align-items:center">
+            <div style="font-size:var(--sm);font-weight:700;color:#111">蓟类</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;font-weight:700">+0.856</div>
+            <div style="font-size:var(--xs);color:#666;text-align:right">563万</div>
+          </div>
     </div>
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:#dc2626;font-weight:700;flex-shrink:0;margin-top:4px">❌ 弱相关 / 停止（r &lt; 0.6）</div>
+    <div style="display:flex;flex-direction:column;gap:3px;width:100%">
+          <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:6px;background:#fff5f5;border-radius:6px;padding:6px 10px;border-left:3px solid #fca5a5;align-items:center">
+            <div style="font-size:var(--sm);color:#888">益生菌</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#dc2626">+0.349</div>
+            <div style="font-size:var(--xs);color:#aaa">5,148万</div>
+            <div style="font-size:9px;color:#ccc">SKU饱和</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:6px;background:#fff5f5;border-radius:6px;padding:6px 10px;border-left:3px solid #fca5a5;align-items:center">
+            <div style="font-size:var(--sm);color:#888">玫瑰提取物/玫瑰精油</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#dc2626">-0.292</div>
+            <div style="font-size:var(--xs);color:#aaa">1,293万</div>
+            <div style="font-size:9px;color:#ccc">负相关</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:6px;background:#fff5f5;border-radius:6px;padding:6px 10px;border-left:3px solid #fca5a5;align-items:center">
+            <div style="font-size:var(--sm);color:#888">奶蓟草</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#dc2626">+0.170</div>
+            <div style="font-size:var(--xs);color:#aaa">396万</div>
+            <div style="font-size:9px;color:#ccc">弱相关</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:6px;background:#fff5f5;border-radius:6px;padding:6px 10px;border-left:3px solid #fca5a5;align-items:center">
+            <div style="font-size:var(--sm);color:#888">灵芝/参类/石斛提取物</div>
+            <div style="font-family:var(--mono);font-size:var(--xs);color:#dc2626">-0.913</div>
+            <div style="font-size:var(--xs);color:#aaa">210万</div>
+            <div style="font-size:9px;color:#ccc">负相关</div>
+          </div>
+    </div>
+    <div style="font-size:var(--xs);color:#aaa;text-align:center;width:100%;margin-top:4px;flex-shrink:0">完整 80 条四级类目数据见 <strong>P7 附录</strong></div>
   </div>
-  <div class="pg" style="color:rgba(0,0,0,.15)">03 / 06</div>
+    <div class="pg" style="color:rgba(0,0,0,.15)">03 / 06</div>
 </section>
 
 <!-- P4 Step 2 -->
@@ -510,46 +556,64 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
 <!-- ── P7: 附录 大健康四级类目 Step 1 供给驱动系数全量表 ── -->
 <section class="slide" id="p7" style="background:#0f0f13;color:#e8e8f0;overflow:hidden;display:flex;flex-direction:column">
   <!-- header -->
-  <div style="flex-shrink:0;background:linear-gradient(135deg,#1a1a2e,#16213e);padding:16px 36px 12px;border-bottom:1px solid #2a2a3e">
+  <div style="flex-shrink:0;background:linear-gradient(135deg,#1a1a2e,#16213e);padding:14px 32px 10px;border-bottom:1px solid #2a2a3e">
     <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
       <span style="font-size:11px;font-weight:700;letter-spacing:2px;color:#FF2442;text-transform:uppercase">附录 · Appendix</span>
-      <h2 style="font-size:18px;font-weight:800;color:#fff;line-height:1.2">大健康行业 — 四级类目 Step 1 供给驱动系数全量表</h2>
+      <h2 style="font-size:17px;font-weight:800;color:#fff;line-height:1.2">大健康行业 — 四级类目全量：Step 1 供给驱动 × Step 2 需求缺口 × Step 4 货品清单</h2>
     </div>
-    <div style="display:flex;gap:16px;margin-top:8px;flex-wrap:wrap;font-size:11px;color:#888">
-      <span>数据源：DS 15677 单商品 nitem 增量宽表</span>
-      <span>统计周期：2026-01 ~ 2026-04（近4个完整月）</span>
-      <span>指标：月度动销SKU数 × 月GMV 的 Pearson 相关系数</span>
+    <div style="display:flex;gap:16px;margin-top:6px;flex-wrap:wrap;font-size:11px;color:#888">
+      <span>Step 1 数据源：DS 15677 | 周期：2026-01~2026-04</span>
+      <span>Step 2 数据源：DS 876 × analysis 52297934 | 口径：DGMV=0，综合缺口=搜索量+阅读量</span>
+      <span>Step 4 货品：缺口量最大的未入驻 SPU（前4个）</span>
     </div>
   </div>
   <!-- legend + controls -->
-  <div style="flex-shrink:0;display:flex;align-items:center;gap:12px;padding:8px 36px;background:#13131c;border-bottom:1px solid #1e1e2e;flex-wrap:wrap">
-    <span style="padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600;background:#22c55e22;color:#22c55e;border:1px solid #22c55e55">✅ r≥0.6 强供给驱动</span>
-    <span style="padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600;background:#f59e0b22;color:#f59e0b;border:1px solid #f59e0b55">🟡 r∈[0.3,0.6) 弱相关</span>
-    <span style="padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600;background:#ef444422;color:#ef4444;border:1px solid #ef444455">❌ r<0.3 非供给瓶颈</span>
+  <div style="flex-shrink:0;display:flex;align-items:center;gap:10px;padding:7px 32px;background:#13131c;border-bottom:1px solid #1e1e2e;flex-wrap:wrap">
+    <span style="padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;background:#22c55e22;color:#22c55e;border:1px solid #22c55e55">✅ r≥0.6 强供给驱动</span>
+    <span style="padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;background:#f59e0b22;color:#f59e0b;border:1px solid #f59e0b55">🟡 r∈[0.3,0.6) 弱相关</span>
+    <span style="padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;background:#ef444422;color:#ef4444;border:1px solid #ef444455">❌ r&lt;0.3 非供给瓶颈</span>
+    <span style="padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;background:#88888822;color:#888;border:1px solid #88888855">— 无Step1数据</span>
     <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
-      <input id="p7search" type="text" placeholder="搜索类目…" style="background:#1a1a2e;border:1px solid #2a2a3e;border-radius:5px;padding:4px 10px;color:#e8e8f0;font-size:12px;width:140px">
+      <input id="p7search" type="text" placeholder="搜索类目/货品…" style="background:#1a1a2e;border:1px solid #2a2a3e;border-radius:5px;padding:4px 10px;color:#e8e8f0;font-size:12px;width:150px">
       <select id="p7filter" style="background:#1a1a2e;border:1px solid #2a2a3e;border-radius:5px;padding:4px 8px;color:#e8e8f0;font-size:12px">
-        <option value="all">全部判断</option>
+        <option value="all">全部</option>
         <option value="strong">✅ 强供给驱动</option>
         <option value="weak">🟡 弱相关</option>
         <option value="no">❌ 非供给瓶颈</option>
+        <option value="na">— 无数据</option>
+        <option value="gap">有缺口 SPU</option>
+      </select>
+      <select id="p7sort" style="background:#1a1a2e;border:1px solid #2a2a3e;border-radius:5px;padding:4px 8px;color:#e8e8f0;font-size:12px">
+        <option value="gap">按缺口量排序</option>
+        <option value="r">按 Pearson r 排序</option>
+        <option value="gmv">按 GMV 排序</option>
       </select>
       <span id="p7count" style="font-size:11px;color:#555"></span>
     </div>
   </div>
   <!-- table -->
-  <div style="flex:1;overflow-y:auto;padding:0 36px 24px">
-    <table id="p7table" style="width:100%;border-collapse:collapse;font-size:12px;margin-top:8px">
+  <div style="flex:1;overflow-y:auto;padding:0 32px 20px">
+    <table id="p7table" style="width:100%;border-collapse:collapse;font-size:12px;margin-top:6px;table-layout:fixed">
+      <colgroup>
+        <col style="width:28px">
+        <col style="width:140px">
+        <col style="width:68px">
+        <col style="width:76px">
+        <col style="width:70px">
+        <col style="width:64px">
+        <col style="width:64px">
+        <col><!-- Step4 货品，弹性 -->
+      </colgroup>
       <thead>
         <tr style="position:sticky;top:0;z-index:10;background:#1a1a2e">
-          <th style="padding:8px 6px;text-align:left;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e">#</th>
-          <th style="padding:8px 6px;text-align:left;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e">四级类目</th>
-          <th style="padding:8px 6px;text-align:left;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e">一级类目</th>
-          <th onclick="p7Sort('r')" style="padding:8px 6px;text-align:right;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e;cursor:pointer" id="p7th-r">Pearson r ↕</th>
-          <th style="padding:8px 6px;text-align:center;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e">Step 1 判断</th>
-          <th onclick="p7Sort('gmv')" style="padding:8px 6px;text-align:right;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e;cursor:pointer" id="p7th-gmv" class="p7sorted">累计GMV(万) ↓</th>
-          <th onclick="p7Sort('sku')" style="padding:8px 6px;text-align:right;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e;cursor:pointer" id="p7th-sku">月均动销SKU ↕</th>
-          <th style="padding:8px 6px;text-align:right;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e">最新月SKU</th>
+          <th style="padding:8px 4px;text-align:left;color:#666;font-weight:600;border-bottom:2px solid #2a2a3e;font-size:11px">#</th>
+          <th style="padding:8px 4px;text-align:left;color:#666;font-weight:600;border-bottom:2px solid #2a2a3e;font-size:11px">四级类目</th>
+          <th style="padding:8px 4px;text-align:right;color:#22c55e;font-weight:700;border-bottom:2px solid #2a2a3e;font-size:11px">Step1 r</th>
+          <th style="padding:8px 4px;text-align:right;color:#f59e0b;font-weight:700;border-bottom:2px solid #2a2a3e;font-size:11px">Step2缺口量</th>
+          <th style="padding:8px 4px;text-align:right;color:#aaa;font-weight:600;border-bottom:2px solid #2a2a3e;font-size:11px">缺口SPU数</th>
+          <th style="padding:8px 4px;text-align:right;color:#aaa;font-weight:600;border-bottom:2px solid #2a2a3e;font-size:11px">累计GMV(万)</th>
+          <th style="padding:8px 4px;text-align:right;color:#aaa;font-weight:600;border-bottom:2px solid #2a2a3e;font-size:11px">月均SKU</th>
+          <th style="padding:8px 4px 8px 8px;text-align:left;color:#f59e0b;font-weight:600;border-bottom:2px solid #2a2a3e;font-size:11px">Step4 缺口货品（未入驻 TOP4）</th>
         </tr>
       </thead>
       <tbody id="p7tbody"></tbody>
@@ -559,18 +623,18 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
 </section>
 
 <script>
-// ── Data Table ──
+// ── Data Table（P5）──
 (function(){
   // 真实数据：DS876 × analysis 52297934 × DS15677 Step1
   const rows=[
-    {rank:'01',name:'普通矿维&综合营养品',gap:'3,125万',type:'综合',coef:'+0.713',gmv:'1.79亿',sku:'17,418',pri:'P0',priBg:'#fee2e2',priC:'#dc2626'},
-    {rank:'02',name:'更多成分营养品',      gap:'1,668万',type:'综合',coef:'+0.981',gmv:'1.40亿',sku:'3,324', pri:'P0',priBg:'#fee2e2',priC:'#dc2626'},
-    {rank:'03',name:'心脑血管营养品',      gap:'1,410万',type:'综合',coef:'+0.714',gmv:'—',      sku:'—',    pri:'P0',priBg:'#fee2e2',priC:'#dc2626'},
-    {rank:'04',name:'消化系统营养品',      gap:'356万',  type:'综合',coef:'+0.856',gmv:'0.40亿',sku:'116',   pri:'P1',priBg:'#fef3c7',priC:'#92400e'},
-    {rank:'05',name:'男性保健营养品',      gap:'305万',  type:'综合',coef:'+0.989',gmv:'0.14亿',sku:'62',    pri:'P1',priBg:'#fef3c7',priC:'#92400e'},
-    {rank:'06',name:'益生菌类营养品',      gap:'813万',  type:'综合',coef:'+0.349',gmv:'0.51亿',sku:'1,682', pri:'P2',priBg:'#f3f4f6',priC:'#6b7280'},
-    {rank:'07',name:'口服美容营养品',      gap:'97万',   type:'综合',coef:'+0.952',gmv:'1.16亿',sku:'302',   pri:'P2',priBg:'#f3f4f6',priC:'#6b7280'},
-    {rank:'08',name:'骨关节营养品',        gap:'49万',   type:'综合',coef:'+0.364',gmv:'0.42亿',sku:'155',   pri:'P2',priBg:'#f3f4f6',priC:'#6b7280'},
+    {rank:'01',name:'普通矿维&综合营养品',gap:'3,125万',coef:'+0.713',gmv:'1.79亿',sku:'17,418',pri:'P0',priBg:'#fee2e2',priC:'#dc2626'},
+    {rank:'02',name:'更多成分营养品',gap:'1,668万',coef:'+0.981',gmv:'1.40亿',sku:'3,324',pri:'P0',priBg:'#fee2e2',priC:'#dc2626'},
+    {rank:'03',name:'心脑血管营养品',gap:'1,410万',coef:'+0.714',gmv:'—',sku:'—',pri:'P0',priBg:'#fee2e2',priC:'#dc2626'},
+    {rank:'04',name:'消化系统营养品',gap:'356万',coef:'+0.856',gmv:'563万',sku:'116',pri:'P1',priBg:'#fef3c7',priC:'#92400e'},
+    {rank:'05',name:'男性保健营养品',gap:'305万',coef:'+0.989',gmv:'—',sku:'—',pri:'P1',priBg:'#fef3c7',priC:'#92400e'},
+    {rank:'06',name:'益生菌类营养品',gap:'813万',coef:'+0.349',gmv:'5,148万',sku:'1,682',pri:'P2',priBg:'#f3f4f6',priC:'#6b7280'},
+    {rank:'07',name:'口服美容营养品',gap:'97万',coef:'+0.952',gmv:'1,158万',sku:'302',pri:'P2',priBg:'#f3f4f6',priC:'#6b7280'},
+    {rank:'08',name:'骨关节营养品',gap:'49万',coef:'+0.364',gmv:'—',sku:'—',pri:'P2',priBg:'#f3f4f6',priC:'#6b7280'},
   ];
   const tbody=document.getElementById('tblBody');
   if(!tbody) return;
@@ -579,15 +643,13 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
     tr.style.borderBottom=i<rows.length-1?'1px solid #f5f5f0':'none';
     const rankC=i===0?'var(--r)':'#999';
     tr.innerHTML=`
-      <td style="padding:8px 4px 8px 12px;font-family:var(--mono);font-size:10px;color:${rankC};font-weight:700;white-space:nowrap">${r.rank}</td>
-      <td style="padding:8px 4px;font-size:var(--sm);font-weight:700;color:#111;white-space:nowrap">${r.name}</td>
-      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:#555;text-align:right;white-space:nowrap">${r.gap} <span style="color:#aaa;font-size:9px">${r.type}</span></td>
-      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:#333;text-align:right;white-space:nowrap">${r.coef}</td>
-      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:#333;text-align:right;white-space:nowrap">${r.gmv}</td>
-      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:${r.yoyC};text-align:right;white-space:nowrap">${r.yoy}</td>
-      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:#333;text-align:right;white-space:nowrap">${r.sku}</td>
-      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:${r.skyoyC};text-align:right;white-space:nowrap">${r.skyoy}</td>
-      <td style="padding:8px 12px 8px 4px;text-align:center;white-space:nowrap"><span style="background:${r.priBg};color:${r.priC};font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px">${r.pri}</span></td>
+      <td style="padding:8px 4px 8px 12px;font-family:var(--mono);font-size:10px;color:${rankC};font-weight:700">${r.rank}</td>
+      <td style="padding:8px 4px;font-size:var(--sm);font-weight:700;color:#111">${r.name}</td>
+      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:var(--r);text-align:right;font-weight:700">${r.gap}</td>
+      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:#15803d;text-align:right;font-weight:700">${r.coef}</td>
+      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:#444;text-align:right">${r.gmv}</td>
+      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:#666;text-align:right">${r.sku}</td>
+      <td style="padding:8px 12px 8px 4px;text-align:center"><span style="background:${r.priBg};color:${r.priC};font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px">${r.pri}</span></td>
     `;
     tbody.appendChild(tr);
   });
@@ -639,172 +701,174 @@ document.addEventListener('keydown',e=>{
     const PAD={top:24,right:18,bottom:62,left:54};
     const pw=W-PAD.left-PAD.right,ph=H-PAD.top-PAD.bottom;
 
-    // X=未覆盖需求量(归一化), Y=供给驱动系数 Step1 Pearson r, 气泡=站内GMV(亿)
-    // 数据源: DS876 analysis 52297934 × DS15677 Step1
+    // X=未覆盖需求量(归一化100=1063万), Y=Step1 Pearson r, 气泡=累计GMV
     const data=[
-      {name:'普通矿维&\n综合营养', x:100,y:0.713,gmv:1.79,label:'P0'},
-      {name:'更多成分\n营养品',    x:53, y:0.981,gmv:1.40,label:'P0'},
-      {name:'心脑血管\n营养品',    x:45, y:0.714,gmv:1.01,label:'P0'},
-      {name:'消化系统\n营养品',    x:11, y:0.856,gmv:0.40,label:'P1'},
-      {name:'男性保健\n营养品',    x:10, y:0.989,gmv:0.14,label:'P1'},
-      {name:'口服美容\n营养品',    x: 3, y:0.952,gmv:1.16,label:'P2'},
-      {name:'益生菌类\n营养品',    x:26, y:0.349,gmv:0.51,label:'P2'},
-      {name:'骨关节\n营养品',      x: 2, y:0.364,gmv:0.42,label:'P2'},
-      {name:'滋养食补',            x:42, y:0.2,  gmv:0.31,label:'—'},
+      {name:'更多成分营养品',  x:100,y:0.981,gmv:1.40,pri:'P0'},
+      {name:'钙元素（成人）',  x: 76,y:0.841,gmv:0.14,pri:'P0'},
+      {name:'普通矿维&综合',   x: 60,y:0.713,gmv:1.79,pri:'P0'},
+      {name:'鱼油',           x: 59,y:0.714,gmv:0.25,pri:'P0'},
+      {name:'复合维生素',      x: 54,y:0.713,gmv:1.79,pri:'P0'},
+      {name:'叶黄素',         x: 48,y:0.949,gmv:0.12,pri:'P0'},
+      {name:'藻油',           x: 36,y:0.714,gmv:0.25,pri:'P0'},
+      {name:'铁元素',         x: 35,y:0.991,gmv:0.11,pri:'P0'},
+      {name:'奶蓟/草蓟类',    x: 30,y:0.856,gmv:0.56,pri:'P1'},
+      {name:'泛醇/辅酶Q10',   x: 27,y:0.830,gmv:0.14,pri:'P1'},
+      {name:'益生菌类',       x: 76,y:0.349,gmv:0.51,pri:'P2'},
+      {name:'肠胃/广谱益生菌',x: 76,y:0.349,gmv:0.51,pri:'P2'},
+      {name:'燕窝',           x: 45,y:0.15, gmv:0.10,pri:'—'},
+      {name:'彩色隐形眼镜',   x: 27,y:0.15, gmv:0.10,pri:'—'},
+      {name:'避孕类',         x: 41,y:0.15, gmv:0.10,pri:'—'},
     ];
 
     const tx=v=>PAD.left+v/100*pw;
     const ty=v=>PAD.top+(1-v)*ph;
-    const bR=g=>8+g*2.6;
+    const bR=g=>Math.max(7,5+g*16);
 
-    // bg
     ctx.fillStyle='#eeeee8';ctx.fillRect(0,0,W,H);
 
-    // grid lines
+    // grid
     ctx.strokeStyle='rgba(0,0,0,.07)';ctx.lineWidth=1;ctx.setLineDash([4,4]);
-    [0.25,0.5,0.75].forEach(v=>{
-      const y=ty(v);
-      ctx.beginPath();ctx.moveTo(PAD.left,y);ctx.lineTo(PAD.left+pw,y);ctx.stroke();
-    });
-    [25,50,75].forEach(v=>{
-      const x=tx(v);
-      ctx.beginPath();ctx.moveTo(x,PAD.top);ctx.lineTo(x,PAD.top+ph);ctx.stroke();
-    });
+    [0.25,0.5,0.75].forEach(v=>{const y=ty(v);ctx.beginPath();ctx.moveTo(PAD.left,y);ctx.lineTo(PAD.left+pw,y);ctx.stroke();});
+    [25,50,75].forEach(v=>{const x=tx(v);ctx.beginPath();ctx.moveTo(x,PAD.top);ctx.lineTo(x,PAD.top+ph);ctx.stroke();});
     ctx.setLineDash([]);
 
-    // quadrant highlight (right-top = 优先级最高)
-    const midX=tx(50),midY=ty(0.5);
-    ctx.fillStyle='rgba(0,180,70,.07)';
-    ctx.fillRect(midX,PAD.top,W-midX-PAD.right,midY-PAD.top);
-    ctx.fillStyle='rgba(200,0,0,.04)';
-    ctx.fillRect(PAD.left,midY,midX-PAD.left,H-midY-PAD.bottom);
-
-    // mid lines
+    // quadrant
+    const midX=tx(50),midY=ty(0.6);
+    ctx.fillStyle='rgba(0,180,70,.07)';ctx.fillRect(midX,PAD.top,W-midX-PAD.right,midY-PAD.top);
+    ctx.fillStyle='rgba(200,0,0,.04)';ctx.fillRect(PAD.left,midY,midX-PAD.left,H-midY-PAD.bottom);
     ctx.strokeStyle='rgba(0,0,0,.12)';ctx.lineWidth=1;ctx.setLineDash([5,5]);
     ctx.beginPath();ctx.moveTo(midX,PAD.top);ctx.lineTo(midX,PAD.top+ph);ctx.stroke();
     ctx.beginPath();ctx.moveTo(PAD.left,midY);ctx.lineTo(PAD.left+pw,midY);ctx.stroke();
     ctx.setLineDash([]);
 
-    // quadrant labels
-    ctx.font='700 11px Manrope,sans-serif';
-    ctx.fillStyle='rgba(0,140,60,.55)';ctx.textAlign='left';
-    ctx.fillText('🔥 优先级最高',midX+10,PAD.top+22);
-    ctx.fillStyle='rgba(0,0,0,.2)';
-    ctx.fillText('缺口大但驱动弱',PAD.left+6,PAD.top+22);
-    ctx.fillStyle='rgba(0,0,0,.18)';
-    ctx.fillText('缺口小驱动强',midX+10,midY+22);
-    ctx.fillStyle='rgba(180,0,0,.28)';
-    ctx.fillText('暂不投入',PAD.left+6,midY+22);
+    ctx.font='700 10px Manrope,sans-serif';
+    ctx.fillStyle='rgba(0,140,60,.5)';ctx.textAlign='left';ctx.fillText('🔥 优先级最高（r≥0.6，缺口大）',midX+8,PAD.top+18);
+    ctx.fillStyle='rgba(0,0,0,.18)';ctx.fillText('缺口大但驱动弱',PAD.left+6,PAD.top+18);
+    ctx.fillStyle='rgba(0,0,0,.15)';ctx.fillText('缺口小驱动强',midX+8,midY+16);
+    ctx.fillStyle='rgba(180,0,0,.25)';ctx.fillText('暂不投入',PAD.left+6,midY+16);
 
     // Y axis
     ctx.fillStyle='#999';ctx.font='10px Space Mono,monospace';ctx.textAlign='right';
-    [0,0.25,0.5,0.75,1.0].forEach(v=>{
-      ctx.fillText(v.toFixed(2),PAD.left-8,ty(v)+4);
-    });
-    ctx.save();
-    ctx.translate(14,PAD.top+ph/2);ctx.rotate(-Math.PI/2);
+    [0,0.25,0.5,0.6,0.75,1.0].forEach(v=>{ctx.fillText(v.toFixed(2),PAD.left-8,ty(v)+4);});
+    ctx.save();ctx.translate(14,PAD.top+ph/2);ctx.rotate(-Math.PI/2);
     ctx.fillStyle='#888';ctx.textAlign='center';ctx.font='9px Space Mono,monospace';
-    ctx.fillText('供给驱动系数（Step 1 相关性）',0,0);
-    ctx.restore();
+    ctx.fillText('供给驱动系数（Step 1 Pearson r）',0,0);ctx.restore();
 
     // X axis
     ctx.fillStyle='#999';ctx.font='10px Space Mono,monospace';ctx.textAlign='center';
-    ['低','中','高'].forEach((l,i)=>ctx.fillText(l,tx(i===0?25:i===1?50:75),PAD.top+ph+32));
+    ['低','中','高'].forEach((l,i2)=>ctx.fillText(l,tx(i2===0?25:i2===1?50:75),PAD.top+ph+32));
     ctx.fillStyle='#888';ctx.font='9px Space Mono,monospace';
-    ctx.fillText('未覆盖需求量（缺口量）→',PAD.left+pw/2,PAD.top+ph+56);
+    ctx.fillText('未覆盖需求量（综合缺口量 = 搜索+阅读，越高 = 缺货越严重）→',PAD.left+pw/2,PAD.top+ph+52);
 
-    // bubbles
+    // bubbles（去重，只画一次）
+    const drawn=new Set();
     data.forEach(d=>{
+      const key=`${d.x},${d.y}`;
+      if(drawn.has(key))return;
+      drawn.add(key);
       const cx=tx(d.x),cy=ty(d.y),r=bR(d.gmv);
-      ctx.shadowColor='rgba(0,0,0,.14)';ctx.shadowBlur=10;
+      const colors={P0:'rgba(255,36,66,.85)',P1:'rgba(255,140,0,.85)',P2:'rgba(100,100,120,.7)','—':'rgba(150,150,150,.5)'};
+      ctx.shadowColor='rgba(0,0,0,.15)';ctx.shadowBlur=8;
       ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
-      ctx.fillStyle='rgba(255,36,66,.78)';ctx.fill();
+      ctx.fillStyle=colors[d.pri]||colors['—'];ctx.fill();
       ctx.shadowBlur=0;
       ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
       ctx.strokeStyle='rgba(255,255,255,.7)';ctx.lineWidth=1.5;ctx.stroke();
-      ctx.font='600 10px Manrope,sans-serif';
-      ctx.fillStyle='#333';ctx.textAlign='center';
-      ctx.fillText(d.name,cx,cy+r+13);
+      // label
+      const short=d.name.length>8?d.name.slice(0,7)+'…':d.name;
+      ctx.font='600 9px Manrope,sans-serif';ctx.fillStyle='#333';ctx.textAlign='center';
+      ctx.fillText(short,cx,cy+r+12);
     });
 
-    // hover
     canvas.onmousemove=evt=>{
       const rect=canvas.getBoundingClientRect();
-      const mx=(evt.clientX-rect.left)*pr,my2=(evt.clientY-rect.top)*pr;
+      const mx=evt.clientX-rect.left,my2=evt.clientY-rect.top;
       let hit=null;
+      const seen2=new Set();
       data.forEach(d=>{
-        const cx=tx(d.x)*pr,cy=ty(d.y)*pr,r=bR(d.gmv)*pr;
-        if(Math.hypot(mx-cx,my2-cy)<=r) hit=d;
+        const key=`${d.x},${d.y}`;
+        if(seen2.has(key))return;seen2.add(key);
+        const cx=tx(d.x),cy=ty(d.y),r=bR(d.gmv);
+        if(Math.hypot(mx-cx,my2-cy)<=r)hit=d;
       });
-      canvas.title=hit?`${hit.name}\n未覆盖需求量（归一化）：${hit.x}\n供给驱动系数（r）：${hit.y}\n站内累计GMV：${hit.gmv}亿\n优先级：${hit.label}`:'';
+      canvas.title=hit?`${hit.name}\n缺口量（归一化）: ${hit.x}\nStep1 r: ${hit.y}\nGMV: ${hit.gmv}亿\n优先级: ${hit.pri}`:'';
       canvas.style.cursor=hit?'pointer':'default';
     };
+
+    // 图例
+    const lx=PAD.left+4,ly=PAD.top+6;
+    [['P0','rgba(255,36,66,.85)'],['P1','rgba(255,140,0,.85)'],['P2','rgba(100,100,120,.7)'],['—','rgba(150,150,150,.5)']].forEach((item,i2)=>{
+      ctx.beginPath();ctx.arc(lx+i2*58,ly+5,5,0,Math.PI*2);ctx.fillStyle=item[1];ctx.fill();
+      ctx.font='10px Manrope';ctx.fillStyle='#555';ctx.textAlign='left';
+      ctx.fillText(item[0],lx+i2*58+8,ly+9);
+    });
   }
-  draw();
-  window.addEventListener('resize',draw);
+  draw();window.addEventListener('resize',draw);
 })();
 
-// ── P7 Table ──
+// ── P7 Appendix Table ──
 (function(){
-const P7DATA=[{"cat1":"保健食品/膳食营养补充食品","cat4":"其他膳食营养补充剂","r":0.9806,"total_gmv":140115177.17,"avg_sku":3324,"latest_sku":3064},{"cat1":"保健食品/膳食营养补充食品","cat4":"益生菌","r":0.3490,"total_gmv":51480272.75,"avg_sku":1682,"latest_sku":1642},{"cat1":"保健食品/膳食营养补充食品","cat4":"海外保健体重管理","r":0.9856,"total_gmv":26044954.87,"avg_sku":474,"latest_sku":429},{"cat1":"保健食品/膳食营养补充食品","cat4":"鱼油/深海鱼油","r":0.7144,"total_gmv":25089012.62,"avg_sku":838,"latest_sku":825},{"cat1":"保健食品/膳食营养补充食品","cat4":"普通植物提取物","r":0.9889,"total_gmv":18356466.28,"avg_sku":712,"latest_sku":673},{"cat1":"保健食品/膳食营养补充食品","cat4":"复合维生素/矿物质","r":0.7133,"total_gmv":17869570.38,"avg_sku":909,"latest_sku":878},{"cat1":"保健食品/膳食营养补充食品","cat4":"胶原蛋白","r":0.9517,"total_gmv":17813791.02,"avg_sku":529,"latest_sku":519},{"cat1":"保健食品/膳食营养补充食品","cat4":"钙铁锌/钙镁","r":0.8414,"total_gmv":14293138.05,"avg_sku":575,"latest_sku":559},{"cat1":"保健食品/膳食营养补充食品","cat4":"维生素D","r":0.9048,"total_gmv":14078775.68,"avg_sku":339,"latest_sku":335},{"cat1":"保健食品/膳食营养补充食品","cat4":"玫瑰提取物/玫瑰精油","r":-0.2920,"total_gmv":12931422.24,"avg_sku":57,"latest_sku":53},{"cat1":"保健食品/膳食营养补充食品","cat4":"叶黄素/蓝莓/越橘提取物","r":0.9492,"total_gmv":12320529.07,"avg_sku":317,"latest_sku":238},{"cat1":"保健食品/膳食营养补充食品","cat4":"口服美容营养品","r":0.4082,"total_gmv":11575045.80,"avg_sku":302,"latest_sku":254},{"cat1":"保健食品/膳食营养补充食品","cat4":"锌/铁/硒","r":0.9913,"total_gmv":10591342.17,"avg_sku":386,"latest_sku":359},{"cat1":"保健食品/膳食营养补充食品","cat4":"肽类","r":0.5514,"total_gmv":9564564.08,"avg_sku":157,"latest_sku":140},{"cat1":"保健食品/膳食营养补充食品","cat4":"辅酶Q10","r":0.8303,"total_gmv":8346646.64,"avg_sku":372,"latest_sku":383},{"cat1":"保健食品/膳食营养补充食品","cat4":"果蔬膳食纤维/白芸豆提取物","r":0.3946,"total_gmv":8190394.85,"avg_sku":306,"latest_sku":276},{"cat1":"保健食品/膳食营养补充食品","cat4":"B族维生素","r":0.7949,"total_gmv":6550113.43,"avg_sku":383,"latest_sku":365},{"cat1":"保健食品/膳食营养补充食品","cat4":"蓟类","r":0.8562,"total_gmv":5634959.30,"avg_sku":116,"latest_sku":103},{"cat1":"保健食品/膳食营养补充食品","cat4":"氨糖软骨素/骨胶原","r":0.3640,"total_gmv":4153803.59,"avg_sku":155,"latest_sku":151},{"cat1":"保健食品/膳食营养补充食品","cat4":"奶蓟草","r":0.1701,"total_gmv":3955385.51,"avg_sku":207,"latest_sku":181},{"cat1":"保健食品/膳食营养补充食品","cat4":"海外保健机能即饮","r":0.9638,"total_gmv":3698891.33,"avg_sku":89,"latest_sku":76},{"cat1":"保健食品/膳食营养补充食品","cat4":"膳食补充剂型饮料","r":0.3208,"total_gmv":3592273.56,"avg_sku":152,"latest_sku":161},{"cat1":"保健食品/膳食营养补充食品","cat4":"DHA/EPA/DPA亚麻酸","r":0.9757,"total_gmv":3161228.10,"avg_sku":89,"latest_sku":88},{"cat1":"保健食品/膳食营养补充食品","cat4":"维生素C","r":0.9596,"total_gmv":3029555.03,"avg_sku":300,"latest_sku":284},{"cat1":"保健食品/膳食营养补充食品","cat4":"特殊用途饮料","r":0.8313,"total_gmv":2563138.96,"avg_sku":26,"latest_sku":25},{"cat1":"保健食品/膳食营养补充食品","cat4":"乳清蛋白","r":0.6576,"total_gmv":2497894.15,"avg_sku":158,"latest_sku":161},{"cat1":"保健食品/膳食营养补充食品","cat4":"大豆异黄酮","r":0.3364,"total_gmv":2152590.68,"avg_sku":78,"latest_sku":74},{"cat1":"保健食品/膳食营养补充食品","cat4":"灵芝/参类/石斛提取物","r":-0.9131,"total_gmv":2101501.02,"avg_sku":86,"latest_sku":92},{"cat1":"保健食品/膳食营养补充食品","cat4":"钙镁锌","r":0.9802,"total_gmv":2099507.54,"avg_sku":93,"latest_sku":90},{"cat1":"保健食品/膳食营养补充食品","cat4":"酵素","r":0.9105,"total_gmv":2058956.23,"avg_sku":112,"latest_sku":103},{"cat1":"保健食品/膳食营养补充食品","cat4":"海外保健机能软糖","r":0.8627,"total_gmv":2057988.85,"avg_sku":119,"latest_sku":128},{"cat1":"保健食品/膳食营养补充食品","cat4":"骨胶原蛋白","r":-0.5452,"total_gmv":2036747.64,"avg_sku":71,"latest_sku":65},{"cat1":"保健食品/膳食营养补充食品","cat4":"氨基酸/支链氨基酸/谷氨酰胺","r":0.3609,"total_gmv":1928691.12,"avg_sku":109,"latest_sku":114},{"cat1":"保健食品/膳食营养补充食品","cat4":"褪黑素/γ-氨基丁酸/圣约翰草","r":0.0851,"total_gmv":1839862.88,"avg_sku":151,"latest_sku":131},{"cat1":"保健食品/膳食营养补充食品","cat4":"纳豆提取物","r":0.5224,"total_gmv":1760772.91,"avg_sku":25,"latest_sku":22},{"cat1":"保健食品/膳食营养补充食品","cat4":"其它植物提取物","r":0.5019,"total_gmv":1693354.36,"avg_sku":118,"latest_sku":118},{"cat1":"保健食品/膳食营养补充食品","cat4":"PQQ/吡咯喹啉醌","r":0.0870,"total_gmv":1658362.06,"avg_sku":36,"latest_sku":39},{"cat1":"保健食品/膳食营养补充食品","cat4":"NAD+前体营养补充剂","r":0.7505,"total_gmv":1534894.53,"avg_sku":62,"latest_sku":53},{"cat1":"OTC药品/国际医药","cat4":"白发脱发","r":0.9384,"total_gmv":1406258.87,"avg_sku":210,"latest_sku":191},{"cat1":"保健食品/膳食营养补充食品","cat4":"越橘/蓝莓提取物","r":0.9579,"total_gmv":1404153.40,"avg_sku":99,"latest_sku":67},{"cat1":"保健食品/膳食营养补充食品","cat4":"大豆分离蛋白/混合蛋白","r":0.8888,"total_gmv":1399330.81,"avg_sku":69,"latest_sku":80},{"cat1":"保健食品/膳食营养补充食品","cat4":"泛醇/泛醌/辅酶Q10","r":-0.7453,"total_gmv":1386354.16,"avg_sku":55,"latest_sku":50},{"cat1":"保健食品/膳食营养补充食品","cat4":"左旋肉碱","r":0.6790,"total_gmv":1344207.47,"avg_sku":70,"latest_sku":69},{"cat1":"保健食品/膳食营养补充食品","cat4":"保健品饮品","r":0.9562,"total_gmv":1304567.53,"avg_sku":18,"latest_sku":14},{"cat1":"保健食品/膳食营养补充食品","cat4":"胃部益生菌","r":0.0449,"total_gmv":1280894.88,"avg_sku":41,"latest_sku":38},{"cat1":"保健食品/膳食营养补充食品","cat4":"医学配方营养品","r":0.3540,"total_gmv":1219810.15,"avg_sku":57,"latest_sku":53},{"cat1":"保健食品/膳食营养补充食品","cat4":"DHA/EPA/DPA","r":0.4846,"total_gmv":1218335.09,"avg_sku":53,"latest_sku":59},{"cat1":"保健食品/膳食营养补充食品","cat4":"维生素/矿物质/营养包","r":-0.4515,"total_gmv":1195779.28,"avg_sku":116,"latest_sku":129},{"cat1":"保健食品/膳食营养补充食品","cat4":"蔓越莓","r":0.3287,"total_gmv":1117880.01,"avg_sku":83,"latest_sku":75},{"cat1":"保健食品/膳食营养补充食品","cat4":"茶多酚/茶类","r":0.5395,"total_gmv":1032759.69,"avg_sku":22,"latest_sku":23},{"cat1":"保健食品/膳食营养补充食品","cat4":"钙铁锌","r":-0.5606,"total_gmv":1025722.67,"avg_sku":58,"latest_sku":53},{"cat1":"保健食品/膳食营养补充食品","cat4":"葡萄籽提取物","r":0.8926,"total_gmv":870089.30,"avg_sku":78,"latest_sku":65},{"cat1":"保健食品/膳食营养补充食品","cat4":"镁","r":0.7948,"total_gmv":831773.80,"avg_sku":47,"latest_sku":49},{"cat1":"保健食品/膳食营养补充食品","cat4":"叶黄素","r":-0.0937,"total_gmv":806784.78,"avg_sku":53,"latest_sku":55},{"cat1":"保健食品/膳食营养补充食品","cat4":"褪黑素/γ-氨基丁酸","r":-0.0289,"total_gmv":732746.51,"avg_sku":75,"latest_sku":71},{"cat1":"保健食品/膳食营养补充食品","cat4":"蛋白棒","r":0.3414,"total_gmv":724131.01,"avg_sku":49,"latest_sku":57},{"cat1":"保健食品/膳食营养补充食品","cat4":"γ-氨基丁酸","r":0.8117,"total_gmv":700174.30,"avg_sku":13,"latest_sku":10},{"cat1":"保健食品/膳食营养补充食品","cat4":"螺旋藻/藻类提取物","r":0.6750,"total_gmv":628438.96,"avg_sku":27,"latest_sku":28},{"cat1":"保健食品/膳食营养补充食品","cat4":"虾青素","r":0.8203,"total_gmv":607912.61,"avg_sku":76,"latest_sku":57},{"cat1":"保健食品/膳食营养补充食品","cat4":"生物素","r":0.6661,"total_gmv":496112.09,"avg_sku":53,"latest_sku":44},{"cat1":"保健食品/膳食营养补充食品","cat4":"海外保健运动修复","r":0.7774,"total_gmv":486348.00,"avg_sku":16,"latest_sku":19},{"cat1":"保健食品/膳食营养补充食品","cat4":"姜黄素","r":0.8786,"total_gmv":463467.04,"avg_sku":39,"latest_sku":39},{"cat1":"OTC药品/国际医药","cat4":"抗菌消炎","r":0.1886,"total_gmv":462696.62,"avg_sku":249,"latest_sku":230},{"cat1":"OTC药品/国际医药","cat4":"癣症","r":0.2857,"total_gmv":437075.57,"avg_sku":235,"latest_sku":226},{"cat1":"OTC药品/国际医药","cat4":"安神补脑","r":0.7834,"total_gmv":407165.54,"avg_sku":187,"latest_sku":177},{"cat1":"保健食品/膳食营养补充食品","cat4":"铁","r":0.8004,"total_gmv":398872.53,"avg_sku":53,"latest_sku":56},{"cat1":"保健食品/膳食营养补充食品","cat4":"氨糖软骨素","r":0.9443,"total_gmv":351000.12,"avg_sku":32,"latest_sku":40},{"cat1":"保健食品/膳食营养补充食品","cat4":"叶酸","r":0.7273,"total_gmv":342200.52,"avg_sku":67,"latest_sku":75},{"cat1":"保健食品/膳食营养补充食品","cat4":"银杏/人参银杏","r":0.9200,"total_gmv":306465.62,"avg_sku":31,"latest_sku":28},{"cat1":"OTC药品/国际医药","cat4":"健脾益肾","r":0.9704,"total_gmv":279381.89,"avg_sku":136,"latest_sku":105},{"cat1":"保健食品/膳食营养补充食品","cat4":"维生素E","r":0.6182,"total_gmv":265704.67,"avg_sku":38,"latest_sku":38},{"cat1":"保健食品/膳食营养补充食品","cat4":"参类提取物","r":0.9054,"total_gmv":226494.49,"avg_sku":11,"latest_sku":9},{"cat1":"保健食品/膳食营养补充食品","cat4":"抗糖/寡糖/低聚糖/低GI","r":0.6199,"total_gmv":209669.73,"avg_sku":37,"latest_sku":39},{"cat1":"OTC药品/国际医药","cat4":"皮脂汗腺","r":0.8740,"total_gmv":208433.91,"avg_sku":110,"latest_sku":92},{"cat1":"OTC药品/国际医药","cat4":"眼","r":0.9675,"total_gmv":193922.21,"avg_sku":124,"latest_sku":113},{"cat1":"保健食品/膳食营养补充食品","cat4":"氨基葡萄糖","r":0.9917,"total_gmv":109649.37,"avg_sku":27,"latest_sku":25}];
+const P7DATA=[{"cat4": "更多成分营养品", "ops_cat4": "其他膳食营养补充剂", "r": 0.981, "gmv": 14012, "sku": 3324, "gap": 10638303, "cnt": 208, "spus": ["京都念慈菴无糖枇杷润", "Nutrition29磷虾油", "FANCL HealthScience热控片", "樂道NOTO脑活素"]}, {"cat4": "肠胃/广谱益生菌", "ops_cat4": "益生菌", "r": 0.349, "gmv": 5148, "sku": 1682, "gap": 8087219, "cnt": 87, "spus": ["兰骑士双子星益生菌", "FANCL HealthScience内脂支", "Losoki AKK益生菌", "舒伯特金护卫益生菌"]}, {"cat4": "钙元素（成人）", "ops_cat4": "钙铁锌/钙镁", "r": 0.841, "gmv": 1429, "sku": 575, "gap": 8039870, "cnt": 38, "spus": ["健敏思赖氨酸钙镁锌PLUS", "妈妈花园任我行液体钙", "Groupcare赖氨酸成长液体钙", "爱乐维儿童液体钙"]}, {"cat4": "普通矿维&综合营养品", "ops_cat4": "复合维生素/矿物质", "r": 0.713, "gmv": 1787, "sku": 909, "gap": 6427282, "cnt": 38, "spus": ["DOCTOR’S BEST多特倍斯甘氨酸镁片", "健美生维生素D3 2,500IU软胶囊", "AAYW儿童维生素D3软胶囊", "Ddrops儿童维生素AD滴剂"]}, {"cat4": "鱼油", "ops_cat4": "鱼油/深海鱼油", "r": 0.714, "gmv": 2509, "sku": 838, "gap": 6241291, "cnt": 33, "spus": ["Swisse高纯度鱼油+辅酶Q10软胶囊", "纽益宝小文曲鱼油", "inne iFocus DHA", "Candy care鱼油"]}, {"cat4": "复合维生素", "ops_cat4": "复合维生素/矿物质", "r": 0.713, "gmv": 1787, "sku": 909, "gap": 5733575, "cnt": 46, "spus": ["FANCL HealthScience 30", "Amerrition苏糖酸镁缓压片", "TLAMEE维生素ADK滴剂", "minayo复合维生素胶原蛋白软糖"]}, {"cat4": "叶黄素", "ops_cat4": "叶黄素/蓝莓/越橘提取物", "r": 0.949, "gmv": 1232, "sku": 317, "gap": 5114210, "cnt": 47, "spus": ["inne视立棒护眼饮", "Nutrition29叶黄素护眼胶囊", "Youthit叶黄素护眼片套装", "爱乐维3段含哺乳期专用叶酸DHA叶黄素维生素"]}, {"cat4": "燕窝", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 4753452, "cnt": 13, "spus": ["小仙炖鲜炖燕窝礼盒", "小仙炖晶萃燕窝礼盒", "东阿阿胶即食燕窝", "燕之屋碗燕"]}, {"cat4": "滋养食补", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 4609931, "cnt": 21, "spus": ["劲牌中国劲酒", "妈妈花园西梅汁", "百岁菌方白蛋白肽食用菌复合菌饮", "爱茉莉内可美绿茶片"]}, {"cat4": "避孕类", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 4406981, "cnt": 1, "spus": ["优思明屈螺酮炔雌醇片"]}, {"cat4": "藻油", "ops_cat4": "鱼油/深海鱼油", "r": 0.714, "gmv": 2509, "sku": 838, "gap": 3813135, "cnt": 29, "spus": ["Swisse儿童藻油DHA+叶黄素软胶囊", "倍顿DHA藻油凝胶糖果", "童年故事倍启智复合磷脂酰丝氨酸凝胶糖果", "VPFAY复合神经酸DHA胶囊"]}, {"cat4": "铁元素", "ops_cat4": "锌/铁/硒", "r": 0.991, "gmv": 1059, "sku": 386, "gap": 3718039, "cnt": 22, "spus": ["Losoki 补铁片", "AAYW富铁软胶囊", "PERDAYS液体铁", "DOBO微囊铁口溶膜"]}, {"cat4": "奶蓟/草蓟类", "ops_cat4": "蓟类", "r": 0.856, "gmv": 563, "sku": 116, "gap": 3212762, "cnt": 20, "spus": ["Losoki护肝片", "AAYW水飞蓟片", "Nutrition29奶蓟草胶囊", "汤臣倍健白月光护肝片"]}, {"cat4": "彩色隐形眼镜", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 2864527, "cnt": 23, "spus": ["INYX光感系列半年抛美瞳", "INYX灵感系列半年抛美瞳", "Moody LINE FRIENDS联名系列", "可啦啦光感千禧系列半年抛美瞳"]}, {"cat4": "泛醇/泛醌/辅酶Q10", "ops_cat4": "辅酶Q10", "r": 0.83, "gmv": 835, "sku": 372, "gap": 2849364, "cnt": 22, "spus": ["天维美辅酶Q10液体软胶囊", "Losoki还原型辅酶Q10胶囊", "Puritan's Pride辅酶Q10胶囊", "Docbase辅酶Q10胶囊"]}, {"cat4": "皮肤类用药", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 2708591, "cnt": 23, "spus": ["百多邦莫匹罗星软膏", "百多邦阿达帕林凝胶", "信龙炉甘石洗剂", "达克宁硝酸咪康唑散"]}, {"cat4": "腹泻药", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 2624481, "cnt": 3, "spus": ["丁桂儿脐贴", "康恩贝肠炎宁片", "康恩贝肠炎宁颗粒"]}, {"cat4": "玛卡/玛咖", "ops_cat4": "普通植物提取物", "r": 0.989, "gmv": 1836, "sku": 712, "gap": 2610672, "cnt": 9, "spus": ["欧林兰玛咖片", "OBLUE男士焕能片", "granions玛咖胶囊", "汤臣倍健男性OK片"]}, {"cat4": "免疫力蛋白粉", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 2386116, "cnt": 15, "spus": ["雅培全安素", "CPT康比特炽金耐力运动营养粉", "汤臣倍健复合蛋白粉固体饮料", "雀巢健康科学蛋白补乳清蛋白质粉"]}, {"cat4": "感冒发烧类", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 2333183, "cnt": 6, "spus": ["快克复方氨酚烷胺胶囊", "999小儿感冒颗粒", "小快克小儿氨酚黄那敏颗粒", "新康泰克氨酚咖那敏片"]}, {"cat4": "其他", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 1929028, "cnt": 32, "spus": ["意可贴醋酸地塞米松口腔贴片", "稳健创面消毒喷雾", "QLANE赖氨酸成长片", "Hansaplast防水创可贴"]}, {"cat4": "花胶/鱼胶", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 1770000, "cnt": 5, "spus": ["官栈致爱芳菲鲜炖花胶礼盒", "官栈花胶全家福礼盒", "官栈花胶粥", "官栈深海黄花鱼胶"]}, {"cat4": "补充能量类", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 1561449, "cnt": 6, "spus": ["三精复方葡萄糖酸钙口服溶液", "星鲨维生素AD滴剂", "双鲸葡萄糖酸钙锌口服溶液", "双鲸儿童维生素D滴剂"]}, {"cat4": "白芸豆", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 1501243, "cnt": 7, "spus": ["万益蓝WONDERLAB餐前控控片压片糖果", "CareColor白芸豆碳水阻断片", "Docbase超模饮", "Docbase纤体饮"]}, {"cat4": "锌元素", "ops_cat4": "锌/铁/硒", "r": 0.991, "gmv": 1059, "sku": 386, "gap": 1479278, "cnt": 8, "spus": ["三精葡萄糖酸锌口服溶液", "善存多种维生素加锌软糖", "诺特兰德山楂鸡内金锌多维直饮包", "健敏思螯合锌滴剂"]}, {"cat4": "血糖仪及配件", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 1425821, "cnt": 10, "spus": ["雅培血糖仪", "可孚动态血糖仪", "三诺血压计", "三诺血脂检测仪"]}, {"cat4": "补气益血类", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 1348202, "cnt": 7, "spus": ["东阿阿胶复方阿胶浆口服液", "小葵花芪斛楂颗粒", "康祺解郁丸", "万秘堂归脾液"]}, {"cat4": "阿胶", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 1224762, "cnt": 8, "spus": ["桃花姬阿胶糕", "东阿阿胶阿胶黄芪粉", "古唯元阿胶糕", "太极阿胶植萃饮"]}, {"cat4": "氨基酸", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 1034666, "cnt": 7, "spus": ["兰骑士双子星赖氨酸", "益高泉γ-氨基丁酸益生元复合饮", "Biowell白诺优麦角硫因", "OLYDE赖氨酸儿童成长冲剂"]}, {"cat4": "膳食纤维", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 995309, "cnt": 12, "spus": ["CareColor高能燃脂胶囊", "纽特舒玛水溶性膳食纤维粉", "Marvel Health西梅芭", "悦基因共轭亚油酸软胶囊"]}, {"cat4": "维生素C", "ops_cat4": "维生素C", "r": 0.96, "gmv": 303, "sku": 300, "gap": 963345, "cnt": 8, "spus": ["力度伸维生素c泡腾片", "vpfay维生素C饮", "轻元素维生素地中海沙拉", "Biowell红酒多酚美白丸"]}, {"cat4": "止痛药", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 953153, "cnt": 3, "spus": ["芬必得精氨酸布洛芬颗粒", "泰诺对乙酰氨基酚缓释片", "芬必得布洛芬咀嚼片"]}, {"cat4": "鼻炎类用药", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 948742, "cnt": 4, "spus": ["辅舒良丙酸氟替卡松鼻喷雾剂", "息斯敏氯雷他定片", "息斯敏氯雷他定片（18片）", "仲景玉屏风口服液"]}, {"cat4": "乳铁蛋白", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 877824, "cnt": 7, "spus": ["Inne第一防线乳铁蛋白", "童年故事水解乳清蛋白调制乳粉", "莫兰卡乳铁蛋白紫罐版", "莫兰卡乳铁蛋白免疫骑士"]}, {"cat4": "胶原蛋白", "ops_cat4": "胶原蛋白", "r": 0.952, "gmv": 1781, "sku": 529, "gap": 832974, "cnt": 29, "spus": ["健安喜极光焕颜包", "Swisse y-氨基丁酸胶原蛋白饮料", "妍膳美胶原蛋白肽果味饮", "Unichi玫瑰胶原蛋白小熊软糖"]}, {"cat4": "理疗仪/理疗灯", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 815665, "cnt": 3, "spus": ["澜渟T20盆底肌修复仪", "躬之眠颈椎理疗器", "雅致盆底肌治疗仪"]}, {"cat4": "硒元素/铜元素", "ops_cat4": "锌/铁/硒", "r": 0.991, "gmv": 1059, "sku": 386, "gap": 814993, "cnt": 15, "spus": ["月神麦芽硒", "Docbase有机植物硒", "Pure Encapsulations硒代甲", "pcw硒片"]}, {"cat4": "复合矿物质", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 758290, "cnt": 15, "spus": ["玛特纳孕妇多种维生素矿物质片", "星鲨百合康牌钙铁锌口服液", "BECHI植物优甲素", "正官庄肝健康片"]}, {"cat4": "胃药", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 741371, "cnt": 7, "spus": ["丽珠得乐枸橼酸铋钾胶囊", "三九胃泰养胃舒颗粒", "葵花药业胃康灵胶囊", "999气滞胃痛颗粒"]}, {"cat4": "呼吸机", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 721831, "cnt": 12, "spus": ["可孚呼吸机", "家瑞康雾化器", "稳健洗鼻器", "肤研坊医用抗鼻腔过敏凝胶"]}, {"cat4": "磷虾油", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 717723, "cnt": 10, "spus": ["Swisse高强度深海磷虾油胶囊", "VIVA Naturals专业级南极磷虾油", "VIKPRO南极磷虾油", "Vinsic南极磷虾油胶囊"]}, {"cat4": "抗病毒类用药", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 645039, "cnt": 1, "spus": ["丽珠抗病毒颗粒"]}, {"cat4": "安全套（避孕套）", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 592637, "cnt": 8, "spus": ["名流医用玻尿酸超薄避孕套", "杜蕾斯黄油饼干避孕套礼盒", "大象重组胶原蛋白避孕套", "冈本粉润超薄避孕套"]}, {"cat4": "氨糖", "ops_cat4": "氨糖软骨素", "r": 0.944, "gmv": 35, "sku": 32, "gap": 490930, "cnt": 15, "spus": ["Losoki氨糖软骨素", "益节男士多维氨糖", "健力多氨糖硫酸软骨素胶原蛋白肽片", "健力多氨糖硫酸软骨素钙片"]}, {"cat4": "肌醇", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 475960, "cnt": 1, "spus": ["少女泉肌醇"]}, {"cat4": "男性保健营养品", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 435013, "cnt": 2, "spus": ["Docbase超级男人", "OXYENERGY男士精氨酸胶囊"]}, {"cat4": "灵芝/孢子粉", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 388974, "cnt": 6, "spus": ["Vinsic灵芝孢子油", "plameca灵芝免疫胶囊", "雷允上甜梦夜空酸枣仁灵芝膏", "Vinsic五色灵芝孢子粉"]}, {"cat4": "维生素K", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 378474, "cnt": 1, "spus": ["星鲨D维生素K软胶囊"]}, {"cat4": "消化药", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 375901, "cnt": 1, "spus": ["达喜复方消化酶胶囊"]}, {"cat4": "透明隐形眼镜", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 362419, "cnt": 3, "spus": ["美若康蓝氧系列日抛隐形眼镜", "PienAge小水滴日抛隐形眼镜", "实瞳幻樱s透明系列日抛隐形眼镜"]}, {"cat4": "姜黄素", "ops_cat4": "姜黄素", "r": 0.879, "gmv": 46, "sku": 39, "gap": 343456, "cnt": 7, "spus": ["Organika姜黄素胶囊", "FANCL HealthScience姜黄革", "健生湾高活性BCM-95姜黄素胶囊", "天维美姜黄葛根枳椇子软糖"]}, {"cat4": "医用面部敷料", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 324898, "cnt": 35, "spus": ["VAVK医用疤痕贴", "稳健创面敷贴", "肤研坊卡波姆痔疮凝胶", "稳健硅酮疤痕凝胶"]}, {"cat4": "ps（磷脂酰丝氨酸）", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 324269, "cnt": 1, "spus": ["Biowell PHOSPHATIDYLSE"]}, {"cat4": "叶酸", "ops_cat4": "叶酸", "r": 0.727, "gmv": 34, "sku": 67, "gap": 316013, "cnt": 6, "spus": ["PURE ENCAPSULATIONS活性叶", "雀巢MOM叶酸DHA营养胶囊", "Holdbody还元型叶酸", "PERDAY’S男士备孕多维"]}, {"cat4": "助听器", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 311229, "cnt": 2, "spus": ["自然之声助听器", "挚听助听器"]}, {"cat4": "维生素B", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 176074, "cnt": 2, "spus": ["DOBO维生素B族", "Trace生物素滴剂"]}, {"cat4": "参类", "ops_cat4": "参类提取物", "r": 0.905, "gmv": 23, "sku": 11, "gap": 175728, "cnt": 16, "spus": ["维特健灵人参暖暖蜜", "indie pure血蛋白多肽人参饮品", "寿仙谷武香牌灵芝人参片", "正官庄西洋参浆"]}, {"cat4": "褪黑素", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 172761, "cnt": 21, "spus": ["STADA甜睡口腔喷雾", "DOBO睡眠软糖", "OLLY柠檬香蜂草睡眠片", "安维力褪黑素闪睡舌下喷雾"]}, {"cat4": "冬虫夏草", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 169637, "cnt": 2, "spus": ["阿依舍野生冬虫夏草", "阿依舍 头茬冬虫夏草"]}, {"cat4": "防护护具", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 157906, "cnt": 4, "spus": ["振德治疗袜", "brieye护眼湿巾", "济百珍止汗露", "穆一堂甲状腺型医用退热凝胶"]}, {"cat4": "DHA/EPA/DPA", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 152122, "cnt": 2, "spus": ["comefu DHA 藻油软胶囊", "古德海兹小学霸DHA叶黄素"]}, {"cat4": "成人皮肤类用药", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 143585, "cnt": 1, "spus": ["美能迪克林霉素甲硝唑搽剂"]}, {"cat4": "谷胱甘肽", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 97107, "cnt": 7, "spus": ["Losoki美白丸", "欧林兰水光抗糖片", "Moslate焕龄驻颜饮", "EnerVite焕白片"]}, {"cat4": "腰椎按摩", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 92772, "cnt": 2, "spus": ["最右K5腰部按摩仪", "CVKOD AVS-M2按摩靠垫"]}, {"cat4": "大豆异黄酮", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 89598, "cnt": 4, "spus": ["Redhalo大豆异黄酮软胶囊", "ZUCCARI少女回巢饮", "因达基益天健牌大豆异黄酮胶囊", "Fakiro大豆异黄酮胶囊"]}, {"cat4": "妇科用药", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 87926, "cnt": 3, "spus": ["花红金松止痒洗液", "999康妇特硝呋太尔制霉素阴道软胶囊", "丽安婷克霉唑栓"]}, {"cat4": "孕产护理", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 71824, "cnt": 2, "spus": ["医贝诺经皮黄疸检测仪", "澜渟盆底康复治疗仪"]}, {"cat4": "薏仁", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 66047, "cnt": 1, "spus": ["Return回本汉方研美祛湿"]}, {"cat4": "生物素", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 58717, "cnt": 7, "spus": ["VPFAY生物素饮", "JELECO角蛋白生物素", "Redhalo生物素氨基酸复合片", "AAYW生物素胶囊"]}, {"cat4": "喉咙类用药", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 51634, "cnt": 8, "spus": ["新康泰克愈美片", "修正清凉含片", "OliOli远红外小儿止咳贴", "vipcost草药植物喷雾"]}, {"cat4": "拔罐器具", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 37439, "cnt": 1, "spus": ["欧姆龙温灸仪"]}, {"cat4": "nmn", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 35245, "cnt": 2, "spus": ["宝芝林PQQ童颜丸", "SVNLO康诺NMN胶囊"]}, {"cat4": "牛初乳", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 25345, "cnt": 2, "spus": ["TMG天美健乃捷尔初乳素胶囊", "美赞臣乳铁蛋白牛初乳粉"]}, {"cat4": "女性益生菌", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 24280, "cnt": 2, "spus": ["Bio-E女性益生菌果糖", "WonderLab蔓越莓女性益生菌胶囊"]}, {"cat4": "蜂蜜/枸杞", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 21690, "cnt": 2, "spus": ["维特健灵多莓PUPU蜜", "BECHI蜂胶活力营养液"]}, {"cat4": "眼部用药", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 20242, "cnt": 1, "spus": ["莎普爱思玻璃酸钠滴眼液"]}, {"cat4": "口腔益生菌", "ops_cat4": "益生菌", "r": 0.349, "gmv": 5148, "sku": 1682, "gap": 18249, "cnt": 6, "spus": ["Unichi口腔益生菌微泡腾片", "雅培乳果糖口服溶液", "NATURES ANSWER好分贝K12咽喉", "五个女博士口香益生菌微泡片"]}, {"cat4": "生发类", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 15711, "cnt": 3, "spus": ["斯必申米诺地尔搽剂", "左点生发仪", "青丝几何米诺地尔搽剂"]}, {"cat4": "酵素", "ops_cat4": "酵素", "r": 0.911, "gmv": 206, "sku": 112, "gap": 15179, "cnt": 3, "spus": ["汤臣倍健酵素pupu饮", "湘普诺康白芸豆西梅饮组合", "湘普诺康柑橘白芸豆多肽饮"]}, {"cat4": "日常防护", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 15005, "cnt": 1, "spus": ["稳健儿童卫生口罩"]}, {"cat4": "轮椅", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 12675, "cnt": 3, "spus": ["护卫神防护护具轮椅HG-W76003", "护卫神防护护具轮椅xk630", "护卫神防护护具轮椅W680"]}, {"cat4": "番茄红素", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 10834, "cnt": 2, "spus": ["ME TODAY日夜纯白缪斯套盒", "欧林兰番茄石榴复合片"]}, {"cat4": "私处护理", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 7703, "cnt": 5, "spus": ["杰士邦抗HPV生物蛋白敷料", "凯睿海恩洛莓萃复合粉", "海洋秘密医用妇科凝胶", "XL·S SOSO LABO爱可丝外用益生菌"]}, {"cat4": "虾青素/花青素", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 6599, "cnt": 3, "spus": ["Kynd A1虾青素胶囊", "OXYENERGY双抗虾青素胶囊", "悦基因虾青素胶囊"]}, {"cat4": "减肥益生菌", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 4830, "cnt": 1, "spus": ["菌小宝轻妙益生菌固体饮料"]}, {"cat4": "左旋肉碱", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 4601, "cnt": 1, "spus": ["Recon闪瘦片"]}, {"cat4": "冷热敷器具", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 4031, "cnt": 1, "spus": ["杜蕾斯蒸汽眼罩"]}, {"cat4": "维生素E", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 3668, "cnt": 2, "spus": ["来益维生素E软胶囊", "Minicoo维生素E软胶囊"]}, {"cat4": "黄芪当归", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 3623, "cnt": 1, "spus": ["999黄芪精"]}, {"cat4": "陈皮", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 2105, "cnt": 1, "spus": ["雷允上莱菔子鸡内金山楂膏"]}, {"cat4": "雾化器", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 1123, "cnt": 1, "spus": ["鱼跃压缩空气式雾化器"]}, {"cat4": "三七", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 993, "cnt": 1, "spus": ["999七丹牌三七提取物软胶囊"]}, {"cat4": "袋鼠精/精氨酸/牡蛎精/淫羊藿/瓜氨酸", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 898, "cnt": 2, "spus": ["EnerVite生蚝精华胶囊", "莫科隆牡蛎片"]}, {"cat4": "全身按摩", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 719, "cnt": 1, "spus": ["cvkod筋膜枪"]}, {"cat4": "居家检测", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 624, "cnt": 1, "spus": ["致卿HPV试纸"]}, {"cat4": "伤口敷料", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 455, "cnt": 1, "spus": ["葆顺堂疤痕修复贴"]}, {"cat4": "螺旋藻", "ops_cat4": "螺旋藻/藻类提取物", "r": 0.675, "gmv": 63, "sku": 27, "gap": 433, "cnt": 1, "spus": ["999祥和牌银螺胶囊"]}, {"cat4": "中医保健", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 182, "cnt": 1, "spus": ["正商远红外贴"]}, {"cat4": "卵磷脂/大豆卵磷脂", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 171, "cnt": 1, "spus": ["康麦斯大豆卵磷脂软胶囊"]}, {"cat4": "烟酰胺", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 5, "cnt": 1, "spus": ["puriely水晶白番茄胶囊"]}, {"cat4": "鹿茸", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 0, "cnt": 1, "spus": ["老谷头马鹿干鹿茸片"]}, {"cat4": "月见草", "ops_cat4": "", "r": null, "gmv": null, "sku": null, "gap": 0, "cnt": 1, "spus": ["pcw月见草油"]}];
 
 function p7Label(r){
-  if(r===null||r===undefined)return['❓','数据不足','#888','other'];
+  if(r===null||r===undefined)return['—','无数据','#888','na'];
   if(r>=0.6)return['✅','强供给驱动','#22c55e','strong'];
   if(r>=0.3)return['🟡','弱相关','#f59e0b','weak'];
   return['❌','非供给瓶颈','#ef4444','no'];
 }
-let p7SortKey='gmv',p7SortDir=-1;
-window.p7Sort=function(k){
-  if(p7SortKey===k)p7SortDir*=-1;else{p7SortKey=k;p7SortDir=-1;}
-  ['r','gmv','sku'].forEach(x=>{
-    const el=document.getElementById('p7th-'+x);
-    if(el)el.style.color=x===k?'#FF2442':'#888';
-  });
-  p7Render();
-};
+
+let p7SortKey='gap';
 function p7Render(){
   const q=(document.getElementById('p7search')||{}).value?.toLowerCase()||'';
   const f=(document.getElementById('p7filter')||{}).value||'all';
+  const s=(document.getElementById('p7sort')||{}).value||'gap';
   let rows=P7DATA.filter(d=>{
-    if(q&&!d.cat4.toLowerCase().includes(q))return false;
-    if(f!=='all'){const[,,, type]=p7Label(d.r);if(type!==f)return false;}
+    const[,,, type]=p7Label(d.r);
+    if(f==='gap'&&d.gap===0)return false;
+    if(f!=='all'&&f!=='gap'&&type!==f)return false;
+    if(q){
+      const inCat=d.cat4.toLowerCase().includes(q);
+      const inSpus=(d.spus||[]).some(sp=>sp.toLowerCase().includes(q));
+      if(!inCat&&!inSpus)return false;
+    }
     return true;
   });
   rows.sort((a,b)=>{
-    let va,vb;
-    if(p7SortKey==='r'){va=a.r??-99;vb=b.r??-99;}
-    else if(p7SortKey==='gmv'){va=a.total_gmv;vb=b.total_gmv;}
-    else{va=a.avg_sku;vb=b.avg_sku;}
-    return p7SortDir*(va-vb);
+    if(s==='r')return(b.r??-99)-(a.r??-99);
+    if(s==='gmv')return(b.gmv??0)-(a.gmv??0);
+    return b.gap-a.gap;
   });
   const cnt=document.getElementById('p7count');
   if(cnt)cnt.textContent=`共 ${rows.length} 条`;
   const tbody=document.getElementById('p7tbody');
   if(!tbody)return;
   tbody.innerHTML=rows.map((d,i)=>{
-    const[icon,label,color]=p7Label(d.r);
-    const rStr=d.r!==null?(d.r>=0?'+':'')+d.r.toFixed(3):'N/A';
-    const gmv=(d.total_gmv/10000).toLocaleString('zh-CN',{minimumFractionDigits:1,maximumFractionDigits:1});
-    const rowBg=i%2===0?'transparent':'rgba(255,255,255,0.02)';
+    const[icon,label,color,type]=p7Label(d.r);
+    const rStr=d.r!==null&&d.r!==undefined?(d.r>=0?'+':'')+d.r.toFixed(3):'N/A';
+    const gmvStr=d.gmv?d.gmv.toLocaleString():'—';
+    const skuStr=d.sku?d.sku.toLocaleString():'—';
+    const gapStr=d.gap>0?'~'+(d.gap/10000).toFixed(0)+'万':'—';
+    const spuHtml=(d.spus||[]).map(s=>`<span style="background:#1e1e2e;border-radius:3px;padding:1px 6px;color:#bbb;font-size:10px;white-space:nowrap;display:inline-block;margin:1px 2px 1px 0">${s}</span>`).join('');
+    const rowBg=i%2===0?'transparent':'rgba(255,255,255,.02)';
+    const gapC=d.gap>5000000?'#FF2442':d.gap>1000000?'#f59e0b':'#888';
     return`<tr style="background:${rowBg};border-bottom:1px solid #1a1a2e">
-      <td style="padding:7px 6px;color:#555;font-size:11px">${i+1}</td>
-      <td style="padding:7px 6px;font-weight:600;color:#e8e8f0">${d.cat4}</td>
-      <td style="padding:7px 6px;color:#666;font-size:11px">${d.cat1.replace('保健食品/膳食营养补充食品','保健食品').replace('OTC药品/国际医药','OTC药品')}</td>
-      <td style="padding:7px 6px;text-align:right;font-family:monospace;color:${color};font-weight:700">${rStr}</td>
-      <td style="padding:7px 6px;text-align:center"><span style="background:${color}22;color:${color};border:1px solid ${color}44;border-radius:3px;padding:1px 7px;font-size:10px;font-weight:600;white-space:nowrap">${icon} ${label}</span></td>
-      <td style="padding:7px 6px;text-align:right;font-family:monospace;color:#ccc">${gmv}</td>
-      <td style="padding:7px 6px;text-align:right;font-family:monospace;color:#ccc">${d.avg_sku.toLocaleString()}</td>
-      <td style="padding:7px 6px;text-align:right;font-family:monospace;color:#aaa">${d.latest_sku.toLocaleString()}</td>
+      <td style="padding:6px 4px;color:#555;font-size:11px;vertical-align:top">${i+1}</td>
+      <td style="padding:6px 4px;font-weight:600;color:#e8e8f0;vertical-align:top">${d.cat4}</td>
+      <td style="padding:6px 4px;text-align:right;font-family:monospace;color:${color};font-weight:700;vertical-align:top">${rStr}</td>
+      <td style="padding:6px 4px;text-align:right;font-family:monospace;color:${gapC};font-weight:700;vertical-align:top">${gapStr}</td>
+      <td style="padding:6px 4px;text-align:right;font-family:monospace;color:#888;vertical-align:top">${d.cnt||'—'}</td>
+      <td style="padding:6px 4px;text-align:right;font-family:monospace;color:#aaa;vertical-align:top">${gmvStr}</td>
+      <td style="padding:6px 4px;text-align:right;font-family:monospace;color:#aaa;vertical-align:top">${skuStr}</td>
+      <td style="padding:6px 4px 6px 8px;vertical-align:top;line-height:1.8">${spuHtml||'<span style="color:#444;font-size:10px">（无缺口数据）</span>'}</td>
     </tr>`;
   }).join('');
 }
-document.addEventListener('DOMContentLoaded',()=>{
-  p7Render();
-  document.getElementById('p7search')?.addEventListener('input',p7Render);
-  document.getElementById('p7filter')?.addEventListener('change',p7Render);
+['p7search','p7filter','p7sort'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)el.addEventListener('change'===id?'change':'input',p7Render);
 });
-// 也立即执行一次（以防DOMContentLoaded已过）
+document.getElementById('p7filter')?.addEventListener('change',p7Render);
+document.getElementById('p7sort')?.addEventListener('change',p7Render);
 p7Render();
 })();
 </script>
