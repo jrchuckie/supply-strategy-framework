@@ -13,14 +13,13 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
 :root{
   --r:#FF2442;--y:#FFD600;--g:#00C853;
   --dk:#0c0c0c;--lt:#f5f5f0;--card:#1e1e1e;
-  --p:clamp(28px,4vw,60px);
-  --pt:clamp(22px,3.5vh,44px);
-  --t1:clamp(2.4rem,6vw,5.5rem);
-  --t2:clamp(1.6rem,3.2vw,3rem);
-  --t3:clamp(1.1rem,2vw,1.75rem);
-  --bd:clamp(1rem,1.6vw,1.25rem);
-  --sm:clamp(.88rem,1.25vw,1.05rem);
-  --xs:clamp(.78rem,1.05vw,.92rem);
+  --p:clamp(24px,3.8vw,56px);
+  --pt:clamp(20px,3vh,40px);
+  --t2:clamp(1.5rem,3vw,2.8rem);
+  --t3:clamp(1.05rem,1.9vw,1.65rem);
+  --bd:clamp(.95rem,1.5vw,1.18rem);
+  --sm:clamp(.85rem,1.2vw,1rem);
+  --xs:clamp(.75rem,1vw,.88rem);
   --mono:'Space Mono',monospace;
 }
 
@@ -28,51 +27,73 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
 .slide.dk{background:var(--dk);color:#fff}
 .slide.lt{background:var(--lt);color:#111}
 
-#nav{position:fixed;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:999}
+#nav{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:999}
 .nd{width:7px;height:7px;border-radius:50%;border:none;cursor:pointer;transition:all .25s;padding:0}
-.pg{position:absolute;bottom:16px;right:var(--p);font-family:var(--mono);font-size:10px;letter-spacing:2px;opacity:.18}
+.pg{position:absolute;bottom:14px;right:var(--p);font-family:var(--mono);font-size:10px;letter-spacing:2px;opacity:.18}
 
-/* ── P1 ── */
-#p1{display:grid;grid-template-columns:58% 42%}
-.p1l{background:var(--r);display:flex;flex-direction:column;justify-content:space-between;padding:var(--p);padding-top:var(--pt)}
-.p1l .eye{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.6)}
-.p1l h1{font-size:clamp(3rem,8vw,7.5rem);font-weight:800;line-height:.9;letter-spacing:-.03em;flex:1;display:flex;align-items:center}
-.p1l .desc{font-size:var(--bd);color:rgba(255,255,255,.78);line-height:1.55}
-.p1r{background:#0a0a0a;display:flex;flex-direction:column;justify-content:center;padding:var(--p);gap:14px}
-.p1r .rhed{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:2px}
-.arow{display:flex;align-items:center;gap:14px;padding:clamp(13px,2.2vh,20px) clamp(14px,2vw,20px);background:rgba(255,255,255,.05);border-radius:10px;border-left:3px solid var(--r)}
-.arow .an{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--r);font-weight:700;min-width:54px;flex-shrink:0}
-.arow .at{font-size:var(--sm);font-weight:600;color:rgba(255,255,255,.88)}
+/* ═══ P1 COVER ═══ */
+#p1{display:grid;grid-template-columns:55% 45%}
+.p1l{
+  background:var(--r);
+  display:flex;flex-direction:column;
+  padding:var(--p);padding-top:var(--pt);
+  gap:clamp(16px,3vh,28px);
+  overflow:hidden;
+}
+.p1l .eye{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.6);flex-shrink:0}
+.p1l h1{
+  font-size:clamp(2.2rem,5.5vw,5rem);
+  font-weight:800;line-height:.95;letter-spacing:-.03em;
+  flex:1;display:flex;align-items:center;
+  word-break:keep-all;
+}
+.p1l .desc{font-size:var(--sm);color:rgba(255,255,255,.78);line-height:1.55;flex-shrink:0}
+.p1r{background:#0a0a0a;display:flex;flex-direction:column;justify-content:center;padding:var(--p);gap:12px}
+.p1r .rhed{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:4px}
+.arow{display:flex;align-items:flex-start;gap:12px;padding:clamp(11px,2vh,17px) clamp(12px,1.8vw,18px);background:rgba(255,255,255,.05);border-radius:10px;border-left:3px solid var(--r)}
+.arow .an{font-family:var(--mono);font-size:9px;letter-spacing:.5px;color:var(--r);font-weight:700;min-width:52px;flex-shrink:0;padding-top:2px}
+.arow .at{font-size:var(--sm);font-weight:600;color:rgba(255,255,255,.88);line-height:1.4}
 
-/* ── P2 ── */
-#p2{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);padding-bottom:clamp(22px,4vh,44px);gap:clamp(16px,3vh,28px)}
-.bigq{font-size:clamp(1.9rem,4.5vw,4rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;flex:1;display:flex;align-items:center}
-.bigq em{color:var(--r);font-style:normal}
-.tcards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.tcard{background:var(--card);border-radius:12px;padding:clamp(16px,2.5vh,24px) clamp(16px,2vw,22px);border-top:3px solid}
-.tcard:nth-child(1){border-color:var(--r)}
-.tcard:nth-child(2){border-color:var(--y)}
-.tcard:nth-child(3){border-color:rgba(255,255,255,.15)}
-.tcard .tn{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.38;margin-bottom:10px}
-.tcard h3{font-size:var(--t3);font-weight:800;margin-bottom:8px;line-height:1.2}
-.tcard p{font-size:var(--sm);color:rgba(255,255,255,.5);line-height:1.6}
+/* ═══ P2 OVERVIEW ═══ */
+#p2{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(12px,2.5vh,22px)}
+.p2-problem{flex-shrink:0}
+.p2-problem .pq{font-size:clamp(1.5rem,3.5vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-.02em}
+.p2-problem .pq em{color:var(--r);font-style:normal}
+.p2-problem .psub{font-size:var(--sm);color:rgba(255,255,255,.45);margin-top:8px;line-height:1.5}
+.divider{width:100%;height:1px;background:rgba(255,255,255,.08);flex-shrink:0}
+.framework-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);flex-shrink:0}
+.flow-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;flex:1;min-height:0;align-items:stretch}
+.fstep{display:flex;align-items:stretch;position:relative}
+.fstep-box{flex:1;background:var(--card);border-radius:12px;padding:clamp(12px,2vw,20px);display:flex;flex-direction:column;gap:8px;border-top:3px solid}
+.fstep:nth-child(1) .fstep-box{border-color:rgba(255,255,255,.2)}
+.fstep:nth-child(2) .fstep-box{border-color:var(--r)}
+.fstep:nth-child(3) .fstep-box{border-color:var(--r)}
+.fstep:nth-child(4) .fstep-box{border-color:var(--r)}
+.fstep-arrow{display:flex;align-items:center;padding:0 8px;color:rgba(255,255,255,.2);font-size:clamp(.9rem,2vw,1.5rem);flex-shrink:0}
+.fstep-box .fsn{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--r);font-weight:700}
+.fstep:nth-child(1) .fstep-box .fsn{color:rgba(255,255,255,.3)}
+.fstep-box h3{font-size:var(--sm);font-weight:800;line-height:1.2}
+.fstep-box p{font-size:var(--xs);color:rgba(255,255,255,.4);line-height:1.55;flex:1}
+.fstep-box .fstag{display:inline-block;font-size:clamp(.6rem,.85vw,.72rem);font-weight:700;padding:3px 8px;border-radius:4px;margin-top:auto;align-self:flex-start}
+.fstep:nth-child(1) .fstag{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4)}
+.fstep:nth-child(2) .fstag,.fstep:nth-child(3) .fstag,.fstep:nth-child(4) .fstag{background:rgba(255,36,66,.15);color:var(--r)}
 
-/* ── P3 Step0 ── */
+/* ═══ P3 Step 0 ═══ */
 #p3{display:grid;grid-template-columns:44% 56%}
-.p3l{display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.5vh,24px);padding:var(--p);padding-top:var(--pt)}
+.p3l{display:flex;flex-direction:column;justify-content:center;gap:clamp(12px,2.2vh,20px);padding:var(--p);padding-top:var(--pt)}
 .stag{display:inline-block;background:var(--r);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;padding:5px 12px;border-radius:4px;align-self:flex-start}
 .p3l h2{font-size:var(--t2);font-weight:800;line-height:1.1}
-.p3l .concl{font-size:var(--sm);line-height:1.65;border-left:3px solid var(--r);padding-left:16px;color:#555}
-.p3l .method{background:#fff;border-radius:10px;padding:16px 20px}
-.p3l .method strong{font-size:var(--bd);font-weight:800;color:#111;display:block;margin-bottom:6px}
-.p3l .method p{font-size:var(--sm);color:#666;line-height:1.65}
+.p3l .concl{font-size:var(--sm);line-height:1.65;border-left:3px solid var(--r);padding-left:14px;color:#555}
+.p3l .method{background:#fff;border-radius:10px;padding:14px 18px}
+.p3l .method strong{font-size:var(--bd);font-weight:800;color:#111;display:block;margin-bottom:5px}
+.p3l .method p{font-size:var(--sm);color:#666;line-height:1.6}
 .p3r{display:flex;align-items:center;justify-content:center;padding:var(--p);background:#e8e8e2}
 .tree{width:100%;max-width:420px}
-.tree-top{background:#fff;border-radius:12px;padding:18px 22px;text-align:center;font-weight:700;font-size:var(--bd);color:#111;box-shadow:0 2px 14px rgba(0,0,0,.08)}
-.tree-top .ts{font-size:var(--sm);color:#999;margin-top:5px;font-weight:500}
-.tree-line{width:1px;height:26px;background:#ccc;margin:0 auto}
+.tree-top{background:#fff;border-radius:12px;padding:16px 20px;text-align:center;font-weight:700;font-size:var(--bd);color:#111;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.tree-top .ts{font-size:var(--sm);color:#999;margin-top:4px;font-weight:500}
+.tree-line{width:1px;height:24px;background:#ccc;margin:0 auto}
 .tree-br{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.br{border-radius:12px;padding:clamp(14px,2.2vh,20px)}
+.br{border-radius:12px;padding:clamp(12px,2vh,18px)}
 .br.ok{background:#f0fdf4;border:2px solid #86efac}
 .br.no{background:#fff5f5;border:2px solid #fca5a5}
 .br .bv{font-family:var(--mono);font-size:var(--xs);font-weight:700}
@@ -84,91 +105,83 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
 .br.ok .ba{background:#dcfce7;color:#15803d}
 .br.no .ba{background:#fee2e2;color:#dc2626}
 
-/* ── P4 Act2 ── */
-#p4{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(12px,2vh,20px)}
-.p4top{flex-shrink:0}
+/* ═══ P4 Act 2 ═══ */
+#p4{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,1.8vh,16px)}
 .p4top .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px}
 .p4top h2{font-size:var(--t2);font-weight:800;line-height:1.1}
 .twocols{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;min-height:0}
-.col{border-radius:14px;padding:clamp(16px,2.5vw,26px);display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)}
+.col{border-radius:14px;padding:clamp(14px,2.2vw,24px);display:flex;flex-direction:column;gap:clamp(8px,1.5vh,14px)}
 .col.s{background:rgba(255,36,66,.08);border:1.5px solid rgba(255,36,66,.2)}
 .col.c{background:rgba(255,214,0,.06);border:1.5px solid rgba(255,214,0,.18)}
 .col .ct{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
 .col.s .ct{color:var(--r)}
 .col.c .ct{color:var(--y)}
 .col h3{font-size:var(--t3);font-weight:800;line-height:1.2}
-.col .feat{font-size:var(--sm);color:rgba(255,255,255,.6);line-height:1.6}
+.col .feat{font-size:var(--sm);color:rgba(255,255,255,.58);line-height:1.6}
 .col .box{background:rgba(255,255,255,.05);border-radius:8px;padding:12px 16px;flex:1}
-.col .box .bl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;opacity:.35;margin-bottom:8px}
-.col .box .bi{font-size:var(--sm);color:rgba(255,255,255,.72);line-height:1.8}
-.col .sig{font-size:var(--sm)}
+.col .box .bl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;opacity:.35;margin-bottom:8px}
+.col .box .bi{font-size:var(--sm);color:rgba(255,255,255,.72);line-height:1.85}
+.col .sig{font-size:var(--sm);color:rgba(255,255,255,.5)}
 .col.s .sig strong{color:var(--r)}
 .col.c .sig strong{color:var(--y)}
-.formula-bar{background:rgba(255,255,255,.05);border-radius:10px;padding:clamp(12px,1.8vh,18px) clamp(16px,2vw,22px);display:flex;align-items:center;justify-content:center;gap:clamp(24px,5vw,60px);flex-shrink:0;border:1px solid rgba(255,255,255,.08)}
-.fbar-item{text-align:center}
-.fbar-item .fl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px}
-.fbar-item .ff{font-family:var(--mono);font-size:var(--sm);font-weight:700}
-.fbar-item.s .ff{color:var(--r)}
-.fbar-item.c .ff{color:var(--y)}
-.fbar-div{width:1px;height:40px;background:rgba(255,255,255,.1)}
+.formula-bar{background:rgba(255,255,255,.05);border-radius:10px;padding:clamp(10px,1.6vh,16px) clamp(14px,2vw,20px);display:flex;align-items:center;justify-content:center;gap:clamp(20px,4vw,50px);flex-shrink:0;border:1px solid rgba(255,255,255,.08)}
+.fbi{text-align:center}
+.fbi .fl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px}
+.fbi .ff{font-family:var(--mono);font-size:var(--sm);font-weight:700}
+.fbi.s .ff{color:var(--r)}
+.fbi.c .ff{color:var(--y)}
+.fbdiv{width:1px;height:36px;background:rgba(255,255,255,.1)}
 
-/* ── P5 优先级 ── */
-#p5{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,1.8vh,18px)}
-.p5top{flex-shrink:0}
+/* ═══ P5 Priority ═══ */
+#p5{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(8px,1.5vh,14px)}
 .p5top .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px}
 .p5top h2{font-size:var(--t2);font-weight:800;line-height:1.1;color:#111}
-.p5body{display:grid;grid-template-columns:32% 68%;gap:16px;flex:1;min-height:0}
-.p5left{display:flex;flex-direction:column;gap:14px}
-.score-formula{background:#fff;border-radius:12px;padding:16px 18px;border-left:3px solid var(--r)}
+.p5body{display:grid;grid-template-columns:30% 70%;gap:14px;flex:1;min-height:0}
+.p5left{display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.score-formula{background:#fff;border-radius:12px;padding:14px 16px;border-left:3px solid var(--r);flex-shrink:0}
 .score-formula .sfl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--r);margin-bottom:8px}
-.score-formula .sff{font-family:var(--mono);font-size:var(--xs);line-height:2.0;color:#111}
+.score-formula .sff{font-family:var(--mono);font-size:var(--xs);line-height:2.1;color:#111}
 .score-formula .sff .hl{color:var(--r);font-weight:700}
-.ranklist{background:#fff;border-radius:12px;padding:14px 16px;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:6px}
-.ranklist .rltit{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#999;margin-bottom:4px}
-.ritem{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;background:#f9f9f6}
-.ritem .ri-rank{font-family:var(--mono);font-size:10px;color:#bbb;width:18px;flex-shrink:0;font-weight:700}
-.ritem.top1 .ri-rank{color:var(--r)}
-.ritem .ri-name{flex:1;font-size:var(--sm);font-weight:700;color:#111}
-.ritem .ri-bar-wrap{width:90px;height:6px;background:#eee;border-radius:3px;flex-shrink:0}
-.ritem .ri-bar{height:6px;border-radius:3px;background:var(--r)}
-.ritem.top1 .ri-bar{background:var(--r)}
-.ritem .ri-score{font-family:var(--mono);font-size:var(--xs);color:#888;width:36px;text-align:right;flex-shrink:0}
+.ranklist{background:#fff;border-radius:12px;padding:12px 14px;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:5px}
+.rltit{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#bbb;margin-bottom:4px}
+.ri{display:flex;align-items:center;gap:8px;padding:6px 9px;border-radius:7px;background:#f9f9f6}
+.ri .rk{font-family:var(--mono);font-size:10px;color:#ccc;width:16px;flex-shrink:0;font-weight:700}
+.ri.t1 .rk{color:var(--r)}
+.ri .rn{flex:1;font-size:var(--sm);font-weight:700;color:#111}
+.ri .rbw{width:80px;height:5px;background:#eee;border-radius:3px;flex-shrink:0}
+.ri .rb{height:5px;border-radius:3px;background:#ddd}
+.ri.t1 .rb{background:var(--r)}
+.ri .rsc{font-family:var(--mono);font-size:var(--xs);color:#aaa;width:28px;text-align:right;flex-shrink:0}
 .p5right{position:relative;background:#eeeee8;border-radius:14px;overflow:hidden}
-.chart-labels{position:absolute;left:0;right:0;bottom:0;top:0;pointer-events:none}
-.axis-x-l{position:absolute;bottom:14px;left:22%;font-family:var(--mono);font-size:9px;color:#999;letter-spacing:1px}
-.axis-x-r{position:absolute;bottom:14px;right:8%;font-family:var(--mono);font-size:9px;color:#999;letter-spacing:1px}
-.axis-y-label{position:absolute;left:8px;top:50%;transform:translateY(-50%) rotate(-90deg);font-family:var(--mono);font-size:9px;color:#999;letter-spacing:1px;white-space:nowrap;transform-origin:center center}
-.chart-legend{position:absolute;top:10px;right:12px;display:flex;flex-direction:column;gap:5px;background:rgba(255,255,255,.85);border-radius:8px;padding:10px 12px}
-.cl-item{display:flex;align-items:center;gap:7px;font-size:11px;color:#555}
-.cl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.cl-size{display:flex;align-items:center;gap:4px;font-size:11px;color:#555}
 
-/* ── P6 Act4 ── */
-#p6{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,1.8vh,16px)}
-.p6top{flex-shrink:0}
+/* ═══ P6 Act 4 ═══ */
+#p6{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(8px,1.5vh,14px)}
 .p6top .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px}
 .p6top h2{font-size:var(--t2);font-weight:800;line-height:1.1}
 .p6body{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;min-height:0}
-.p6col{border-radius:14px;padding:clamp(14px,2.2vw,22px);display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.p6col{border-radius:14px;padding:clamp(12px,2vw,20px);display:flex;flex-direction:column;gap:9px;overflow:hidden}
 .p6col.leads{background:var(--card)}
 .p6col.verify{background:var(--card)}
-.p6col .chd{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:4px}
+.p6col .chd{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
 .p6col.leads .chd{color:var(--r)}
 .p6col.verify .chd{color:var(--y)}
-.p6col h3{font-size:var(--t3);font-weight:800;line-height:1.2}
-.spu-row{display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(255,255,255,.04);border-radius:8px;flex-shrink:0}
-.sr{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.2);width:16px;flex-shrink:0}
+.p6col h3{font-size:var(--t3);font-weight:800;line-height:1.25}
+.srow{display:flex;align-items:center;gap:9px;padding:8px 11px;background:rgba(255,255,255,.04);border-radius:8px;flex-shrink:0}
+.sr{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.18);width:16px;flex-shrink:0}
 .sn{flex:1;font-size:var(--sm);font-weight:600}
-.sv{font-family:var(--mono);font-size:var(--xs);color:rgba(255,255,255,.35);flex-shrink:0}
-.ss{font-size:var(--xs);font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0}
+.sv{font-family:var(--mono);font-size:var(--xs);color:rgba(255,255,255,.32);flex-shrink:0}
+.ss{font-size:var(--xs);font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0}
 .ss.out{background:rgba(255,36,66,.15);color:var(--r)}
 .ss.in{background:rgba(0,200,83,.12);color:var(--g)}
-.vcase{border-radius:10px;padding:clamp(10px,1.8vh,14px) clamp(12px,1.8vw,16px);display:flex;flex-direction:column;gap:6px;flex:1}
+.snote{font-size:var(--xs);color:rgba(255,255,255,.28);text-align:center;margin-top:auto;padding-top:6px;flex-shrink:0}
+.snote strong{color:rgba(255,255,255,.5)}
+.vcase{border-radius:10px;padding:clamp(10px,1.6vh,14px) clamp(12px,1.6vw,16px);display:flex;gap:12px;align-items:flex-start;flex:1}
 .vcase.ok{background:#f0fdf4;border:1.5px solid #86efac}
 .vcase.wn{background:#fffbeb;border:1.5px solid #fcd34d}
 .vcase.ng{background:#fff5f5;border:1.5px solid #fca5a5}
-.vcase .vi{font-size:clamp(1.1rem,2vw,1.5rem)}
-.vcase .vt{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-top:2px}
+.vcase .vi{font-size:clamp(1.1rem,1.8vw,1.4rem);flex-shrink:0;margin-top:2px}
+.vcase .vbody{display:flex;flex-direction:column;gap:4px}
+.vcase .vt{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
 .vcase.ok .vt{color:#15803d}
 .vcase.wn .vt{color:#92400e}
 .vcase.ng .vt{color:#dc2626}
@@ -188,32 +201,69 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
   </div>
   <div class="p1r">
     <div class="rhed">今天的内容</div>
-    <div class="arow"><span class="an">Step 0</span><span class="at">供给驱动校验——引货是不是解法？</span></div>
-    <div class="arow"><span class="an">Act 2</span><span class="at">度量缺口——有多少需求没被覆盖？</span></div>
-    <div class="arow"><span class="an">Act 3</span><span class="at">优先级排序——哪个赛道先引？</span></div>
-    <div class="arow"><span class="an">Act 4</span><span class="at">引什么货 + 验证引对了吗？</span></div>
+    <div class="arow"><span class="an">Step 1</span><span class="at">供给驱动校验——引货是不是解法？</span></div>
+    <div class="arow"><span class="an">Step 2</span><span class="at">度量缺口——有多少需求没被货品供给覆盖？</span></div>
+    <div class="arow"><span class="an">Step 3</span><span class="at">优先级排序——哪个赛道先引、先投资源？</span></div>
+    <div class="arow"><span class="an">Step 4</span><span class="at">引什么货 + 验证引对了吗？</span></div>
   </div>
   <div class="pg">01 / 06</div>
 </section>
 
-<!-- P2 核心问题 -->
+<!-- P2 框架总览 -->
 <section class="slide dk" id="p2">
-  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);padding-bottom:clamp(22px,4vh,44px);gap:clamp(16px,3vh,28px)">
-    <div class="bigq">引货引错了是<em>资源浪费</em>，<br>引多了比<em>不引更差</em></div>
-    <div class="tcards">
-      <div class="tcard"><div class="tn">问题 01</div><h3>不是所有赛道都该引货</h3><p>瓶颈可能在内容供给、价格竞争力——把招商资源砸进去是错误方向</p></div>
-      <div class="tcard"><div class="tn">问题 02</div><h3>引多了比不引更差</h3><p>新货品可能 cannibalize 原有销售额，赛道总 GMV 没增长，只是内部打架</p></div>
-      <div class="tcard"><div class="tn">这套框架</div><h3>四步回答这个问题</h3><p>该不该引 → 缺口多大 → 哪个赛道先 → 引什么货、怎么验证</p></div>
+  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,2vh,18px)">
+    <div class="p2-problem">
+      <div class="pq" style="font-size:clamp(1.4rem,3.2vw,2.8rem);font-weight:800;line-height:1.1;letter-spacing:-.02em">引货引错了是<em style="color:var(--r);font-style:normal">资源浪费</em>，引多了比<em style="color:var(--r);font-style:normal">不引更差</em></div>
+      <div style="font-size:var(--sm);color:rgba(255,255,255,.4);margin-top:10px;line-height:1.5">不是所有赛道都该引货，也不是引得越多越好——需要一套系统框架来判断</div>
+    </div>
+    <div class="divider"></div>
+    <div class="framework-label">四步框架</div>
+    <div class="flow-steps">
+      <div class="fstep">
+        <div class="fstep-box">
+          <div class="fsn">Step 1</div>
+          <h3>供给驱动校验</h3>
+          <p>历史上这个赛道引更多货品，GMV 有没有跟着涨？没有 → 瓶颈不在供给，停止</p>
+          <div class="fstag">前置过滤</div>
+        </div>
+        <div class="fstep-arrow">→</div>
+      </div>
+      <div class="fstep">
+        <div class="fstep-box">
+          <div class="fsn">Step 2</div>
+          <h3>度量供给缺口</h3>
+          <p>有多少需求曝光（搜索量/阅读量），落在平台没有供给的货品上？</p>
+          <div class="fstag">量化缺口</div>
+        </div>
+        <div class="fstep-arrow">→</div>
+      </div>
+      <div class="fstep">
+        <div class="fstep-box">
+          <div class="fsn">Step 3</div>
+          <h3>赛道优先级排序</h3>
+          <p>未覆盖需求量 × 供给驱动系数 = 优先级得分，得分高的赛道先投招商资源</p>
+          <div class="fstag">资源分配</div>
+        </div>
+        <div class="fstep-arrow">→</div>
+      </div>
+      <div class="fstep">
+        <div class="fstep-box">
+          <div class="fsn">Step 4</div>
+          <h3>引货 + 验证增量</h3>
+          <p>找到具体要引的 SPU，引入后验证新货品有没有带来真增量而非 cannibalization</p>
+          <div class="fstag">执行验证</div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="pg">02 / 06</div>
 </section>
 
-<!-- P3 Step 0 -->
+<!-- P3 Step 1 -->
 <section class="slide lt" id="p3">
   <div class="p3l">
-    <div class="stag">Step 0</div>
-    <h2>先判断引货<br>是不是解法</h2>
+    <div class="stag">Step 1</div>
+    <h2 style="font-size:var(--t2);font-weight:800;line-height:1.1">先判断引货<br>是不是解法</h2>
     <div class="concl">如果这个赛道历史上货品增加没有带动 GMV 增长，引货就是错误方向——瓶颈根本不在供给</div>
     <div class="method">
       <strong>做法</strong>
@@ -231,7 +281,7 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
         <div class="br ok">
           <div class="bv">相关性 &gt; 0.6</div>
           <div class="bl">供给是瓶颈</div>
-          <div class="bd">引入更多货品历史上带动了 GMV 增长，供给缺口是核心问题</div>
+          <div class="bd">引入更多货品历史上带动了 GMV 增长，值得继续分析缺口在哪</div>
           <div class="ba">→ 继续分析</div>
         </div>
         <div class="br no">
@@ -246,12 +296,12 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
   <div class="pg" style="color:rgba(0,0,0,.15)">03 / 06</div>
 </section>
 
-<!-- P4 Act 2 搜索+内容合并 -->
+<!-- P4 Step 2 -->
 <section class="slide dk" id="p4">
-  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,2vh,18px)">
-    <div class="p4top">
-      <div class="ey">Act 2 · 度量缺口</div>
-      <h2>有多少需求曝光，落在平台没有供给的货品上？</h2>
+  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,1.8vh,16px)">
+    <div class="p4top" style="flex-shrink:0">
+      <div class="ey">Step 2 · 度量供给缺口</div>
+      <h2 style="font-size:var(--t2);font-weight:800;line-height:1.1">有多少需求曝光，落在平台<br>没有供给的货品上？</h2>
     </div>
     <div class="twocols">
       <div class="col s">
@@ -259,38 +309,38 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
         <h3 style="font-size:var(--t3);font-weight:800">用户明确知道要哪个货，但平台没有</h3>
         <div class="feat">用户有具体目标——知道品牌/型号/成分——主动搜索但搜不到，这是最强缺货信号</div>
         <div class="box">
-          <div class="bl">搜索举例（知道货品但没有供给）</div>
+          <div class="bl">举例：知道货品但平台无售</div>
           <div class="bi">
-            「Swisse 胶原蛋白软糖」→ 搜索量 45万，平台无售<br>
-            「BLACKMORES 鱼油 1000mg」→ 搜索量 32万，平台无售<br>
-            「Now Foods 辅酶 Q10」→ 搜索量 28万，平台无售
+            「Swisse 胶原蛋白软糖」→ 45万次搜索，平台无售<br>
+            「BLACKMORES 鱼油 1000mg」→ 32万次搜索，平台无售<br>
+            「Now Foods 辅酶 Q10」→ 28万次搜索，平台无售
           </div>
         </div>
-        <div class="sig">代表赛道：<strong>保健品 · 隐形眼镜 · 医疗器械</strong></div>
+        <div class="sig">代表赛道：<strong style="color:var(--r)">保健品 · 隐形眼镜 · 医疗器械</strong></div>
       </div>
       <div class="col c">
         <div class="ct">内容驱动型赛道</div>
-        <h3 style="font-size:var(--t3);font-weight:800">用户被种草了某个货，但平台没有</h3>
-        <div class="feat">用户刷到笔记产生需求——知道了这个品但平台买不到，阅读量代表被种草的需求量</div>
+        <h3 style="font-size:var(--t3);font-weight:800">用户被笔记种草了某个货，但平台没有</h3>
+        <div class="feat">用户刷到笔记产生需求，知道了这个品但平台买不到——阅读量代表被种草的需求量</div>
         <div class="box">
-          <div class="bl">内容举例（笔记在种草但无供给）</div>
+          <div class="bl">举例：笔记在种草但平台无售</div>
           <div class="bi">
             「XX 网红辣条」笔记阅读 2.3亿，平台无售<br>
             「YY 日本限定薯片」笔记阅读 1.8亿，平台无售<br>
             「ZZ 泰国椰子饼干」笔记阅读 1.1亿，平台无售
           </div>
         </div>
-        <div class="sig">代表赛道：<strong>食品零食 · 家居小件</strong></div>
+        <div class="sig">代表赛道：<strong style="color:var(--y)">食品零食 · 家居小件</strong></div>
       </div>
     </div>
-    <div class="formula-bar">
-      <div class="fbar-item s">
-        <div class="fl">搜索型公式</div>
+    <div class="formula-bar" style="flex-shrink:0">
+      <div class="fbi s">
+        <div class="fl">搜索型</div>
         <div class="ff" style="color:var(--r)">缺口量 = Σ 搜索量(未入驻 SPU)</div>
       </div>
-      <div class="fbar-div"></div>
-      <div class="fbar-item c">
-        <div class="fl">内容型公式</div>
+      <div class="fbdiv"></div>
+      <div class="fbi c">
+        <div class="fl">内容型</div>
         <div class="ff" style="color:var(--y)">缺口量 = Σ 阅读量(未入驻 SPU)</div>
       </div>
     </div>
@@ -298,41 +348,42 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
   <div class="pg">04 / 06</div>
 </section>
 
-<!-- P5 优先级 -->
+<!-- P5 Step 3 优先级 -->
 <section class="slide lt" id="p5">
-  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,1.8vh,16px)">
-    <div class="p5top">
-      <div class="ey" style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px">Act 3 · 优先级排序</div>
+  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(8px,1.5vh,14px)">
+    <div class="p5top" style="flex-shrink:0">
+      <div class="ey" style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px">Step 3 · 优先级排序</div>
       <h2 style="font-size:var(--t2);font-weight:800;line-height:1.1;color:#111">哪个赛道优先引货？</h2>
     </div>
     <div class="p5body">
       <div class="p5left">
         <div class="score-formula">
-          <div class="sfl">优先级得分公式</div>
+          <div class="sfl">优先级得分</div>
           <div class="sff">得分 = <span class="hl">未覆盖需求量</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="hl">供给驱动系数</span></div>
         </div>
         <div class="ranklist">
           <div class="rltit">赛道优先级排序</div>
-          <div class="ritem top1"><div class="ri-rank">01</div><div class="ri-name">隐形眼镜</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:95%"></div></div><div class="ri-score">95</div></div>
-          <div class="ritem"><div class="ri-rank">02</div><div class="ri-name">养生理疗</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:82%"></div></div><div class="ri-score">82</div></div>
-          <div class="ritem"><div class="ri-rank">03</div><div class="ri-name">健康监测</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:76%"></div></div><div class="ri-score">76</div></div>
-          <div class="ritem"><div class="ri-rank">04</div><div class="ri-name">食品零食</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:68%"></div></div><div class="ri-score">68</div></div>
-          <div class="ritem"><div class="ri-rank">05</div><div class="ri-name">孕产护理</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:55%"></div></div><div class="ri-score">55</div></div>
-          <div class="ritem"><div class="ri-rank">06</div><div class="ri-name">健身器材</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:44%"></div></div><div class="ri-score">44</div></div>
+          <div class="ri t1"><div class="rk">01</div><div class="rn">隐形眼镜</div><div class="rbw"><div class="rb" style="width:95%;background:var(--r)"></div></div><div class="rsc">95</div></div>
+          <div class="ri"><div class="rk">02</div><div class="rn">养生理疗</div><div class="rbw"><div class="rb" style="width:82%;background:#f87171"></div></div><div class="rsc">82</div></div>
+          <div class="ri"><div class="rk">03</div><div class="rn">健康监测</div><div class="rbw"><div class="rb" style="width:76%;background:#f87171"></div></div><div class="rsc">76</div></div>
+          <div class="ri"><div class="rk">04</div><div class="rn">食品零食</div><div class="rbw"><div class="rb" style="width:68%;background:#fca5a5"></div></div><div class="rsc">68</div></div>
+          <div class="ri"><div class="rk">05</div><div class="rn">孕产护理</div><div class="rbw"><div class="rb" style="width:55%;background:#fca5a5"></div></div><div class="rsc">55</div></div>
+          <div class="ri"><div class="rk">06</div><div class="rn">健身器材</div><div class="rbw"><div class="rb" style="width:42%;background:#fecaca"></div></div><div class="rsc">42</div></div>
         </div>
       </div>
       <div class="p5right" id="chartWrap">
-        <!-- legend overlay -->
-        <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.92);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;z-index:10;font-size:11px;color:#555;box-shadow:0 2px 8px rgba(0,0,0,.08)">
-          <div style="font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;margin-bottom:2px">图例说明</div>
-          <div style="display:flex;align-items:center;gap:7px"><b style="font-weight:800;color:#111">X 轴</b>赛道总需求量（搜索量/阅读量）</div>
-          <div style="display:flex;align-items:center;gap:7px"><b style="font-weight:800;color:#111">Y 轴</b>未覆盖需求占比（缺口量÷总需求）</div>
-          <div style="height:1px;background:#eee;margin:2px 0"></div>
-          <div style="display:flex;align-items:center;gap:7px"><div style="width:22px;height:22px;border-radius:50%;background:rgba(100,100,100,.2);border:1.5px solid #bbb;flex-shrink:0"></div>气泡大小 = 站内 GMV</div>
-          <div style="height:1px;background:#eee;margin:2px 0"></div>
-          <div style="display:flex;align-items:center;gap:7px"><div style="width:9px;height:9px;border-radius:50%;background:#ef4444;flex-shrink:0"></div>占海渗透率 &lt;30%（招商机会大）</div>
-          <div style="display:flex;align-items:center;gap:7px"><div style="width:9px;height:9px;border-radius:50%;background:#f59e0b;flex-shrink:0"></div>占海渗透率 30–70%</div>
-          <div style="display:flex;align-items:center;gap:7px"><div style="width:9px;height:9px;border-radius:50%;background:#22c55e;flex-shrink:0"></div>占海渗透率 &gt;70%（已充分）</div>
+        <!-- legend -->
+        <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.94);border-radius:10px;padding:12px 14px;z-index:10;font-size:11px;color:#555;box-shadow:0 2px 8px rgba(0,0,0,.07);display:flex;flex-direction:column;gap:7px">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#bbb;margin-bottom:2px">图例</div>
+          <div><b style="color:#111">X 轴</b>　未覆盖需求量（缺口量）</div>
+          <div><b style="color:#111">Y 轴</b>　供给驱动系数（Step 1 相关性）</div>
+          <div style="height:1px;background:#eee"></div>
+          <div style="display:flex;align-items:center;gap:7px">
+            <div style="width:18px;height:18px;border-radius:50%;background:rgba(255,36,66,.2);border:1.5px solid rgba(255,36,66,.4)"></div>
+            气泡大小 = 站内 GMV
+          </div>
+          <div style="height:1px;background:#eee"></div>
+          <div style="font-size:10px;color:#888;line-height:1.5">右上角 = 未覆盖需求大<br>且供给驱动性强<br>= 优先级最高</div>
         </div>
         <canvas id="bChart" style="position:absolute;top:0;left:0"></canvas>
       </div>
@@ -341,56 +392,50 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
   <div class="pg" style="color:rgba(0,0,0,.15)">05 / 06</div>
 </section>
 
-<!-- P6 Act 4 引货+验证 -->
+<!-- P6 Step 4 -->
 <section class="slide dk" id="p6">
-  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,1.8vh,16px)">
-    <div class="p6top">
-      <div class="ey">Act 4 · 引什么货 + 验证引对了吗</div>
-      <h2 style="font-size:var(--t2);font-weight:800;line-height:1.1">锁定 SPU Leads，并验证有没有带来真增量</h2>
+  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(8px,1.5vh,14px)">
+    <div class="p6top" style="flex-shrink:0">
+      <div class="ey">Step 4 · 引什么货 + 验证引对了吗</div>
+      <h2 style="font-size:var(--t2);font-weight:800;line-height:1.1">锁定 SPU Leads，验证有没有带来真增量</h2>
     </div>
     <div class="p6body">
       <div class="p6col leads">
-        <div class="chd">引什么货 — SPU Leads 清单</div>
-        <h3 style="font-size:var(--t3);font-weight:800;margin-bottom:4px">未入驻 SPU 按缺口量降序<br>直接是招商优先级</h3>
-        <div class="spu-row"><div class="sr">01</div><div class="sn">Swisse 胶原蛋白软糖</div><div class="sv">缺口 45万搜索</div><div class="ss out">未入驻</div></div>
-        <div class="spu-row"><div class="sr">02</div><div class="sn">BLACKMORES 鱼油 1000mg</div><div class="sv">缺口 32万搜索</div><div class="ss out">未入驻</div></div>
-        <div class="spu-row"><div class="sr">03</div><div class="sn">Now Foods 辅酶 Q10</div><div class="sv">缺口 28万搜索</div><div class="ss out">未入驻</div></div>
-        <div class="spu-row"><div class="sr">04</div><div class="sn">XX 网红辣条大礼包</div><div class="sv">缺口 2.3亿阅读</div><div class="ss out">未入驻</div></div>
-        <div class="spu-row"><div class="sr">05</div><div class="sn">YY 日本限定薯片</div><div class="sv">缺口 1.8亿阅读</div><div class="ss out">未入驻</div></div>
-        <div style="font-size:var(--xs);color:rgba(255,255,255,.3);text-align:center;margin-top:auto;padding-top:8px">每个 SPU 附带：全网销量 · 品牌背书 · 站外渗透率</div>
+        <div class="chd">引什么货 — SPU Leads</div>
+        <h3 style="font-size:var(--t3);font-weight:800;margin-bottom:4px">未入驻 SPU 按缺口量降序<br>直接输出为招商优先级</h3>
+        <div class="srow"><div class="sr">01</div><div class="sn">Swisse 胶原蛋白软糖</div><div class="sv">45万搜索缺口</div><div class="ss out">未入驻</div></div>
+        <div class="srow"><div class="sr">02</div><div class="sn">BLACKMORES 鱼油 1000mg</div><div class="sv">32万搜索缺口</div><div class="ss out">未入驻</div></div>
+        <div class="srow"><div class="sr">03</div><div class="sn">Now Foods 辅酶 Q10</div><div class="sv">28万搜索缺口</div><div class="ss out">未入驻</div></div>
+        <div class="srow"><div class="sr">04</div><div class="sn">XX 网红辣条大礼包</div><div class="sv">2.3亿阅读缺口</div><div class="ss out">未入驻</div></div>
+        <div class="srow"><div class="sr">05</div><div class="sn">YY 日本限定薯片</div><div class="sv">1.8亿阅读缺口</div><div class="ss out">未入驻</div></div>
+        <div class="snote">每个 SPU 附带：<strong>全网销量 · 品牌背书 · 站外数据</strong></div>
       </div>
       <div class="p6col verify">
-        <div class="chd">验证引对了吗 — 看增量不看总 GMV</div>
-        <h3 style="font-size:var(--t3);font-weight:800;margin-bottom:4px">新货有没有带来新需求，<br>而不是 cannibalize 原有货品</h3>
+        <div class="chd">验证 — 看增量不看总 GMV</div>
+        <h3 style="font-size:var(--t3);font-weight:800;margin-bottom:4px">新货有没有带来新需求<br>而不是 cannibalize 原有货品</h3>
         <div class="vcase ok">
-          <div style="display:flex;align-items:center;gap:10px">
-            <span class="vi">✅</span>
-            <div>
-              <div class="vt">真增量</div>
-              <h4>赛道 GMV ↑，原有 Top SPU 稳定</h4>
-            </div>
+          <span class="vi">✅</span>
+          <div class="vbody">
+            <div class="vt">真增量</div>
+            <h4>赛道 GMV ↑，原有 Top SPU 稳定</h4>
+            <div class="vd">新 SPU 带来了之前没被满足的需求，赛道总盘扩大 → 引对了，继续扩</div>
           </div>
-          <div class="vd">新 SPU 带来了之前没被满足的需求，赛道总盘扩大 → 引对了，继续扩</div>
         </div>
         <div class="vcase wn">
-          <div style="display:flex;align-items:center;gap:10px">
-            <span class="vi">⚠️</span>
-            <div>
-              <div class="vt">Cannibalization</div>
-              <h4>赛道 GMV ↑，原有 SPU 同比 ↓</h4>
-            </div>
+          <span class="vi">⚠️</span>
+          <div class="vbody">
+            <div class="vt">Cannibalization</div>
+            <h4>赛道 GMV ↑，但原有 Top SPU 同比 ↓</h4>
+            <div class="vd">新货抢了原有份额，总盘没增长，只是内部转移 → 重新评估</div>
           </div>
-          <div class="vd">新货品抢了原有份额，总盘没增长 → 重新评估引货策略</div>
         </div>
         <div class="vcase ng">
-          <div style="display:flex;align-items:center;gap:10px">
-            <span class="vi">❌</span>
-            <div>
-              <div class="vt">引货无效</div>
-              <h4>赛道 GMV 无明显变化</h4>
-            </div>
+          <span class="vi">❌</span>
+          <div class="vbody">
+            <div class="vt">引货无效</div>
+            <h4>赛道 GMV 无明显变化</h4>
+            <div class="vd">新 SPU 没激活额外需求 → 回到 Step 1 重新校验供给驱动性</div>
           </div>
-          <div class="vd">新 SPU 没激活额外需求 → 回到 Step 0 重新校验供给驱动性</div>
         </div>
       </div>
     </div>
@@ -403,7 +448,6 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
 const slides=[...document.querySelectorAll('.slide')];
 const nav=document.getElementById('nav');
 const isDk=id=>['p1','p2','p4','p6'].includes(id);
-
 slides.forEach((s,i)=>{
   const b=document.createElement('button');
   b.className='nd';
@@ -412,7 +456,6 @@ slides.forEach((s,i)=>{
   nav.appendChild(b);
 });
 const dots=[...nav.querySelectorAll('.nd')];
-
 const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(!e.isIntersecting) return;
@@ -426,7 +469,6 @@ const io=new IntersectionObserver(entries=>{
   });
 },{threshold:0.5});
 slides.forEach(s=>io.observe(s));
-
 document.addEventListener('keydown',e=>{
   const cur=slides.findIndex(s=>{const r=s.getBoundingClientRect();return r.top>-50&&r.top<window.innerHeight/2});
   if((e.key==='ArrowDown'||e.key===' ')&&cur<slides.length-1){e.preventDefault();slides[cur+1].scrollIntoView({behavior:'smooth'})}
@@ -438,99 +480,96 @@ document.addEventListener('keydown',e=>{
   const wrap=document.getElementById('chartWrap');
   const canvas=document.getElementById('bChart');
   if(!wrap||!canvas) return;
-
   function draw(){
     const pr=window.devicePixelRatio||1;
-    const W=wrap.clientWidth, H=wrap.clientHeight;
-    canvas.width=W*pr; canvas.height=H*pr;
-    canvas.style.width=W+'px'; canvas.style.height=H+'px';
+    const W=wrap.clientWidth,H=wrap.clientHeight;
+    canvas.width=W*pr;canvas.height=H*pr;
+    canvas.style.width=W+'px';canvas.style.height=H+'px';
     const ctx=canvas.getContext('2d');
     ctx.scale(pr,pr);
+    const PAD={top:24,right:18,bottom:52,left:54};
+    const pw=W-PAD.left-PAD.right,ph=H-PAD.top-PAD.bottom;
 
-    const PAD={top:28,right:20,bottom:48,left:52};
-    const pw=W-PAD.left-PAD.right;
-    const ph=H-PAD.top-PAD.bottom;
-
+    // X轴=未覆盖需求量(缺口量), Y轴=供给驱动系数(相关性0~1), 气泡=GMV
     const data=[
-      {name:'隐形眼镜', x:90,y:85,gmv:6.5,pen:12},
-      {name:'养生理疗', x:82,y:74,gmv:8.0,pen:18},
-      {name:'健康监测', x:86,y:62,gmv:7.2,pen:24},
-      {name:'孕产护理', x:60,y:70,gmv:4.5,pen:32},
-      {name:'眼部护理', x:68,y:50,gmv:4.8,pen:48},
-      {name:'保健品',   x:75,y:26,gmv:9.0,pen:72},
-      {name:'健身器材', x:50,y:56,gmv:2.2,pen:22},
-      {name:'皮肤护理', x:70,y:20,gmv:5.8,pen:82},
-      {name:'食品零食', x:36,y:65,gmv:3.0,pen:20},
-      {name:'按摩器械', x:44,y:36,gmv:1.5,pen:55},
+      {name:'隐形眼镜', x:88,y:0.88,gmv:6.5},
+      {name:'养生理疗', x:75,y:0.82,gmv:8.0},
+      {name:'健康监测', x:80,y:0.70,gmv:7.2},
+      {name:'孕产护理', x:55,y:0.75,gmv:4.5},
+      {name:'眼部护理', x:62,y:0.55,gmv:4.8},
+      {name:'保健品',   x:70,y:0.38,gmv:9.0},
+      {name:'健身器材', x:46,y:0.62,gmv:2.2},
+      {name:'皮肤护理', x:65,y:0.28,gmv:5.8},
+      {name:'食品零食', x:32,y:0.70,gmv:3.0},
+      {name:'按摩器械', x:40,y:0.42,gmv:1.5},
     ];
 
     const tx=v=>PAD.left+v/100*pw;
-    const ty=v=>PAD.top+(1-v/100)*ph;
-    const bR=g=>8+g*2.5;
-    const bCol=p=>{
-      if(p<30) return 'rgba(239,68,68,.82)';
-      if(p<70) return 'rgba(245,158,11,.82)';
-      return 'rgba(34,197,94,.82)';
-    };
+    const ty=v=>PAD.top+(1-v)*ph;
+    const bR=g=>8+g*2.6;
 
     // bg
-    ctx.fillStyle='#eeeee8'; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='#eeeee8';ctx.fillRect(0,0,W,H);
 
-    // quadrant backgrounds
-    const mx=tx(50),my=ty(50);
-    ctx.fillStyle='rgba(0,180,70,.07)';  ctx.fillRect(mx,PAD.top,W-mx-PAD.right,my-PAD.top);
-    ctx.fillStyle='rgba(37,99,235,.05)'; ctx.fillRect(mx,my,W-mx-PAD.right,H-my-PAD.bottom);
-    ctx.fillStyle='rgba(0,0,0,.02)';     ctx.fillRect(PAD.left,PAD.top,mx-PAD.left,my-PAD.top);
-    ctx.fillStyle='rgba(200,0,0,.04)';   ctx.fillRect(PAD.left,my,mx-PAD.left,H-my-PAD.bottom);
+    // grid lines
+    ctx.strokeStyle='rgba(0,0,0,.07)';ctx.lineWidth=1;ctx.setLineDash([4,4]);
+    [0.25,0.5,0.75].forEach(v=>{
+      const y=ty(v);
+      ctx.beginPath();ctx.moveTo(PAD.left,y);ctx.lineTo(PAD.left+pw,y);ctx.stroke();
+    });
+    [25,50,75].forEach(v=>{
+      const x=tx(v);
+      ctx.beginPath();ctx.moveTo(x,PAD.top);ctx.lineTo(x,PAD.top+ph);ctx.stroke();
+    });
+    ctx.setLineDash([]);
 
-    // midlines
-    ctx.setLineDash([5,5]); ctx.strokeStyle='rgba(0,0,0,.12)'; ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(mx,PAD.top);ctx.lineTo(mx,PAD.top+ph);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(PAD.left,my);ctx.lineTo(PAD.left+pw,my);ctx.stroke();
+    // quadrant highlight (right-top = 优先级最高)
+    const midX=tx(50),midY=ty(0.5);
+    ctx.fillStyle='rgba(0,180,70,.07)';
+    ctx.fillRect(midX,PAD.top,W-midX-PAD.right,midY-PAD.top);
+    ctx.fillStyle='rgba(200,0,0,.04)';
+    ctx.fillRect(PAD.left,midY,midX-PAD.left,H-midY-PAD.bottom);
+
+    // mid lines
+    ctx.strokeStyle='rgba(0,0,0,.12)';ctx.lineWidth=1;ctx.setLineDash([5,5]);
+    ctx.beginPath();ctx.moveTo(midX,PAD.top);ctx.lineTo(midX,PAD.top+ph);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(PAD.left,midY);ctx.lineTo(PAD.left+pw,midY);ctx.stroke();
     ctx.setLineDash([]);
 
     // quadrant labels
     ctx.font='700 11px Manrope,sans-serif';
-    ctx.fillStyle='rgba(0,140,60,.55)'; ctx.textAlign='left';
-    ctx.fillText('🔥 主动招商',mx+10,PAD.top+22);
-    ctx.fillStyle='rgba(37,99,235,.45)';
-    ctx.fillText('防内卷',mx+10,my+22);
+    ctx.fillStyle='rgba(0,140,60,.55)';ctx.textAlign='left';
+    ctx.fillText('🔥 优先级最高',midX+10,PAD.top+22);
     ctx.fillStyle='rgba(0,0,0,.2)';
-    ctx.fillText('先种草验需求',PAD.left+6,PAD.top+22);
-    ctx.fillStyle='rgba(180,0,0,.3)';
-    ctx.fillText('观察',PAD.left+6,my+22);
+    ctx.fillText('缺口大但驱动弱',PAD.left+6,PAD.top+22);
+    ctx.fillStyle='rgba(0,0,0,.18)';
+    ctx.fillText('缺口小驱动强',midX+10,midY+22);
+    ctx.fillStyle='rgba(180,0,0,.28)';
+    ctx.fillText('暂不投入',PAD.left+6,midY+22);
 
-    // Y axis ticks & label
-    ctx.fillStyle='#aaa'; ctx.font='10px Space Mono,monospace'; ctx.textAlign='right';
-    [0,25,50,75,100].forEach(v=>{
-      const y=ty(v);
-      ctx.fillText(v+'%', PAD.left-8, y+4);
-      ctx.strokeStyle='rgba(0,0,0,.07)';ctx.lineWidth=1;
-      ctx.beginPath();ctx.moveTo(PAD.left,y);ctx.lineTo(PAD.left+pw,y);ctx.stroke();
+    // Y axis
+    ctx.fillStyle='#999';ctx.font='10px Space Mono,monospace';ctx.textAlign='right';
+    [0,0.25,0.5,0.75,1.0].forEach(v=>{
+      ctx.fillText(v.toFixed(2),PAD.left-8,ty(v)+4);
     });
-    // Y axis label
     ctx.save();
-    ctx.translate(14,PAD.top+ph/2);
-    ctx.rotate(-Math.PI/2);
-    ctx.fillStyle='#888'; ctx.textAlign='center'; ctx.font='9px Space Mono,monospace';
-    ctx.fillText('未覆盖需求占比',0,0);
+    ctx.translate(14,PAD.top+ph/2);ctx.rotate(-Math.PI/2);
+    ctx.fillStyle='#888';ctx.textAlign='center';ctx.font='9px Space Mono,monospace';
+    ctx.fillText('供给驱动系数（Step 1 相关性）',0,0);
     ctx.restore();
 
-    // X axis ticks
-    ctx.fillStyle='#aaa'; ctx.textAlign='center'; ctx.font='10px Space Mono,monospace';
-    ['低','中','高'].forEach((l,i)=>{
-      const x=tx(i===0?25:i===1?50:75);
-      ctx.fillText(l,x,PAD.top+ph+32);
-    });
-    ctx.fillStyle='#888'; ctx.font='9px Space Mono,monospace';
-    ctx.fillText('赛道总需求量 →',PAD.left+pw/2,PAD.top+ph+46);
+    // X axis
+    ctx.fillStyle='#999';ctx.font='10px Space Mono,monospace';ctx.textAlign='center';
+    ['低','中','高'].forEach((l,i)=>ctx.fillText(l,tx(i===0?25:i===1?50:75),PAD.top+ph+32));
+    ctx.fillStyle='#888';ctx.font='9px Space Mono,monospace';
+    ctx.fillText('未覆盖需求量（缺口量）→',PAD.left+pw/2,PAD.top+ph+46);
 
     // bubbles
     data.forEach(d=>{
       const cx=tx(d.x),cy=ty(d.y),r=bR(d.gmv);
-      ctx.shadowColor='rgba(0,0,0,.12)';ctx.shadowBlur=8;
+      ctx.shadowColor='rgba(0,0,0,.14)';ctx.shadowBlur=10;
       ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
-      ctx.fillStyle=bCol(d.pen);ctx.fill();
+      ctx.fillStyle='rgba(255,36,66,.78)';ctx.fill();
       ctx.shadowBlur=0;
       ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
       ctx.strokeStyle='rgba(255,255,255,.7)';ctx.lineWidth=1.5;ctx.stroke();
@@ -539,20 +578,19 @@ document.addEventListener('keydown',e=>{
       ctx.fillText(d.name,cx,cy+r+13);
     });
 
-    // tooltip
+    // hover
     canvas.onmousemove=evt=>{
       const rect=canvas.getBoundingClientRect();
-      const mx2=(evt.clientX-rect.left)*pr,my2=(evt.clientY-rect.top)*pr;
+      const mx=(evt.clientX-rect.left)*pr,my2=(evt.clientY-rect.top)*pr;
       let hit=null;
       data.forEach(d=>{
         const cx=tx(d.x)*pr,cy=ty(d.y)*pr,r=bR(d.gmv)*pr;
-        if(Math.hypot(mx2-cx,my2-cy)<=r) hit=d;
+        if(Math.hypot(mx-cx,my2-cy)<=r) hit=d;
       });
-      canvas.title=hit?`${hit.name}\n总需求量：${hit.x}/100\n未覆盖占比：${hit.y}%\n站内GMV：${hit.gmv}亿\n占海渗透率：${hit.pen}%`:'';
+      canvas.title=hit?`${hit.name}\n未覆盖需求量：${hit.x}/100\n供给驱动系数：${hit.y}\n站内GMV：${hit.gmv}亿`:'';
       canvas.style.cursor=hit?'pointer':'default';
     };
   }
-
   draw();
   window.addEventListener('resize',draw);
 })();
