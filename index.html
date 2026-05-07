@@ -211,48 +211,45 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
 
 <!-- P2 框架总览 -->
 <section class="slide dk" id="p2">
-  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,2vh,18px)">
-    <div class="p2-problem">
-      <div class="pq" style="font-size:clamp(1.4rem,3.2vw,2.8rem);font-weight:800;line-height:1.1;letter-spacing:-.02em">引货引错了是<em style="color:var(--r);font-style:normal">资源浪费</em>，引多了比<em style="color:var(--r);font-style:normal">不引更差</em></div>
+  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);justify-content:center;gap:clamp(16px,3vh,30px)">
+    <div>
+      <div style="font-size:clamp(1.6rem,3.8vw,3.2rem);font-weight:800;line-height:1.1;letter-spacing:-.02em">引货引错了是<em style="color:var(--r);font-style:normal">资源浪费</em>，<br>引多了比<em style="color:var(--r);font-style:normal">不引更差</em></div>
       <div style="font-size:var(--sm);color:rgba(255,255,255,.4);margin-top:10px;line-height:1.5">不是所有赛道都该引货，也不是引得越多越好——需要一套系统框架来判断</div>
     </div>
-    <div class="divider"></div>
-    <div class="framework-label">四步框架</div>
-    <div class="flow-steps">
-      <div class="fstep">
-        <div class="fstep-box">
-          <div class="fsn">Step 1</div>
-          <h3>供给驱动校验</h3>
-          <p>历史上这个赛道引更多货品，GMV 有没有跟着涨？没有 → 瓶颈不在供给，停止</p>
-          <div class="fstag">前置过滤</div>
-        </div>
-        <div class="fstep-arrow">→</div>
+    <div style="width:100%;height:1px;background:rgba(255,255,255,.08)"></div>
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3)">四步框架</div>
+    <!-- 紧凑流程：横排居中，固定高度 -->
+    <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:center;gap:0">
+      <!-- Step 1 -->
+      <div style="background:var(--card);border-radius:12px;padding:clamp(16px,2.5vh,24px) clamp(14px,2vw,20px);border-top:3px solid rgba(255,255,255,.15);display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:700">Step 1</div>
+        <div style="font-size:var(--t3);font-weight:800;line-height:1.2">供给驱动<br>校验</div>
+        <div style="font-size:var(--sm);color:rgba(255,255,255,.45);line-height:1.6">历史 SPU 增加有没有带动 GMV 增长？没有 → 瓶颈不在供给，停止</div>
+        <div style="display:inline-block;font-size:var(--xs);font-weight:700;padding:4px 10px;border-radius:5px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);align-self:flex-start">前置过滤</div>
       </div>
-      <div class="fstep">
-        <div class="fstep-box">
-          <div class="fsn">Step 2</div>
-          <h3>度量供给缺口</h3>
-          <p>有多少需求曝光（搜索量/阅读量），落在平台没有供给的货品上？</p>
-          <div class="fstag">量化缺口</div>
-        </div>
-        <div class="fstep-arrow">→</div>
+      <div style="padding:0 clamp(6px,1.2vw,14px);font-size:clamp(1rem,2vw,1.6rem);color:rgba(255,255,255,.2)">→</div>
+      <!-- Step 2 -->
+      <div style="background:var(--card);border-radius:12px;padding:clamp(16px,2.5vh,24px) clamp(14px,2vw,20px);border-top:3px solid var(--r);display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--r);font-weight:700">Step 2</div>
+        <div style="font-size:var(--t3);font-weight:800;line-height:1.2">度量供给<br>缺口</div>
+        <div style="font-size:var(--sm);color:rgba(255,255,255,.45);line-height:1.6">有多少需求曝光（搜索量/阅读量）落在平台没有供给的货品上？</div>
+        <div style="display:inline-block;font-size:var(--xs);font-weight:700;padding:4px 10px;border-radius:5px;background:rgba(255,36,66,.15);color:var(--r);align-self:flex-start">量化缺口</div>
       </div>
-      <div class="fstep">
-        <div class="fstep-box">
-          <div class="fsn">Step 3</div>
-          <h3>赛道优先级排序</h3>
-          <p>未覆盖需求量 × 供给驱动系数 = 优先级得分，得分高的赛道先投招商资源</p>
-          <div class="fstag">资源分配</div>
-        </div>
-        <div class="fstep-arrow">→</div>
+      <div style="padding:0 clamp(6px,1.2vw,14px);font-size:clamp(1rem,2vw,1.6rem);color:rgba(255,255,255,.2)">→</div>
+      <!-- Step 3 -->
+      <div style="background:var(--card);border-radius:12px;padding:clamp(16px,2.5vh,24px) clamp(14px,2vw,20px);border-top:3px solid var(--r);display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--r);font-weight:700">Step 3</div>
+        <div style="font-size:var(--t3);font-weight:800;line-height:1.2">赛道优先<br>级排序</div>
+        <div style="font-size:var(--sm);color:rgba(255,255,255,.45);line-height:1.6">未覆盖需求量 × 供给驱动系数 = 优先级得分，得分高的赛道先投资源</div>
+        <div style="display:inline-block;font-size:var(--xs);font-weight:700;padding:4px 10px;border-radius:5px;background:rgba(255,36,66,.15);color:var(--r);align-self:flex-start">资源分配</div>
       </div>
-      <div class="fstep">
-        <div class="fstep-box">
-          <div class="fsn">Step 4</div>
-          <h3>引货 + 验证增量</h3>
-          <p>找到具体要引的 SPU，引入后验证新货品有没有带来真增量而非 cannibalization</p>
-          <div class="fstag">执行验证</div>
-        </div>
+      <div style="padding:0 clamp(6px,1.2vw,14px);font-size:clamp(1rem,2vw,1.6rem);color:rgba(255,255,255,.2)">→</div>
+      <!-- Step 4 -->
+      <div style="background:var(--card);border-radius:12px;padding:clamp(16px,2.5vh,24px) clamp(14px,2vw,20px);border-top:3px solid var(--r);display:flex;flex-direction:column;gap:10px">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--r);font-weight:700">Step 4</div>
+        <div style="font-size:var(--t3);font-weight:800;line-height:1.2">引货 +<br>验证增量</div>
+        <div style="font-size:var(--sm);color:rgba(255,255,255,.45);line-height:1.6">找到具体要引的 SPU，验证新货有没有带来真增量而非 cannibalization</div>
+        <div style="display:inline-block;font-size:var(--xs);font-weight:700;padding:4px 10px;border-radius:5px;background:rgba(255,36,66,.15);color:var(--r);align-self:flex-start">执行验证</div>
       </div>
     </div>
   </div>
@@ -418,7 +415,7 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
           <div class="vbody">
             <div class="vt">真增量</div>
             <h4>赛道 GMV ↑，原有 Top SPU 稳定</h4>
-            <div class="vd">新 SPU 带来了之前没被满足的需求，赛道总盘扩大 → 引对了，继续扩</div>
+            <div class="vd">新 SPU 带来了之前没被满足的需求，赛道总盘扩大。原有货品销售额没有被侵蚀，说明是新增需求而非存量转移。→ 引对了，继续扩大招商</div>
           </div>
         </div>
         <div class="vcase wn">
@@ -426,7 +423,7 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
           <div class="vbody">
             <div class="vt">Cannibalization</div>
             <h4>赛道 GMV ↑，但原有 Top SPU 同比 ↓</h4>
-            <div class="vd">新货抢了原有份额，总盘没增长，只是内部转移 → 重新评估</div>
+            <div class="vd">新货抢了原有货品的份额，赛道总盘没有增长，只是内部份额转移。需要评估：是否引入了定位重叠的竞品？是否应该调整引货品类方向？→ 重新评估引货策略</div>
           </div>
         </div>
         <div class="vcase ng">
@@ -434,7 +431,7 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
           <div class="vbody">
             <div class="vt">引货无效</div>
             <h4>赛道 GMV 无明显变化</h4>
-            <div class="vd">新 SPU 没激活额外需求 → 回到 Step 1 重新校验供给驱动性</div>
+            <div class="vd">新 SPU 入驻后没有激活额外的用户需求，可能原因：Step 1 供给驱动性判断有误；或者引入的货品不是用户真正在搜/看的那个。→ 回到 Step 1 重新校验</div>
           </div>
         </div>
       </div>
