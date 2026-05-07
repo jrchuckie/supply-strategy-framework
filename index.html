@@ -87,7 +87,7 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
 .p3l .method{background:#fff;border-radius:10px;padding:14px 18px}
 .p3l .method strong{font-size:var(--bd);font-weight:800;color:#111;display:block;margin-bottom:5px}
 .p3l .method p{font-size:var(--sm);color:#666;line-height:1.6}
-.p3r{display:flex;align-items:center;justify-content:center;padding:var(--p);background:#e8e8e2}
+.p3r{display:flex;flex-direction:column;justify-content:flex-start;padding:var(--p);padding-top:var(--pt);background:#e8e8e2;overflow-y:auto;gap:0}
 .tree{width:100%;max-width:420px}
 .tree-top{background:#fff;border-radius:12px;padding:16px 20px;text-align:center;font-weight:700;font-size:var(--bd);color:#111;box-shadow:0 2px 12px rgba(0,0,0,.08)}
 .tree-top .ts{font-size:var(--sm);color:#999;margin-top:4px;font-weight:500}
@@ -116,11 +116,11 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
 .col .ct{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
 .col.s .ct{color:var(--r)}
 .col.c .ct{color:var(--y)}
-.col h3{font-size:var(--t3);font-weight:800;line-height:1.2}
-.col .feat{font-size:var(--sm);color:rgba(255,255,255,.58);line-height:1.6}
-.col .box{background:rgba(255,255,255,.05);border-radius:8px;padding:12px 16px;flex:1}
+.col h3{font-size:clamp(.95rem,1.6vw,1.3rem);font-weight:800;line-height:1.2}
+.col .feat{font-size:var(--xs);color:rgba(255,255,255,.58);line-height:1.5}
+.col .box{background:rgba(255,255,255,.05);border-radius:8px;padding:8px 12px;flex:1;overflow:hidden}
 .col .box .bl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;opacity:.35;margin-bottom:8px}
-.col .box .bi{font-size:var(--sm);color:rgba(255,255,255,.72);line-height:1.85}
+.col .box .bi{font-size:var(--xs);color:rgba(255,255,255,.72);line-height:1.65}
 .col .sig{font-size:var(--sm);color:rgba(255,255,255,.5)}
 .col.s .sig strong{color:var(--r)}
 .col.c .sig strong{color:var(--y)}
@@ -811,11 +811,19 @@ window.switchTab=function(tab){
   document.getElementById('tab-spu').style.color=tab==='spu'?'#FF2442':'#555';
   // 重置筛选器
   const filterSel=document.getElementById('p7filter');
+  const sortSel=document.getElementById('p7sort');
   if(filterSel){
     if(tab==='spu'){
-      filterSel.innerHTML='<option value="all">全部</option><option value="hasgmv">有全网GMV</option><option value="nogmv">全网GMV=0</option>';
+      filterSel.innerHTML='<option value="all">全部</option>';
     } else {
       filterSel.innerHTML='<option value="all">全部</option><option value="strong">✅ 强供给驱动</option><option value="weak">🟡 弱相关</option><option value="no">❌ 非供给瓶颈</option><option value="na">— 无数据</option>';
+    }
+  }
+  if(sortSel){
+    if(tab==='spu'){
+      sortSel.innerHTML='<option value="combo">综合排序（搜索+阅读）</option><option value="read">按阅读量排序</option><option value="query">按搜索量排序</option>';
+    } else {
+      sortSel.innerHTML='<option value="gap">按缺口量排序</option><option value="r">按 r 排序</option><option value="gmv">按 GMV 排序</option>';
     }
   }
   p7Render();
@@ -883,7 +891,7 @@ function p7Render(){
       }
       return true;
     });
-    rows.sort((a,b)=>s==='gmv'?b.gmv_all-a.gmv_all:s==='r'?0:b.combo-a.combo);
+    rows.sort((a,b)=>s==='read'?b.read-a.read:s==='query'?b.query-a.query:s==='gmv'?b.gmv_all-a.gmv_all:b.combo-a.combo);
     if(cnt)cnt.textContent=`${rows.length} 条`;
     const tbody=document.getElementById('spu-tbody');
     if(!tbody)return;
