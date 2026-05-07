@@ -392,109 +392,35 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
       </div>
       <!-- 右：数据表 -->
       <div style="background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,.05)">
-        <!-- 表头 -->
-        <div style="display:grid;grid-template-columns:auto 1fr repeat(6,auto) auto;gap:0;background:#f0f0ea;padding:8px 12px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#999;white-space:nowrap">
-          <div style="padding:0 8px 0 0">#</div>
-          <div>赛道</div>
-          <div style="padding:0 8px;text-align:right">未覆盖缺口</div>
-          <div style="padding:0 8px;text-align:right">驱动系数</div>
-          <div style="padding:0 8px;text-align:right">GMV</div>
-          <div style="padding:0 8px;text-align:right">GMV YoY</div>
-          <div style="padding:0 8px;text-align:right">现有SKU</div>
-          <div style="padding:0 8px;text-align:right">SKU YoY</div>
-          <div style="padding:0 8px;text-align:center">优先级</div>
-        </div>
-        <!-- 数据行 -->
-        <div style="flex:1;overflow-y:auto">
-          <div style="display:grid;grid-template-columns:auto 1fr repeat(6,auto) auto;gap:0;padding:9px 12px;border-bottom:1px solid #f5f5f0;align-items:center">
-            <div style="font-family:var(--mono);font-size:10px;color:var(--r);padding:0 10px 0 0;font-weight:700">01</div>
-            <div style="font-size:var(--sm);font-weight:700;color:#111">隐形眼镜</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#555;padding:0 8px;text-align:right">88 <span style="color:#aaa;font-size:9px">搜索型</span></div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">0.88</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">6.5亿</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;padding:0 8px;text-align:right">+42%</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">1,240</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;padding:0 8px;text-align:right">+28%</div>
-            <div style="padding:0 8px;text-align:center"><span style="background:#fee2e2;color:#dc2626;font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px">P0</span></div>
-          </div>
-          <div style="display:grid;grid-template-columns:auto 1fr repeat(6,auto) auto;gap:0;padding:9px 12px;border-bottom:1px solid #f5f5f0;align-items:center">
-            <div style="font-family:var(--mono);font-size:10px;color:#999;padding:0 10px 0 0;font-weight:700">02</div>
-            <div style="font-size:var(--sm);font-weight:700;color:#111">养生理疗</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#555;padding:0 8px;text-align:right">75 <span style="color:#aaa;font-size:9px">搜索型</span></div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">0.82</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">8.0亿</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;padding:0 8px;text-align:right">+38%</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">2,890</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;padding:0 8px;text-align:right">+22%</div>
-            <div style="padding:0 8px;text-align:center"><span style="background:#fee2e2;color:#dc2626;font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px">P0</span></div>
-          </div>
-          <div style="display:grid;grid-template-columns:auto 1fr repeat(6,auto) auto;gap:0;padding:9px 12px;border-bottom:1px solid #f5f5f0;align-items:center">
-            <div style="font-family:var(--mono);font-size:10px;color:#999;padding:0 10px 0 0;font-weight:700">03</div>
-            <div style="font-size:var(--sm);font-weight:700;color:#111">健康监测</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#555;padding:0 8px;text-align:right">80 <span style="color:#aaa;font-size:9px">搜索型</span></div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">0.70</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">7.2亿</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;padding:0 8px;text-align:right">+31%</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">980</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;padding:0 8px;text-align:right">+19%</div>
-            <div style="padding:0 8px;text-align:center"><span style="background:#fee2e2;color:#dc2626;font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px">P0</span></div>
-          </div>
-          <div style="display:grid;grid-template-columns:auto 1fr repeat(6,auto) auto;gap:0;padding:9px 12px;border-bottom:1px solid #f5f5f0;align-items:center">
-            <div style="font-family:var(--mono);font-size:10px;color:#999;padding:0 10px 0 0;font-weight:700">04</div>
-            <div style="font-size:var(--sm);font-weight:700;color:#111">食品零食</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#555;padding:0 8px;text-align:right">32 <span style="color:#aaa;font-size:9px">内容型</span></div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">0.70</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">3.0亿</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;padding:0 8px;text-align:right">+25%</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">4,320</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;padding:0 8px;text-align:right">+15%</div>
-            <div style="padding:0 8px;text-align:center"><span style="background:#fef3c7;color:#92400e;font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px">P1</span></div>
-          </div>
-          <div style="display:grid;grid-template-columns:auto 1fr repeat(6,auto) auto;gap:0;padding:9px 12px;border-bottom:1px solid #f5f5f0;align-items:center">
-            <div style="font-family:var(--mono);font-size:10px;color:#999;padding:0 10px 0 0;font-weight:700">05</div>
-            <div style="font-size:var(--sm);font-weight:700;color:#111">孕产护理</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#555;padding:0 8px;text-align:right">55 <span style="color:#aaa;font-size:9px">搜索型</span></div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">0.75</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">4.5亿</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#15803d;padding:0 8px;text-align:right">+18%</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">1,680</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#f59e0b;padding:0 8px;text-align:right">+8%</div>
-            <div style="padding:0 8px;text-align:center"><span style="background:#fef3c7;color:#92400e;font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px">P1</span></div>
-          </div>
-          <div style="display:grid;grid-template-columns:auto 1fr repeat(6,auto) auto;gap:0;padding:9px 12px;border-bottom:1px solid #f5f5f0;align-items:center">
-            <div style="font-family:var(--mono);font-size:10px;color:#999;padding:0 10px 0 0;font-weight:700">06</div>
-            <div style="font-size:var(--sm);font-weight:700;color:#111">健身器材</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#555;padding:0 8px;text-align:right">46 <span style="color:#aaa;font-size:9px">搜索型</span></div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">0.62</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">2.2亿</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#f59e0b;padding:0 8px;text-align:right">+12%</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">3,150</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#f59e0b;padding:0 8px;text-align:right">+6%</div>
-            <div style="padding:0 8px;text-align:center"><span style="background:#fef3c7;color:#92400e;font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px">P1</span></div>
-          </div>
-          <div style="display:grid;grid-template-columns:auto 1fr repeat(6,auto) auto;gap:0;padding:9px 12px;border-bottom:1px solid #f5f5f0;align-items:center">
-            <div style="font-family:var(--mono);font-size:10px;color:#999;padding:0 10px 0 0;font-weight:700">07</div>
-            <div style="font-size:var(--sm);font-weight:700;color:#111">皮肤护理</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#555;padding:0 8px;text-align:right">65 <span style="color:#aaa;font-size:9px">混合型</span></div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">0.28</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">5.8亿</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#f59e0b;padding:0 8px;text-align:right">+9%</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">8,420</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#dc2626;padding:0 8px;text-align:right">-3%</div>
-            <div style="padding:0 8px;text-align:center"><span style="background:#f3f4f6;color:#6b7280;font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px">P2</span></div>
-          </div>
-          <div style="display:grid;grid-template-columns:auto 1fr repeat(6,auto) auto;gap:0;padding:9px 12px;align-items:center">
-            <div style="font-family:var(--mono);font-size:10px;color:#999;padding:0 10px 0 0;font-weight:700">08</div>
-            <div style="font-size:var(--sm);font-weight:700;color:#111">按摩器械</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#555;padding:0 8px;text-align:right">40 <span style="color:#aaa;font-size:9px">混合型</span></div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">0.42</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">1.5亿</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#dc2626;padding:0 8px;text-align:right">+4%</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#333;padding:0 8px;text-align:right">2,060</div>
-            <div style="font-family:var(--mono);font-size:var(--xs);color:#dc2626;padding:0 8px;text-align:right">-8%</div>
-            <div style="padding:0 8px;text-align:center"><span style="background:#f3f4f6;color:#6b7280;font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px">P2</span></div>
-          </div>
-        </div>
+        <!-- 用 table 而非 grid 以保证列对齐 -->
+        <table style="width:100%;border-collapse:collapse;table-layout:fixed">
+          <colgroup>
+            <col style="width:28px"><!-- # -->
+            <col style="width:60px"><!-- 赛道 -->
+            <col style="width:80px"><!-- 类型+缺口 -->
+            <col style="width:52px"><!-- 驱动系数 -->
+            <col style="width:48px"><!-- GMV -->
+            <col style="width:52px"><!-- GMV YoY -->
+            <col style="width:52px"><!-- 现有SKU -->
+            <col style="width:52px"><!-- SKU YoY -->
+            <col style="width:40px"><!-- 优先级 -->
+          </colgroup>
+          <thead>
+            <tr style="background:#f0f0ea">
+              <th style="padding:8px 4px 8px 12px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#999;font-weight:600;text-align:left">#</th>
+              <th style="padding:8px 4px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#999;font-weight:600;text-align:left">赛道</th>
+              <th style="padding:8px 4px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#999;font-weight:600;text-align:right">未覆盖缺口</th>
+              <th style="padding:8px 4px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#999;font-weight:600;text-align:right">驱动系数</th>
+              <th style="padding:8px 4px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#999;font-weight:600;text-align:right">GMV</th>
+              <th style="padding:8px 4px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#999;font-weight:600;text-align:right">GMV YoY</th>
+              <th style="padding:8px 4px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#999;font-weight:600;text-align:right">现有SKU</th>
+              <th style="padding:8px 4px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#999;font-weight:600;text-align:right">SKU YoY</th>
+              <th style="padding:8px 12px 8px 4px;font-family:var(--mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#999;font-weight:600;text-align:center">优先级</th>
+            </tr>
+          </thead>
+          <tbody id="tblBody">
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -560,6 +486,39 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
 </section>
 
 <script>
+// ── Data Table ──
+(function(){
+  const rows=[
+    {rank:'01',name:'隐形眼镜',gap:'88',type:'搜索',coef:'0.88',gmv:'6.5亿',yoy:'+42%',sku:'1,240',skyoy:'+28%',pri:'P0',yoyC:'#15803d',skyoyC:'#15803d',priBg:'#fee2e2',priC:'#dc2626'},
+    {rank:'02',name:'养生理疗',gap:'75',type:'搜索',coef:'0.82',gmv:'8.0亿',yoy:'+38%',sku:'2,890',skyoy:'+22%',pri:'P0',yoyC:'#15803d',skyoyC:'#15803d',priBg:'#fee2e2',priC:'#dc2626'},
+    {rank:'03',name:'健康监测',gap:'80',type:'搜索',coef:'0.70',gmv:'7.2亿',yoy:'+31%',sku:'980',skyoy:'+19%',pri:'P0',yoyC:'#15803d',skyoyC:'#15803d',priBg:'#fee2e2',priC:'#dc2626'},
+    {rank:'04',name:'食品零食',gap:'32',type:'内容',coef:'0.70',gmv:'3.0亿',yoy:'+25%',sku:'4,320',skyoy:'+15%',pri:'P1',yoyC:'#15803d',skyoyC:'#15803d',priBg:'#fef3c7',priC:'#92400e'},
+    {rank:'05',name:'孕产护理',gap:'55',type:'搜索',coef:'0.75',gmv:'4.5亿',yoy:'+18%',sku:'1,680',skyoy:'+8%', pri:'P1',yoyC:'#15803d',skyoyC:'#f59e0b',priBg:'#fef3c7',priC:'#92400e'},
+    {rank:'06',name:'健身器材',gap:'46',type:'搜索',coef:'0.62',gmv:'2.2亿',yoy:'+12%',sku:'3,150',skyoy:'+6%', pri:'P1',yoyC:'#f59e0b',skyoyC:'#f59e0b',priBg:'#fef3c7',priC:'#92400e'},
+    {rank:'07',name:'皮肤护理',gap:'65',type:'混合',coef:'0.28',gmv:'5.8亿',yoy:'+9%', sku:'8,420',skyoy:'-3%', pri:'P2',yoyC:'#f59e0b',skyoyC:'#dc2626',priBg:'#f3f4f6',priC:'#6b7280'},
+    {rank:'08',name:'按摩器械',gap:'40',type:'混合',coef:'0.42',gmv:'1.5亿',yoy:'+4%', sku:'2,060',skyoy:'-8%', pri:'P2',yoyC:'#dc2626',skyoyC:'#dc2626',priBg:'#f3f4f6',priC:'#6b7280'},
+  ];
+  const tbody=document.getElementById('tblBody');
+  if(!tbody) return;
+  rows.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.style.borderBottom=i<rows.length-1?'1px solid #f5f5f0':'none';
+    const rankC=i===0?'var(--r)':'#999';
+    tr.innerHTML=`
+      <td style="padding:8px 4px 8px 12px;font-family:var(--mono);font-size:10px;color:${rankC};font-weight:700;white-space:nowrap">${r.rank}</td>
+      <td style="padding:8px 4px;font-size:var(--sm);font-weight:700;color:#111;white-space:nowrap">${r.name}</td>
+      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:#555;text-align:right;white-space:nowrap">${r.gap} <span style="color:#aaa;font-size:9px">${r.type}</span></td>
+      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:#333;text-align:right;white-space:nowrap">${r.coef}</td>
+      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:#333;text-align:right;white-space:nowrap">${r.gmv}</td>
+      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:${r.yoyC};text-align:right;white-space:nowrap">${r.yoy}</td>
+      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:#333;text-align:right;white-space:nowrap">${r.sku}</td>
+      <td style="padding:8px 4px;font-family:var(--mono);font-size:var(--xs);color:${r.skyoyC};text-align:right;white-space:nowrap">${r.skyoy}</td>
+      <td style="padding:8px 12px 8px 4px;text-align:center;white-space:nowrap"><span style="background:${r.priBg};color:${r.priC};font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px">${r.pri}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+})();
+
 // ── Nav ──
 const slides=[...document.querySelectorAll('.slide')];
 const nav=document.getElementById('nav');
@@ -603,7 +562,7 @@ document.addEventListener('keydown',e=>{
     canvas.style.width=W+'px';canvas.style.height=H+'px';
     const ctx=canvas.getContext('2d');
     ctx.scale(pr,pr);
-    const PAD={top:24,right:18,bottom:52,left:54};
+    const PAD={top:24,right:18,bottom:62,left:54};
     const pw=W-PAD.left-PAD.right,ph=H-PAD.top-PAD.bottom;
 
     // X轴=未覆盖需求量(缺口量), Y轴=供给驱动系数(相关性0~1), 气泡=GMV
@@ -678,7 +637,7 @@ document.addEventListener('keydown',e=>{
     ctx.fillStyle='#999';ctx.font='10px Space Mono,monospace';ctx.textAlign='center';
     ['低','中','高'].forEach((l,i)=>ctx.fillText(l,tx(i===0?25:i===1?50:75),PAD.top+ph+32));
     ctx.fillStyle='#888';ctx.font='9px Space Mono,monospace';
-    ctx.fillText('未覆盖需求量（缺口量）→',PAD.left+pw/2,PAD.top+ph+46);
+    ctx.fillText('未覆盖需求量（缺口量）→',PAD.left+pw/2,PAD.top+ph+56);
 
     // bubbles
     data.forEach(d=>{
