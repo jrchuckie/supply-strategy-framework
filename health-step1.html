@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>大健康 四级类目 Step 1 供给驱动系数</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'PingFang SC','Helvetica Neue',Arial,sans-serif;background:#0f0f13;color:#e8e8f0;min-height:100vh}
+.header{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:28px 40px 20px;border-bottom:1px solid #2a2a3e}
+.header h1{font-size:22px;font-weight:700;color:#fff;letter-spacing:.5px}
+.header p{margin-top:6px;font-size:13px;color:#888;line-height:1.6}
+.meta-row{display:flex;gap:24px;margin-top:14px;flex-wrap:wrap}
+.meta-chip{background:#1e1e2e;border:1px solid #2a2a3e;border-radius:6px;padding:6px 14px;font-size:12px;color:#aaa}
+.meta-chip b{color:#FF2442}
+.legend{display:flex;gap:16px;padding:14px 40px;background:#13131c;border-bottom:1px solid #1e1e2e;flex-wrap:wrap;align-items:center}
+.legend span{font-size:12px;color:#999}
+.lbadge{padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600}
+.controls{padding:14px 40px;display:flex;gap:12px;align-items:center;background:#0f0f13;border-bottom:1px solid #1e1e2e;flex-wrap:wrap}
+.controls input{background:#1a1a2e;border:1px solid #2a2a3e;border-radius:6px;padding:6px 12px;color:#e8e8f0;font-size:13px;width:200px}
+.controls input:focus{outline:none;border-color:#FF2442}
+.controls select{background:#1a1a2e;border:1px solid #2a2a3e;border-radius:6px;padding:6px 12px;color:#e8e8f0;font-size:13px}
+.controls label{font-size:12px;color:#888}
+.count{font-size:12px;color:#666;margin-left:auto}
+.table-wrap{overflow-x:auto;padding:0 40px 40px}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+thead th{background:#1a1a2e;color:#aaa;font-weight:600;padding:10px 12px;text-align:left;border-bottom:2px solid #2a2a3e;white-space:nowrap;cursor:pointer;user-select:none}
+thead th:hover{color:#fff}
+thead th.sorted{color:#FF2442}
+tbody tr{border-bottom:1px solid #1a1a2e;transition:background .15s}
+tbody tr:hover{background:#1a1a2e}
+tbody td{padding:9px 12px;vertical-align:middle}
+td.num{text-align:right;font-variant-numeric:tabular-nums;color:#ccc}
+td.cat1{color:#888;font-size:12px}
+td.cat4-name{font-weight:600;color:#e8e8f0}
+.badge{padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap}
+.no-data{text-align:center;color:#555;padding:40px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🏥 大健康行业 — 四级类目 Step 1 供给驱动系数</h1>
+  <p>数据来源：DS 15677 单商品 nitem 增量宽表 | 统计周期：近4个完整月（2026-01 ~ 2026-04）| 去除2026-05不完整月</p>
+  <div class="meta-row">
+    <div class="meta-chip">行业筛选：<b>大健康</b></div>
+    <div class="meta-chip">分析粒度：<b>四级运营类目 × 月度</b></div>
+    <div class="meta-chip">相关性方法：<b>Pearson（动销SKU数 ~ 月GMV）</b></div>
+    <div class="meta-chip">类目数：<b>99 个</b></div>
+  </div>
+</div>
+<div class="legend">
+  <span>判断标准：</span>
+  <span class="lbadge" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e55">✅ r ≥ 0.6 → 强供给驱动，优先招商</span>
+  <span class="lbadge" style="background:#f59e0b22;color:#f59e0b;border:1px solid #f59e0b55">🟡 0.3 ≤ r < 0.6 → 弱相关，谨慎招商</span>
+  <span class="lbadge" style="background:#ef444422;color:#ef4444;border:1px solid #ef444455">❌ r < 0.3 → 非供给瓶颈，不做招商</span>
+</div>
+<div class="controls">
+  <label>搜索：</label>
+  <input type="text" id="search" placeholder="输入四级类目名称...">
+  <label>筛选判断：</label>
+  <select id="filter">
+    <option value="all">全部</option>
+    <option value="strong">✅ 强供给驱动</option>
+    <option value="weak">🟡 弱相关</option>
+    <option value="no">❌ 非供给瓶颈</option>
+  </select>
+  <label>一级类目：</label>
+  <select id="cat1filter">
+    <option value="all">全部</option>
+    <option>保健食品/膳食营养补充食品</option>
+    <option>OTC药品/国际医药</option>
+    <option>家庭保健</option>
+    <option>成人用品/情趣用品（仅限邀约）</option>
+  </select>
+  <span class="count" id="count"></span>
+</div>
+<div class="table-wrap">
+<table id="main-table">
+<thead>
+  <tr>
+    <th>#</th>
+    <th>一级类目</th>
+    <th>四级类目</th>
+    <th onclick="sortBy('r')" id="th-r">Pearson r ↕</th>
+    <th>Step 1 判断</th>
+    <th onclick="sortBy('gmv')" id="th-gmv" class="sorted">累计GMV(万) ↓</th>
+    <th onclick="sortBy('sku')" id="th-sku">月均动销SKU ↕</th>
+    <th>最新月SKU</th>
+    <th>统计月数</th>
+  </tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+<script>
+const RAW = [{"cat1": "保健食品/膳食营养补充食品", "cat4": "其他膳食营养补充剂", "r": 0.9806072371539384, "n_months": 4, "total_gmv": 140115177.1699999, "avg_sku": 3324.0, "latest_sku": 3064.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "益生菌", "r": 0.3490101457411843, "n_months": 4, "total_gmv": 51480272.749999985, "avg_sku": 1681.75, "latest_sku": 1642.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "海外保健体重管理", "r": 0.9856290309264312, "n_months": 4, "total_gmv": 26044954.87, "avg_sku": 473.75, "latest_sku": 429.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "鱼油/深海鱼油", "r": 0.7144020777083683, "n_months": 4, "total_gmv": 25089012.619999997, "avg_sku": 838.0, "latest_sku": 825.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "普通植物提取物", "r": 0.9889317816137821, "n_months": 4, "total_gmv": 18356466.280000005, "avg_sku": 712.0, "latest_sku": 673.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "复合维生素/矿物质", "r": 0.7133493201032813, "n_months": 4, "total_gmv": 17869570.380000006, "avg_sku": 909.25, "latest_sku": 878.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "胶原蛋白", "r": 0.9517064636499077, "n_months": 4, "total_gmv": 17813791.02, "avg_sku": 529.25, "latest_sku": 519.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "钙铁锌/钙镁", "r": 0.841434730841576, "n_months": 4, "total_gmv": 14293138.049999999, "avg_sku": 575.0, "latest_sku": 559.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "维生素D", "r": 0.9047876566602031, "n_months": 4, "total_gmv": 14078775.679999998, "avg_sku": 338.75, "latest_sku": 335.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "玫瑰提取物/玫瑰精油", "r": -0.2919776621317398, "n_months": 4, "total_gmv": 12931422.24, "avg_sku": 57.25, "latest_sku": 53.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "叶黄素/蓝莓/越橘提取物", "r": 0.9492240612955124, "n_months": 4, "total_gmv": 12320529.069999998, "avg_sku": 316.75, "latest_sku": 238.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "口服美容营养品", "r": 0.4081938741828004, "n_months": 4, "total_gmv": 11575045.799999999, "avg_sku": 302.25, "latest_sku": 254.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "锌/铁/硒", "r": 0.9913261379337677, "n_months": 4, "total_gmv": 10591342.169999998, "avg_sku": 386.25, "latest_sku": 359.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "肽类", "r": 0.5514111525349313, "n_months": 4, "total_gmv": 9564564.08, "avg_sku": 157.0, "latest_sku": 140.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "辅酶Q10", "r": 0.8303388769526869, "n_months": 4, "total_gmv": 8346646.64, "avg_sku": 372.0, "latest_sku": 383.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "果蔬膳食纤维/白芸豆提取物", "r": 0.39463870213974417, "n_months": 4, "total_gmv": 8190394.849999999, "avg_sku": 305.75, "latest_sku": 276.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "B族维生素", "r": 0.794935639838008, "n_months": 4, "total_gmv": 6550113.429999999, "avg_sku": 383.0, "latest_sku": 365.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "蓟类", "r": 0.8561929023801543, "n_months": 4, "total_gmv": 5634959.300000001, "avg_sku": 116.0, "latest_sku": 103.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "氨糖软骨素/骨胶原", "r": 0.36396110901957324, "n_months": 4, "total_gmv": 4153803.5900000003, "avg_sku": 155.25, "latest_sku": 151.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "奶蓟草", "r": 0.17007860473194966, "n_months": 4, "total_gmv": 3955385.5100000002, "avg_sku": 206.5, "latest_sku": 181.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "海外保健机能即饮", "r": 0.9637897070589337, "n_months": 4, "total_gmv": 3698891.33, "avg_sku": 89.0, "latest_sku": 76.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "膳食补充剂型饮料", "r": 0.32079725042256313, "n_months": 4, "total_gmv": 3592273.56, "avg_sku": 152.25, "latest_sku": 161.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "DHA/EPA/DPA亚麻酸", "r": 0.9756666750515746, "n_months": 4, "total_gmv": 3161228.0999999996, "avg_sku": 88.5, "latest_sku": 88.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "维生素C", "r": 0.9596277173112846, "n_months": 4, "total_gmv": 3029555.0300000003, "avg_sku": 300.0, "latest_sku": 284.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "特殊用途饮料", "r": 0.8312555741844547, "n_months": 4, "total_gmv": 2563138.96, "avg_sku": 25.75, "latest_sku": 25.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "乳清蛋白", "r": 0.6575946195366521, "n_months": 4, "total_gmv": 2497894.1500000004, "avg_sku": 157.75, "latest_sku": 161.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "大豆异黄酮", "r": 0.3363947355288393, "n_months": 4, "total_gmv": 2152590.68, "avg_sku": 77.5, "latest_sku": 74.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "灵芝/参类/石斛提取物", "r": -0.9130919032255435, "n_months": 4, "total_gmv": 2101501.0200000005, "avg_sku": 85.5, "latest_sku": 92.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "钙镁锌", "r": 0.9801935820293415, "n_months": 4, "total_gmv": 2099507.54, "avg_sku": 93.25, "latest_sku": 90.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "酵素", "r": 0.9105116305792058, "n_months": 4, "total_gmv": 2058956.2300000002, "avg_sku": 111.5, "latest_sku": 103.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "海外保健机能软糖", "r": 0.8627086037320103, "n_months": 4, "total_gmv": 2057988.8499999996, "avg_sku": 118.75, "latest_sku": 128.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "骨胶原蛋白", "r": -0.5452187990002519, "n_months": 4, "total_gmv": 2036747.6400000001, "avg_sku": 71.0, "latest_sku": 65.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "氨基酸/支链氨基酸/谷氨酰胺", "r": 0.36086500420233136, "n_months": 4, "total_gmv": 1928691.12, "avg_sku": 108.75, "latest_sku": 114.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "褪黑素/γ-氨基丁酸/圣约翰草", "r": 0.08505163299912791, "n_months": 4, "total_gmv": 1839862.88, "avg_sku": 150.5, "latest_sku": 131.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "纳豆提取物", "r": 0.5223527504756957, "n_months": 4, "total_gmv": 1760772.91, "avg_sku": 24.5, "latest_sku": 22.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "其它植物提取物", "r": 0.5018747293002979, "n_months": 4, "total_gmv": 1693354.36, "avg_sku": 118.0, "latest_sku": 118.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "PQQ/吡咯喹啉醌", "r": 0.08698172405042519, "n_months": 4, "total_gmv": 1658362.0599999998, "avg_sku": 36.25, "latest_sku": 39.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "NAD+前体营养补充剂", "r": 0.7505310605163494, "n_months": 4, "total_gmv": 1534894.53, "avg_sku": 61.75, "latest_sku": 53.0}, {"cat1": "OTC药品/国际医药", "cat4": "白发脱发", "r": 0.9384496984632974, "n_months": 4, "total_gmv": 1406258.8699999999, "avg_sku": 209.5, "latest_sku": 191.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "越橘/蓝莓提取物", "r": 0.9579193273893774, "n_months": 4, "total_gmv": 1404153.3999999997, "avg_sku": 99.0, "latest_sku": 67.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "大豆分离蛋白/混合蛋白", "r": 0.8887889995677853, "n_months": 4, "total_gmv": 1399330.81, "avg_sku": 68.75, "latest_sku": 80.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "泛醇/泛醌/辅酶Q10", "r": -0.7453251320051435, "n_months": 4, "total_gmv": 1386354.16, "avg_sku": 54.5, "latest_sku": 50.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "左旋肉碱", "r": 0.6789963742708877, "n_months": 4, "total_gmv": 1344207.47, "avg_sku": 69.5, "latest_sku": 69.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "保健品饮品", "r": 0.9561647649570402, "n_months": 4, "total_gmv": 1304567.53, "avg_sku": 18.25, "latest_sku": 14.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "胃部益生菌", "r": 0.044859465143388684, "n_months": 4, "total_gmv": 1280894.8800000001, "avg_sku": 40.5, "latest_sku": 38.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "医学配方营养品", "r": 0.35397124763414806, "n_months": 4, "total_gmv": 1219810.1499999997, "avg_sku": 56.5, "latest_sku": 53.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "DHA/EPA/DPA", "r": 0.48464235783796267, "n_months": 4, "total_gmv": 1218335.0899999999, "avg_sku": 53.25, "latest_sku": 59.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "维生素/矿物质/营养包", "r": -0.45145840534692977, "n_months": 4, "total_gmv": 1195779.2799999998, "avg_sku": 115.75, "latest_sku": 129.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "蔓越莓", "r": 0.3286519211274511, "n_months": 4, "total_gmv": 1117880.01, "avg_sku": 82.5, "latest_sku": 75.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "茶多酚/茶类", "r": 0.5395438895625807, "n_months": 4, "total_gmv": 1032759.69, "avg_sku": 22.0, "latest_sku": 23.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "钙铁锌", "r": -0.560590788572141, "n_months": 4, "total_gmv": 1025722.6699999999, "avg_sku": 58.25, "latest_sku": 53.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "葡萄籽提取物", "r": 0.8925536039895907, "n_months": 4, "total_gmv": 870089.2999999999, "avg_sku": 78.0, "latest_sku": 65.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "镁", "r": 0.7948053986265909, "n_months": 4, "total_gmv": 831773.8, "avg_sku": 46.75, "latest_sku": 49.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "叶黄素", "r": -0.09374430690064371, "n_months": 4, "total_gmv": 806784.78, "avg_sku": 53.0, "latest_sku": 55.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "褪黑素/γ-氨基丁酸", "r": -0.028923505943320837, "n_months": 4, "total_gmv": 732746.51, "avg_sku": 75.0, "latest_sku": 71.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "蛋白棒", "r": 0.3414031321356399, "n_months": 4, "total_gmv": 724131.01, "avg_sku": 49.25, "latest_sku": 57.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "γ-氨基丁酸", "r": 0.8117169639573556, "n_months": 4, "total_gmv": 700174.2999999999, "avg_sku": 13.0, "latest_sku": 10.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "白芸豆提取物/果蔬膳食纤维", "r": 0.07542341466641038, "n_months": 4, "total_gmv": 680933.3, "avg_sku": 32.0, "latest_sku": 29.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "螺旋藻/藻类提取物", "r": 0.6749623815391224, "n_months": 4, "total_gmv": 628438.96, "avg_sku": 26.75, "latest_sku": 28.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "虾青素", "r": 0.8203332520789216, "n_months": 4, "total_gmv": 607912.6099999999, "avg_sku": 76.25, "latest_sku": 57.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "普通海洋生物提取物", "r": -0.22229820718886478, "n_months": 4, "total_gmv": 516843.0, "avg_sku": 13.75, "latest_sku": 14.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "月见草油", "r": 0.4603780455334245, "n_months": 4, "total_gmv": 502285.66000000003, "avg_sku": 37.5, "latest_sku": 40.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "生物素", "r": 0.666090741614222, "n_months": 4, "total_gmv": 496112.09, "avg_sku": 52.75, "latest_sku": 44.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "海外保健运动修复", "r": 0.7774132784789306, "n_months": 4, "total_gmv": 486348.0, "avg_sku": 16.25, "latest_sku": 19.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "PS/磷脂酰丝氨酸", "r": -0.06761836573530729, "n_months": 4, "total_gmv": 473849.5800000001, "avg_sku": 18.25, "latest_sku": 22.0}, {"cat1": "成人用品/情趣用品（仅限邀约）", "cat4": "多功能自慰杯/飞机杯", "r": -0.11992602194938674, "n_months": 4, "total_gmv": 470253.42, "avg_sku": 29.5, "latest_sku": 30.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "姜黄素", "r": 0.8785795813543097, "n_months": 4, "total_gmv": 463467.04000000004, "avg_sku": 39.25, "latest_sku": 39.0}, {"cat1": "OTC药品/国际医药", "cat4": "抗菌消炎", "r": 0.1885956395099978, "n_months": 4, "total_gmv": 462696.62, "avg_sku": 248.5, "latest_sku": 230.0}, {"cat1": "OTC药品/国际医药", "cat4": "癣症", "r": 0.2857159583422259, "n_months": 4, "total_gmv": 437075.56999999995, "avg_sku": 234.75, "latest_sku": 226.0}, {"cat1": "OTC药品/国际医药", "cat4": "安神补脑", "r": 0.7833697211718829, "n_months": 4, "total_gmv": 407165.54000000004, "avg_sku": 187.0, "latest_sku": 177.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "铁", "r": 0.8004022581069421, "n_months": 4, "total_gmv": 398872.53, "avg_sku": 52.75, "latest_sku": 56.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "维生素K", "r": 0.5566681274666017, "n_months": 4, "total_gmv": 363396.85000000003, "avg_sku": 21.75, "latest_sku": 23.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "氨糖软骨素", "r": 0.9443455178211705, "n_months": 4, "total_gmv": 351000.12, "avg_sku": 31.5, "latest_sku": 40.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "锯棕榈", "r": 0.26682863200860796, "n_months": 4, "total_gmv": 342896.24, "avg_sku": 19.75, "latest_sku": 16.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "叶酸", "r": 0.7273089556035465, "n_months": 4, "total_gmv": 342200.52, "avg_sku": 66.5, "latest_sku": 75.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "综合营养包", "r": -0.05125155736963573, "n_months": 4, "total_gmv": 328463.06000000006, "avg_sku": 16.0, "latest_sku": 15.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "银杏/人参银杏", "r": 0.9199897600236382, "n_months": 4, "total_gmv": 306465.62, "avg_sku": 31.0, "latest_sku": 28.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "润喉糖", "r": 0.4225882687357307, "n_months": 4, "total_gmv": 292906.22, "avg_sku": 21.25, "latest_sku": 27.0}, {"cat1": "OTC药品/国际医药", "cat4": "健脾益肾", "r": 0.970416869971063, "n_months": 4, "total_gmv": 279381.88999999996, "avg_sku": 135.5, "latest_sku": 105.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "维生素E", "r": 0.6181930296710294, "n_months": 4, "total_gmv": 265704.67, "avg_sku": 37.75, "latest_sku": 38.0}, {"cat1": "OTC药品/国际医药", "cat4": "小儿肠胃", "r": 0.23333613896698388, "n_months": 4, "total_gmv": 260291.37, "avg_sku": 48.0, "latest_sku": 40.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "参类提取物", "r": 0.9054394237229676, "n_months": 4, "total_gmv": 226494.49, "avg_sku": 10.75, "latest_sku": 9.0}, {"cat1": "OTC药品/国际医药", "cat4": "国际肠胃用药", "r": -0.5849952175411358, "n_months": 4, "total_gmv": 211002.38, "avg_sku": 29.0, "latest_sku": 34.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "抗糖/寡糖/低聚糖/低GI", "r": 0.6198532898107569, "n_months": 4, "total_gmv": 209669.72999999998, "avg_sku": 36.75, "latest_sku": 39.0}, {"cat1": "OTC药品/国际医药", "cat4": "皮脂汗腺", "r": 0.8739941326216067, "n_months": 4, "total_gmv": 208433.91000000003, "avg_sku": 109.5, "latest_sku": 92.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "海狗/海豹油", "r": 0.19675988251732554, "n_months": 4, "total_gmv": 205700.52, "avg_sku": 12.75, "latest_sku": 13.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "玛咖提取物", "r": 0.18941612559788384, "n_months": 4, "total_gmv": 199966.53, "avg_sku": 12.75, "latest_sku": 12.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "硒", "r": 0.5245911755915134, "n_months": 4, "total_gmv": 196681.16999999998, "avg_sku": 18.75, "latest_sku": 18.0}, {"cat1": "OTC药品/国际医药", "cat4": "眼", "r": 0.9675140349694137, "n_months": 4, "total_gmv": 193922.20999999993, "avg_sku": 123.75, "latest_sku": 113.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "番茄红素", "r": 0.08767530876810838, "n_months": 4, "total_gmv": 186680.30000000002, "avg_sku": 22.5, "latest_sku": 20.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "牡蛎/贝类提取物", "r": 0.35249780890268845, "n_months": 4, "total_gmv": 168828.87, "avg_sku": 25.25, "latest_sku": 24.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "木瓜提取物", "r": 0.34854050075616366, "n_months": 4, "total_gmv": 154985.82, "avg_sku": 12.5, "latest_sku": 14.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "大蒜提取物", "r": 0.5999382105664827, "n_months": 4, "total_gmv": 142129.43, "avg_sku": 9.0, "latest_sku": 8.0}, {"cat1": "家庭保健", "cat4": "其他康复辅助器械", "r": 0.8001921708045449, "n_months": 4, "total_gmv": 139309.87, "avg_sku": 78.0, "latest_sku": 55.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "普通动物提取物", "r": -0.6398249633884068, "n_months": 4, "total_gmv": 137883.40000000002, "avg_sku": 5.5, "latest_sku": 4.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "槲皮素", "r": 0.8752396239122963, "n_months": 4, "total_gmv": 117933.62000000001, "avg_sku": 12.5, "latest_sku": 13.0}, {"cat1": "OTC药品/国际医药", "cat4": "国际解热镇痛用药", "r": -0.8355015260202612, "n_months": 4, "total_gmv": 115595.35999999999, "avg_sku": 35.5, "latest_sku": 40.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "氨基葡萄糖", "r": 0.9917155517606057, "n_months": 4, "total_gmv": 109649.37000000001, "avg_sku": 27.25, "latest_sku": 25.0}, {"cat1": "保健食品/膳食营养补充食品", "cat4": "精氨酸", "r": -0.6007352042890189, "n_months": 4, "total_gmv": 100660.44, "avg_sku": 11.5, "latest_sku": 13.0}];
+
+function getLabel(r){
+  if(r===null||r===undefined) return ['❓','数据不足','other'];
+  if(r>=0.6) return ['✅','强供给驱动','strong'];
+  if(r>=0.3) return ['🟡','弱相关','weak'];
+  return ['❌','非供给瓶颈','no'];
+}
+function getColor(r){
+  if(r===null||r===undefined) return '#888';
+  if(r>=0.6) return '#22c55e';
+  if(r>=0.3) return '#f59e0b';
+  return '#ef4444';
+}
+
+let sortKey = 'gmv', sortDir = -1;
+function sortBy(key){
+  if(sortKey===key) sortDir*=-1; else {sortKey=key;sortDir=-1;}
+  ['r','gmv','sku'].forEach(k=>{
+    const el=document.getElementById('th-'+k);
+    if(el) el.className = k===key ? 'sorted':'';
+  });
+  render();
+}
+
+function render(){
+  const q = document.getElementById('search').value.toLowerCase();
+  const f = document.getElementById('filter').value;
+  const c1f = document.getElementById('cat1filter').value;
+
+  let rows = RAW.filter(d=>{
+    if(q && !d.cat4.toLowerCase().includes(q)) return false;
+    if(c1f!=='all' && d.cat1!==c1f) return false;
+    if(f!=='all'){
+      const [,,type] = getLabel(d.r);
+      if(type!==f) return false;
+    }
+    return true;
+  });
+
+  rows.sort((a,b)=>{
+    let va,vb;
+    if(sortKey==='r'){va=a.r??-99;vb=b.r??-99;}
+    else if(sortKey==='gmv'){va=a.total_gmv;vb=b.total_gmv;}
+    else if(sortKey==='sku'){va=a.avg_sku;vb=b.avg_sku;}
+    return sortDir*(va-vb);
+  });
+
+  document.getElementById('count').textContent = `共 ${rows.length} 条`;
+
+  const tbody = document.getElementById('tbody');
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="9" class="no-data">无匹配数据</td></tr>';return;}
+
+  tbody.innerHTML = rows.map((d,i)=>{
+    const r=d.r, color=getColor(r);
+    const [icon,label] = getLabel(r);
+    const rStr = r!==null&&r!==undefined ? (r>=0?'+':'')+r.toFixed(3) : 'N/A';
+    const gmv = (d.total_gmv/10000).toLocaleString('zh-CN',{minimumFractionDigits:1,maximumFractionDigits:1});
+    return `<tr>
+      <td style="color:#555">${i+1}</td>
+      <td class="cat1">${d.cat1}</td>
+      <td class="cat4-name">${d.cat4}</td>
+      <td style="color:${color};font-weight:700">${rStr}</td>
+      <td><span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}55">${icon} ${label}</span></td>
+      <td class="num">${gmv}</td>
+      <td class="num">${d.avg_sku.toFixed(0)}</td>
+      <td class="num">${d.latest_sku.toFixed(0)}</td>
+      <td class="num">${d.n_months}</td>
+    </tr>`;
+  }).join('');
+}
+
+document.getElementById('search').addEventListener('input', render);
+document.getElementById('filter').addEventListener('change', render);
+document.getElementById('cat1filter').addEventListener('change', render);
+render();
+</script>
+</body>
+</html>
