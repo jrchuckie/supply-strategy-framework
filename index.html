@@ -10,513 +10,419 @@
 html{scroll-snap-type:y mandatory;scroll-behavior:smooth;height:100%}
 body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-apple-system,'PingFang SC',sans-serif;background:#0c0c0c}
 
-/* ── Variables ── */
 :root{
   --r:#FF2442;--y:#FFD600;--g:#00C853;
   --dk:#0c0c0c;--lt:#f5f5f0;--card:#1e1e1e;
-  --p:clamp(28px,4.5vw,64px);
-  --pt:clamp(24px,3.5vh,48px);
-  --t1:clamp(2rem,5.5vw,5rem);
-  --t2:clamp(1.5rem,3.2vw,3rem);
-  --t3:clamp(1.1rem,2vw,1.8rem);
-  --bd:clamp(.8rem,1.3vw,1rem);
-  --sm:clamp(.68rem,.95vw,.82rem);
+  --p:clamp(28px,4vw,60px);
+  --pt:clamp(22px,3.5vh,44px);
+  --t1:clamp(2.4rem,6vw,5.5rem);
+  --t2:clamp(1.6rem,3.2vw,3rem);
+  --t3:clamp(1.1rem,2vw,1.75rem);
+  --bd:clamp(1rem,1.6vw,1.25rem);
+  --sm:clamp(.88rem,1.25vw,1.05rem);
+  --xs:clamp(.78rem,1.05vw,.92rem);
   --mono:'Space Mono',monospace;
 }
 
-/* ── Slide base ── */
-.slide{
-  scroll-snap-align:start;
-  width:100vw;height:100vh;height:100dvh;
-  overflow:hidden;position:relative;
-}
+.slide{scroll-snap-align:start;width:100vw;height:100vh;height:100dvh;overflow:hidden;position:relative}
 .slide.dk{background:var(--dk);color:#fff}
 .slide.lt{background:var(--lt);color:#111}
 
-/* ── Nav ── */
-#nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:999}
+#nav{position:fixed;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:999}
 .nd{width:7px;height:7px;border-radius:50%;border:none;cursor:pointer;transition:all .25s;padding:0}
-.nd.on{transform:scale(1.6)}
-.dk-nav .nd{background:rgba(255,255,255,.2)}
-.dk-nav .nd.on{background:#fff}
-.lt-nav .nd{background:rgba(0,0,0,.15)}
-.lt-nav .nd.on{background:#333}
-.pg{position:absolute;bottom:18px;right:var(--p);font-family:var(--mono);font-size:10px;letter-spacing:2px;opacity:.2}
+.pg{position:absolute;bottom:16px;right:var(--p);font-family:var(--mono);font-size:10px;letter-spacing:2px;opacity:.18}
 
-/* ── Tag ── */
-.tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;padding:4px 10px;border-radius:4px}
-.tag-red{background:var(--r);color:#fff}
-.tag-outline{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5)}
-.tag-outline-dk{border:1px solid rgba(0,0,0,.15);color:#888}
-
-/* ═══════════════════════════════════
-   P1 COVER
-═══════════════════════════════════ */
+/* ── P1 ── */
 #p1{display:grid;grid-template-columns:58% 42%}
 .p1l{background:var(--r);display:flex;flex-direction:column;justify-content:space-between;padding:var(--p);padding-top:var(--pt)}
-.p1l .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.6)}
-.p1l h1{font-size:clamp(2.8rem,7.5vw,7rem);font-weight:800;line-height:.92;letter-spacing:-.03em;margin:auto 0}
-.p1l .desc{font-size:var(--bd);color:rgba(255,255,255,.75);line-height:1.55}
-.p1r{background:#0a0a0a;display:flex;flex-direction:column;justify-content:center;padding:var(--p);gap:clamp(10px,2vh,18px)}
-.p1r .rhed{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:4px}
-.act-row{display:flex;align-items:center;gap:14px;padding:clamp(12px,2vh,18px) clamp(14px,2vw,20px);background:rgba(255,255,255,.04);border-radius:10px;border-left:3px solid var(--r)}
-.act-row .ar-n{font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--r);font-weight:700;min-width:52px;flex-shrink:0}
-.act-row .ar-t{font-size:var(--sm);font-weight:600;color:rgba(255,255,255,.85)}
+.p1l .eye{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.p1l h1{font-size:clamp(3rem,8vw,7.5rem);font-weight:800;line-height:.9;letter-spacing:-.03em;flex:1;display:flex;align-items:center}
+.p1l .desc{font-size:var(--bd);color:rgba(255,255,255,.78);line-height:1.55}
+.p1r{background:#0a0a0a;display:flex;flex-direction:column;justify-content:center;padding:var(--p);gap:14px}
+.p1r .rhed{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:2px}
+.arow{display:flex;align-items:center;gap:14px;padding:clamp(13px,2.2vh,20px) clamp(14px,2vw,20px);background:rgba(255,255,255,.05);border-radius:10px;border-left:3px solid var(--r)}
+.arow .an{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--r);font-weight:700;min-width:54px;flex-shrink:0}
+.arow .at{font-size:var(--sm);font-weight:600;color:rgba(255,255,255,.88)}
 
-/* ═══════════════════════════════════
-   P2 核心问题
-═══════════════════════════════════ */
-#p2{display:flex;flex-direction:column;justify-content:space-between;padding:var(--p);padding-top:var(--pt);padding-bottom:clamp(24px,4vh,48px)}
-#p2 .bigq{font-size:clamp(1.7rem,4.2vw,3.8rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;flex:1;display:flex;align-items:center}
-#p2 .bigq em{color:var(--r);font-style:normal}
-.three-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.tc{background:var(--card);border-radius:12px;padding:clamp(14px,2.5vh,22px) clamp(14px,2vw,20px);border-top:3px solid}
-.tc:nth-child(1){border-color:var(--r)}
-.tc:nth-child(2){border-color:var(--y)}
-.tc:nth-child(3){border-color:rgba(255,255,255,.15)}
-.tc .tn{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;opacity:.4;margin-bottom:8px}
-.tc h3{font-size:var(--t3);font-weight:800;margin-bottom:6px;line-height:1.2}
-.tc p{font-size:var(--sm);color:rgba(255,255,255,.45);line-height:1.55}
+/* ── P2 ── */
+#p2{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);padding-bottom:clamp(22px,4vh,44px);gap:clamp(16px,3vh,28px)}
+.bigq{font-size:clamp(1.9rem,4.5vw,4rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;flex:1;display:flex;align-items:center}
+.bigq em{color:var(--r);font-style:normal}
+.tcards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tcard{background:var(--card);border-radius:12px;padding:clamp(16px,2.5vh,24px) clamp(16px,2vw,22px);border-top:3px solid}
+.tcard:nth-child(1){border-color:var(--r)}
+.tcard:nth-child(2){border-color:var(--y)}
+.tcard:nth-child(3){border-color:rgba(255,255,255,.15)}
+.tcard .tn{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.38;margin-bottom:10px}
+.tcard h3{font-size:var(--t3);font-weight:800;margin-bottom:8px;line-height:1.2}
+.tcard p{font-size:var(--sm);color:rgba(255,255,255,.5);line-height:1.6}
 
-/* ═══════════════════════════════════
-   P3 Step 0
-═══════════════════════════════════ */
+/* ── P3 Step0 ── */
 #p3{display:grid;grid-template-columns:44% 56%}
-.p3l{display:flex;flex-direction:column;justify-content:center;gap:clamp(12px,2.5vh,22px);padding:var(--p);padding-top:var(--pt)}
+.p3l{display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.5vh,24px);padding:var(--p);padding-top:var(--pt)}
+.stag{display:inline-block;background:var(--r);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;padding:5px 12px;border-radius:4px;align-self:flex-start}
 .p3l h2{font-size:var(--t2);font-weight:800;line-height:1.1}
-.p3l .concl{font-size:var(--bd);line-height:1.6;border-left:3px solid var(--r);padding-left:14px;color:#666}
-.p3l .method{background:#fff;border-radius:10px;padding:14px 18px;font-size:var(--sm);color:#555;line-height:1.7}
-.p3l .method strong{color:#111;display:block;margin-bottom:3px;font-size:var(--bd);font-weight:700}
+.p3l .concl{font-size:var(--sm);line-height:1.65;border-left:3px solid var(--r);padding-left:16px;color:#555}
+.p3l .method{background:#fff;border-radius:10px;padding:16px 20px}
+.p3l .method strong{font-size:var(--bd);font-weight:800;color:#111;display:block;margin-bottom:6px}
+.p3l .method p{font-size:var(--sm);color:#666;line-height:1.65}
 .p3r{display:flex;align-items:center;justify-content:center;padding:var(--p);background:#e8e8e2}
-.tree{width:100%;max-width:400px}
-.tree-top{background:#fff;border-radius:12px;padding:16px 20px;text-align:center;font-weight:700;font-size:var(--bd);color:#111;box-shadow:0 2px 12px rgba(0,0,0,.08)}
-.tree-top .ts{font-size:var(--sm);color:#999;margin-top:4px;font-weight:500}
-.tree-line{width:1px;height:24px;background:#ccc;margin:0 auto}
-.tree-branches{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.branch{border-radius:12px;padding:clamp(12px,2vh,18px)}
-.branch.ok{background:#f0fdf4;border:2px solid #86efac}
-.branch.no{background:#fff5f5;border:2px solid #fca5a5}
-.branch .bv{font-family:var(--mono);font-size:clamp(.65rem,1vw,.8rem);font-weight:700}
-.branch.ok .bv{color:#15803d}
-.branch.no .bv{color:#dc2626}
-.branch .bl{font-size:var(--bd);font-weight:800;color:#111;margin:4px 0}
-.branch .bd2{font-size:var(--sm);color:#666;line-height:1.4}
-.branch .ba{margin-top:8px;font-size:var(--sm);font-weight:700;padding:5px 12px;border-radius:6px;display:inline-block}
-.branch.ok .ba{background:#dcfce7;color:#15803d}
-.branch.no .ba{background:#fee2e2;color:#dc2626}
+.tree{width:100%;max-width:420px}
+.tree-top{background:#fff;border-radius:12px;padding:18px 22px;text-align:center;font-weight:700;font-size:var(--bd);color:#111;box-shadow:0 2px 14px rgba(0,0,0,.08)}
+.tree-top .ts{font-size:var(--sm);color:#999;margin-top:5px;font-weight:500}
+.tree-line{width:1px;height:26px;background:#ccc;margin:0 auto}
+.tree-br{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.br{border-radius:12px;padding:clamp(14px,2.2vh,20px)}
+.br.ok{background:#f0fdf4;border:2px solid #86efac}
+.br.no{background:#fff5f5;border:2px solid #fca5a5}
+.br .bv{font-family:var(--mono);font-size:var(--xs);font-weight:700}
+.br.ok .bv{color:#15803d}
+.br.no .bv{color:#dc2626}
+.br .bl{font-size:var(--bd);font-weight:800;color:#111;margin:5px 0}
+.br .bd{font-size:var(--sm);color:#666;line-height:1.5}
+.br .ba{margin-top:10px;font-size:var(--sm);font-weight:700;padding:6px 14px;border-radius:6px;display:inline-block}
+.br.ok .ba{background:#dcfce7;color:#15803d}
+.br.no .ba{background:#fee2e2;color:#dc2626}
 
-/* ═══════════════════════════════════
-   P4 赛道类型
-═══════════════════════════════════ */
-#p4{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,2vh,18px)}
-#p4 .p4h{flex-shrink:0}
-#p4 .p4h .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px}
-#p4 .p4h h2{font-size:var(--t2);font-weight:800;line-height:1.1}
-.two-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;min-height:0}
-.tcard{border-radius:14px;padding:clamp(14px,2.5vw,24px);display:flex;flex-direction:column;gap:clamp(8px,1.5vh,14px)}
-.tcard.s{background:rgba(255,36,66,.08);border:1.5px solid rgba(255,36,66,.2)}
-.tcard.c{background:rgba(255,214,0,.06);border:1.5px solid rgba(255,214,0,.18)}
-.tcard .ctype{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
-.tcard.s .ctype{color:var(--r)}
-.tcard.c .ctype{color:var(--y)}
-.tcard h3{font-size:var(--t3);font-weight:800;line-height:1.2}
-.tcard .cfeat{font-size:var(--sm);color:rgba(255,255,255,.55);line-height:1.5}
-.tcard .cex{background:rgba(255,255,255,.04);border-radius:8px;padding:10px 14px;flex:1}
-.tcard .cex .exl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;opacity:.35;margin-bottom:6px}
-.tcard .cex .exi{font-size:var(--sm);color:rgba(255,255,255,.65);line-height:1.7}
-.tcard .csig{font-size:var(--sm)}
-.tcard.s .csig strong{color:var(--r)}
-.tcard.c .csig strong{color:var(--y)}
-.unify{background:rgba(255,255,255,.05);border-radius:10px;padding:clamp(10px,1.8vh,16px) clamp(14px,2vw,20px);text-align:center;font-size:var(--bd);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.08);flex-shrink:0}
-.unify strong{color:#fff}
+/* ── P4 Act2 ── */
+#p4{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(12px,2vh,20px)}
+.p4top{flex-shrink:0}
+.p4top .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px}
+.p4top h2{font-size:var(--t2);font-weight:800;line-height:1.1}
+.twocols{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;min-height:0}
+.col{border-radius:14px;padding:clamp(16px,2.5vw,26px);display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)}
+.col.s{background:rgba(255,36,66,.08);border:1.5px solid rgba(255,36,66,.2)}
+.col.c{background:rgba(255,214,0,.06);border:1.5px solid rgba(255,214,0,.18)}
+.col .ct{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
+.col.s .ct{color:var(--r)}
+.col.c .ct{color:var(--y)}
+.col h3{font-size:var(--t3);font-weight:800;line-height:1.2}
+.col .feat{font-size:var(--sm);color:rgba(255,255,255,.6);line-height:1.6}
+.col .box{background:rgba(255,255,255,.05);border-radius:8px;padding:12px 16px;flex:1}
+.col .box .bl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;opacity:.35;margin-bottom:8px}
+.col .box .bi{font-size:var(--sm);color:rgba(255,255,255,.72);line-height:1.8}
+.col .sig{font-size:var(--sm)}
+.col.s .sig strong{color:var(--r)}
+.col.c .sig strong{color:var(--y)}
+.formula-bar{background:rgba(255,255,255,.05);border-radius:10px;padding:clamp(12px,1.8vh,18px) clamp(16px,2vw,22px);display:flex;align-items:center;justify-content:center;gap:clamp(24px,5vw,60px);flex-shrink:0;border:1px solid rgba(255,255,255,.08)}
+.fbar-item{text-align:center}
+.fbar-item .fl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px}
+.fbar-item .ff{font-family:var(--mono);font-size:var(--sm);font-weight:700}
+.fbar-item.s .ff{color:var(--r)}
+.fbar-item.c .ff{color:var(--y)}
+.fbar-div{width:1px;height:40px;background:rgba(255,255,255,.1)}
 
-/* ═══════════════════════════════════
-   P5 / P6 Track
-═══════════════════════════════════ */
-.track{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,2vh,18px)}
-.track .tey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);flex-shrink:0}
-.track .th2{font-size:var(--t2);font-weight:800;line-height:1.1;flex-shrink:0}
-.formula-box{border-radius:12px;padding:clamp(12px,2vh,18px);text-align:center;flex-shrink:0}
-.lt .formula-box{background:#fff;border:2px solid var(--r)}
-.dk .formula-box{background:var(--card);border:2px solid var(--r)}
-.formula-box .fl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--r);margin-bottom:6px}
-.formula-box .ff{font-family:var(--mono);font-size:clamp(.9rem,2vw,1.5rem);font-weight:700}
-.formula-box .ff .hl{color:var(--r)}
-.pipeline{display:flex;align-items:stretch;gap:0;flex-shrink:0}
-.pp{flex:1;padding:clamp(10px,1.8vh,14px) clamp(8px,1.2vw,12px);border-radius:10px;text-align:center}
-.lt .pp{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.06)}
-.dk .pp{background:var(--card)}
-.pp .ppn{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--r);margin-bottom:4px}
-.pp .ppt{font-size:var(--sm);font-weight:700}
-.lt .pp .ppt{color:#111}
-.pp-out{background:rgba(255,36,66,.1)!important;border:1.5px solid var(--r)!important}
-.arr{padding:0 clamp(4px,1vw,10px);font-size:clamp(.9rem,1.8vw,1.4rem);opacity:.25;display:flex;align-items:center;flex-shrink:0}
-.detail-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;flex:1;min-height:0}
-.dc{border-radius:10px;padding:clamp(10px,1.8vh,16px) clamp(10px,1.5vw,16px);display:flex;flex-direction:column;gap:5px}
-.lt .dc{background:#fff}
-.dk .dc{background:var(--card)}
-.dc .dcl{font-family:var(--mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--r);font-weight:700}
-.dc .dct{font-size:var(--sm);font-weight:700}
-.lt .dc .dct{color:#111}
-.dk .dc .dct{color:#fff}
-.dc .dcd{font-size:clamp(.62rem,.88vw,.75rem);line-height:1.5;margin-top:2px}
-.lt .dc .dcd{color:#777}
-.dk .dc .dcd{color:rgba(255,255,255,.4)}
+/* ── P5 优先级 ── */
+#p5{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,1.8vh,18px)}
+.p5top{flex-shrink:0}
+.p5top .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px}
+.p5top h2{font-size:var(--t2);font-weight:800;line-height:1.1;color:#111}
+.p5body{display:grid;grid-template-columns:32% 68%;gap:16px;flex:1;min-height:0}
+.p5left{display:flex;flex-direction:column;gap:14px}
+.score-formula{background:#fff;border-radius:12px;padding:16px 18px;border-left:3px solid var(--r)}
+.score-formula .sfl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--r);margin-bottom:8px}
+.score-formula .sff{font-family:var(--mono);font-size:var(--xs);line-height:2.0;color:#111}
+.score-formula .sff .hl{color:var(--r);font-weight:700}
+.ranklist{background:#fff;border-radius:12px;padding:14px 16px;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:6px}
+.ranklist .rltit{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#999;margin-bottom:4px}
+.ritem{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;background:#f9f9f6}
+.ritem .ri-rank{font-family:var(--mono);font-size:10px;color:#bbb;width:18px;flex-shrink:0;font-weight:700}
+.ritem.top1 .ri-rank{color:var(--r)}
+.ritem .ri-name{flex:1;font-size:var(--sm);font-weight:700;color:#111}
+.ritem .ri-bar-wrap{width:90px;height:6px;background:#eee;border-radius:3px;flex-shrink:0}
+.ritem .ri-bar{height:6px;border-radius:3px;background:var(--r)}
+.ritem.top1 .ri-bar{background:var(--r)}
+.ritem .ri-score{font-family:var(--mono);font-size:var(--xs);color:#888;width:36px;text-align:right;flex-shrink:0}
+.p5right{position:relative;background:#eeeee8;border-radius:14px;overflow:hidden}
+.chart-labels{position:absolute;left:0;right:0;bottom:0;top:0;pointer-events:none}
+.axis-x-l{position:absolute;bottom:14px;left:22%;font-family:var(--mono);font-size:9px;color:#999;letter-spacing:1px}
+.axis-x-r{position:absolute;bottom:14px;right:8%;font-family:var(--mono);font-size:9px;color:#999;letter-spacing:1px}
+.axis-y-label{position:absolute;left:8px;top:50%;transform:translateY(-50%) rotate(-90deg);font-family:var(--mono);font-size:9px;color:#999;letter-spacing:1px;white-space:nowrap;transform-origin:center center}
+.chart-legend{position:absolute;top:10px;right:12px;display:flex;flex-direction:column;gap:5px;background:rgba(255,255,255,.85);border-radius:8px;padding:10px 12px}
+.cl-item{display:flex;align-items:center;gap:7px;font-size:11px;color:#555}
+.cl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.cl-size{display:flex;align-items:center;gap:4px;font-size:11px;color:#555}
 
-/* ═══════════════════════════════════
-   P7 优先级
-═══════════════════════════════════ */
-#p7{display:grid;grid-template-columns:36% 64%}
-.p7l{display:flex;flex-direction:column;justify-content:center;gap:clamp(12px,2.5vh,22px);padding:var(--p);padding-top:var(--pt)}
-.p7l .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r)}
-.p7l h2{font-size:var(--t2);font-weight:800;line-height:1.1}
-.p7formula{background:#fff;border-radius:12px;padding:14px 18px;border-left:3px solid var(--r)}
-.p7formula .pfl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--r);margin-bottom:6px}
-.p7formula .pff{font-family:var(--mono);font-size:clamp(.7rem,1.2vw,.9rem);line-height:2}
-.p7formula .pff .hl{color:var(--r);font-weight:700}
-.legend{display:flex;flex-direction:column;gap:7px}
-.legend .ltit{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#999;margin-bottom:2px}
-.li{display:flex;align-items:center;gap:8px;font-size:var(--sm);color:#555}
-.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.p7r{display:flex;align-items:center;justify-content:center;padding:clamp(16px,3vw,36px);background:#eeeee8}
-
-/* ═══════════════════════════════════
-   P8 Leads
-═══════════════════════════════════ */
-#p8{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,2vh,18px)}
-#p8 .p8h .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px}
-#p8 .p8h h2{font-size:var(--t2);font-weight:800;line-height:1.1}
-.leads{display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1;min-height:0}
-.lcol{background:var(--card);border-radius:14px;padding:clamp(12px,2vw,20px);display:flex;flex-direction:column;gap:8px;overflow:hidden}
-.lcol .lhead{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.ltag{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:4px}
-.ltag.s{background:rgba(255,36,66,.15);color:var(--r)}
-.ltag.c{background:rgba(255,214,0,.12);color:var(--y)}
-.lcol .lsub{font-size:var(--sm);font-weight:700;color:rgba(255,255,255,.7)}
-.spu{display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(255,255,255,.04);border-radius:8px;flex-shrink:0}
-.spu .sr{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.2);width:16px;flex-shrink:0}
-.spu .sn{flex:1;font-size:var(--sm);font-weight:600;color:#fff}
-.spu .sv{font-family:var(--mono);font-size:clamp(.58rem,.85vw,.7rem);color:rgba(255,255,255,.35);flex-shrink:0}
-.spu .ss{font-size:clamp(.55rem,.82vw,.66rem);font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0}
+/* ── P6 Act4 ── */
+#p6{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,1.8vh,16px)}
+.p6top{flex-shrink:0}
+.p6top .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px}
+.p6top h2{font-size:var(--t2);font-weight:800;line-height:1.1}
+.p6body{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;min-height:0}
+.p6col{border-radius:14px;padding:clamp(14px,2.2vw,22px);display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.p6col.leads{background:var(--card)}
+.p6col.verify{background:var(--card)}
+.p6col .chd{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:4px}
+.p6col.leads .chd{color:var(--r)}
+.p6col.verify .chd{color:var(--y)}
+.p6col h3{font-size:var(--t3);font-weight:800;line-height:1.2}
+.spu-row{display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(255,255,255,.04);border-radius:8px;flex-shrink:0}
+.sr{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.2);width:16px;flex-shrink:0}
+.sn{flex:1;font-size:var(--sm);font-weight:600}
+.sv{font-family:var(--mono);font-size:var(--xs);color:rgba(255,255,255,.35);flex-shrink:0}
+.ss{font-size:var(--xs);font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0}
 .ss.out{background:rgba(255,36,66,.15);color:var(--r)}
 .ss.in{background:rgba(0,200,83,.12);color:var(--g)}
-.lnote{background:rgba(255,255,255,.04);border-radius:10px;padding:10px 14px;font-size:var(--sm);color:rgba(255,255,255,.35);text-align:center;flex-shrink:0}
-.lnote strong{color:rgba(255,255,255,.6)}
-
-/* ═══════════════════════════════════
-   P9 验证
-═══════════════════════════════════ */
-#p9{display:flex;flex-direction:column;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,2vh,18px)}
-#p9 .p9h .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:8px}
-#p9 .p9h h2{font-size:var(--t2);font-weight:800;line-height:1.1}
-.vcards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;min-height:0}
-.vc{border-radius:14px;padding:clamp(14px,2.5vw,24px);display:flex;flex-direction:column;gap:clamp(8px,1.5vh,14px);border:2px solid}
-.vc.ok{background:#f0fdf4;border-color:#86efac}
-.vc.wn{background:#fffbeb;border-color:#fcd34d}
-.vc.ng{background:#fff5f5;border-color:#fca5a5}
-.vc .vi{font-size:clamp(1.4rem,3vw,2.2rem)}
-.vc .vt{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
-.vc.ok .vt{color:#15803d}
-.vc.wn .vt{color:#92400e}
-.vc.ng .vt{color:#dc2626}
-.vc h3{font-size:var(--t3);font-weight:800;line-height:1.2;color:#111}
-.vc .vsigs{display:flex;flex-direction:column;gap:6px;flex:1}
-.vs{display:flex;gap:8px;font-size:var(--sm);color:#555;align-items:flex-start;line-height:1.45}
-.vs::before{content:'→';font-weight:700;flex-shrink:0}
-.vc.ok .vs::before{color:#15803d}
-.vc.wn .vs::before{color:#d97706}
-.vc.ng .vs::before{color:#dc2626}
-.vc .va{margin-top:auto;font-size:var(--sm);font-weight:700;padding:8px 14px;border-radius:8px;align-self:flex-start}
-.vc.ok .va{background:#dcfce7;color:#15803d}
-.vc.wn .va{background:#fef3c7;color:#92400e}
-.vc.ng .va{background:#fee2e2;color:#dc2626}
+.vcase{border-radius:10px;padding:clamp(10px,1.8vh,14px) clamp(12px,1.8vw,16px);display:flex;flex-direction:column;gap:6px;flex:1}
+.vcase.ok{background:#f0fdf4;border:1.5px solid #86efac}
+.vcase.wn{background:#fffbeb;border:1.5px solid #fcd34d}
+.vcase.ng{background:#fff5f5;border:1.5px solid #fca5a5}
+.vcase .vi{font-size:clamp(1.1rem,2vw,1.5rem)}
+.vcase .vt{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-top:2px}
+.vcase.ok .vt{color:#15803d}
+.vcase.wn .vt{color:#92400e}
+.vcase.ng .vt{color:#dc2626}
+.vcase h4{font-size:var(--sm);font-weight:800;color:#111;line-height:1.3}
+.vcase .vd{font-size:var(--xs);color:#666;line-height:1.5}
 </style>
 </head>
 <body>
-
 <nav id="nav"></nav>
 
-<!-- ══ P1 封面 ══ -->
+<!-- P1 封面 -->
 <section class="slide dk" id="p1">
   <div class="p1l">
-    <div class="eyebrow">小红书商业化运营</div>
+    <div class="eye">小红书商业化运营</div>
     <h1>赛道货品<br>供给机会<br>识别</h1>
     <div class="desc">如何判断一个赛道是否需要引入货品供给<br>以及引什么、按什么顺序引</div>
   </div>
   <div class="p1r">
     <div class="rhed">今天的内容</div>
-    <div class="act-row"><span class="ar-n">Step 0</span><span class="ar-t">供给驱动校验——引货是不是解法？</span></div>
-    <div class="act-row"><span class="ar-n">Act 2</span><span class="ar-t">度量缺口——有多少需求没被覆盖？</span></div>
-    <div class="act-row"><span class="ar-n">Act 3</span><span class="ar-t">优先级排序——哪个赛道先引？</span></div>
-    <div class="act-row"><span class="ar-n">Act 4</span><span class="ar-t">引什么货 + 验证引对了吗？</span></div>
+    <div class="arow"><span class="an">Step 0</span><span class="at">供给驱动校验——引货是不是解法？</span></div>
+    <div class="arow"><span class="an">Act 2</span><span class="at">度量缺口——有多少需求没被覆盖？</span></div>
+    <div class="arow"><span class="an">Act 3</span><span class="at">优先级排序——哪个赛道先引？</span></div>
+    <div class="arow"><span class="an">Act 4</span><span class="at">引什么货 + 验证引对了吗？</span></div>
   </div>
-  <div class="pg">01 / 09</div>
+  <div class="pg">01 / 06</div>
 </section>
 
-<!-- ══ P2 核心问题 ══ -->
+<!-- P2 核心问题 -->
 <section class="slide dk" id="p2">
-  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);padding-bottom:clamp(24px,4vh,48px);gap:clamp(12px,2.5vh,20px)">
-    <div class="bigq">引货引错了是<em style="color:var(--r);font-style:normal">资源浪费</em>，<br>引多了比<em style="color:var(--r);font-style:normal">不引更差</em></div>
-    <div class="three-cards">
-      <div class="tc"><div class="tn">问题 01</div><h3>不是所有赛道都该引货</h3><p>瓶颈可能在内容供给、价格竞争力——把招商资源砸进去是错误方向</p></div>
-      <div class="tc"><div class="tn">问题 02</div><h3>引多了比不引更差</h3><p>新货品可能 cannibalize 原有销售额，赛道总 GMV 没增长，只是内部打架</p></div>
-      <div class="tc"><div class="tn">这套框架</div><h3>四步回答这个问题</h3><p>该不该引 → 缺口多大 → 哪个赛道先 → 引什么货、怎么验证</p></div>
+  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);padding-bottom:clamp(22px,4vh,44px);gap:clamp(16px,3vh,28px)">
+    <div class="bigq">引货引错了是<em>资源浪费</em>，<br>引多了比<em>不引更差</em></div>
+    <div class="tcards">
+      <div class="tcard"><div class="tn">问题 01</div><h3>不是所有赛道都该引货</h3><p>瓶颈可能在内容供给、价格竞争力——把招商资源砸进去是错误方向</p></div>
+      <div class="tcard"><div class="tn">问题 02</div><h3>引多了比不引更差</h3><p>新货品可能 cannibalize 原有销售额，赛道总 GMV 没增长，只是内部打架</p></div>
+      <div class="tcard"><div class="tn">这套框架</div><h3>四步回答这个问题</h3><p>该不该引 → 缺口多大 → 哪个赛道先 → 引什么货、怎么验证</p></div>
     </div>
   </div>
-  <div class="pg">02 / 09</div>
+  <div class="pg">02 / 06</div>
 </section>
 
-<!-- ══ P3 Step 0 ══ -->
+<!-- P3 Step 0 -->
 <section class="slide lt" id="p3">
   <div class="p3l">
-    <div class="tag tag-red">Step 0</div>
+    <div class="stag">Step 0</div>
     <h2>先判断引货<br>是不是解法</h2>
     <div class="concl">如果这个赛道历史上货品增加没有带动 GMV 增长，引货就是错误方向——瓶颈根本不在供给</div>
-    <div class="method"><strong>做法</strong>历史 12 个月，动销 SPU 数量增长 vs 赛道 GMV 增长，计算 Pearson 相关系数。相关性高才继续分析。</div>
+    <div class="method">
+      <strong>做法</strong>
+      <p>历史 12 个月，动销 SPU 数量增长 vs 赛道 GMV 增长，计算 Pearson 相关系数。相关性高才继续往下分析。</p>
+    </div>
   </div>
   <div class="p3r">
     <div class="tree">
-      <div class="tree-top">动销 SPU 增长 × 赛道 GMV 增长<div class="ts">历史 12 个月 Pearson 相关系数</div></div>
+      <div class="tree-top">
+        动销 SPU 增长 × 赛道 GMV 增长
+        <div class="ts">历史 12 个月 Pearson 相关系数</div>
+      </div>
       <div class="tree-line"></div>
-      <div class="tree-branches">
-        <div class="branch ok">
+      <div class="tree-br">
+        <div class="br ok">
           <div class="bv">相关性 &gt; 0.6</div>
           <div class="bl">供给是瓶颈</div>
-          <div class="bd2">引入更多货品历史上带动了 GMV 增长，值得继续分析缺口</div>
+          <div class="bd">引入更多货品历史上带动了 GMV 增长，供给缺口是核心问题</div>
           <div class="ba">→ 继续分析</div>
         </div>
-        <div class="branch no">
+        <div class="br no">
           <div class="bv">相关性 &lt; 0.3</div>
           <div class="bl">瓶颈不在供给</div>
-          <div class="bd2">内容/价格/运营才是真正瓶颈，招商资源投入无效</div>
+          <div class="bd">内容/价格/运营才是真正瓶颈，招商资源投入无效</div>
           <div class="ba">→ 停止招商</div>
         </div>
       </div>
     </div>
   </div>
-  <div class="pg" style="color:rgba(0,0,0,.15)">03 / 09</div>
+  <div class="pg" style="color:rgba(0,0,0,.15)">03 / 06</div>
 </section>
 
-<!-- ══ P4 赛道类型 ══ -->
+<!-- P4 Act 2 搜索+内容合并 -->
 <section class="slide dk" id="p4">
   <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,2vh,18px)">
-    <div class="p4h" style="flex-shrink:0">
-      <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px">Act 2 · 度量缺口</div>
-      <h2 style="font-size:var(--t2);font-weight:800;line-height:1.1">不同赛道，缺货信号<br>的载体不同</h2>
+    <div class="p4top">
+      <div class="ey">Act 2 · 度量缺口</div>
+      <h2>有多少需求曝光，落在平台没有供给的货品上？</h2>
     </div>
-    <div class="two-cards">
-      <div class="tcard s">
-        <div class="ctype">搜索驱动型</div>
-        <h3 style="font-size:var(--t3);font-weight:800;line-height:1.2">用户知道自己要什么，主动搜索</h3>
-        <div class="cfeat">用户有明确需求，会主动用品牌词、成分词、功效词搜索目标货品</div>
-        <div class="cex"><div class="exl">搜索词举例</div><div class="exi">「益生菌哪个牌子好」<br>「日抛隐形推荐」<br>「鱼油 EPA DHA 比例」</div></div>
-        <div class="csig" style="font-size:var(--sm)">代表赛道：<strong>保健品 · 隐形眼镜 · 医疗器械</strong> &nbsp;｜&nbsp; 缺货信号：<strong>搜索量</strong></div>
+    <div class="twocols">
+      <div class="col s">
+        <div class="ct">搜索驱动型赛道</div>
+        <h3 style="font-size:var(--t3);font-weight:800">用户明确知道要哪个货，但平台没有</h3>
+        <div class="feat">用户有具体目标——知道品牌/型号/成分——主动搜索但搜不到，这是最强缺货信号</div>
+        <div class="box">
+          <div class="bl">搜索举例（知道货品但没有供给）</div>
+          <div class="bi">
+            「Swisse 胶原蛋白软糖」→ 搜索量 45万，平台无售<br>
+            「BLACKMORES 鱼油 1000mg」→ 搜索量 32万，平台无售<br>
+            「Now Foods 辅酶 Q10」→ 搜索量 28万，平台无售
+          </div>
+        </div>
+        <div class="sig">代表赛道：<strong>保健品 · 隐形眼镜 · 医疗器械</strong></div>
       </div>
-      <div class="tcard c">
-        <div class="ctype">内容驱动型</div>
-        <h3 style="font-size:var(--t3);font-weight:800;line-height:1.2">用户不知道要什么，刷到才有需求</h3>
-        <div class="cfeat">用户没有明确目标，被笔记内容种草后产生购买冲动，不会主动搜索</div>
-        <div class="cex"><div class="exl">种草场景举例</div><div class="exi">刷到博主推荐的网红零食<br>看到家居整理好物分享<br>被美食探店内容吸引</div></div>
-        <div class="csig" style="font-size:var(--sm)">代表赛道：<strong>食品零食 · 家居小件</strong> &nbsp;｜&nbsp; 缺货信号：<strong>笔记阅读量</strong></div>
+      <div class="col c">
+        <div class="ct">内容驱动型赛道</div>
+        <h3 style="font-size:var(--t3);font-weight:800">用户被种草了某个货，但平台没有</h3>
+        <div class="feat">用户刷到笔记产生需求——知道了这个品但平台买不到，阅读量代表被种草的需求量</div>
+        <div class="box">
+          <div class="bl">内容举例（笔记在种草但无供给）</div>
+          <div class="bi">
+            「XX 网红辣条」笔记阅读 2.3亿，平台无售<br>
+            「YY 日本限定薯片」笔记阅读 1.8亿，平台无售<br>
+            「ZZ 泰国椰子饼干」笔记阅读 1.1亿，平台无售
+          </div>
+        </div>
+        <div class="sig">代表赛道：<strong>食品零食 · 家居小件</strong></div>
       </div>
     </div>
-    <div class="unify">两种赛道，<strong>同一套逻辑</strong>：有多少需求曝光，落在平台没有供给的货品上——只是需求信号的载体不同</div>
+    <div class="formula-bar">
+      <div class="fbar-item s">
+        <div class="fl">搜索型公式</div>
+        <div class="ff" style="color:var(--r)">缺口量 = Σ 搜索量(未入驻 SPU)</div>
+      </div>
+      <div class="fbar-div"></div>
+      <div class="fbar-item c">
+        <div class="fl">内容型公式</div>
+        <div class="ff" style="color:var(--y)">缺口量 = Σ 阅读量(未入驻 SPU)</div>
+      </div>
+    </div>
   </div>
-  <div class="pg">04 / 09</div>
+  <div class="pg">04 / 06</div>
 </section>
 
-<!-- ══ P5 搜索型 ══ -->
+<!-- P5 优先级 -->
 <section class="slide lt" id="p5">
-  <div class="track lt" style="height:100%">
-    <div class="tey">Act 2A · 搜索型赛道</div>
-    <div class="th2">X 次搜索，没有对应的货品供给</div>
-    <div class="formula-box lt">
-      <div class="fl">核心度量公式</div>
-      <div class="ff">缺口量 = <span class="hl">Σ 搜索量(未入驻 SPU_i)</span></div>
+  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,1.8vh,16px)">
+    <div class="p5top">
+      <div class="ey" style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px">Act 3 · 优先级排序</div>
+      <h2 style="font-size:var(--t2);font-weight:800;line-height:1.1;color:#111">哪个赛道优先引货？</h2>
     </div>
-    <div class="pipeline">
-      <div class="pp lt"><div class="ppn">来源</div><div class="ppt" style="color:#111">灵犀搜索词</div></div>
-      <div class="arr" style="color:#111">→</div>
-      <div class="pp lt"><div class="ppn">映射</div><div class="ppt" style="color:#111">搜索词 → SPU</div></div>
-      <div class="arr" style="color:#111">→</div>
-      <div class="pp lt"><div class="ppn">校验</div><div class="ppt" style="color:#111">SPU 在售状态</div></div>
-      <div class="arr" style="color:#111">→</div>
-      <div class="pp lt"><div class="ppn">汇总</div><div class="ppt" style="color:#111">Σ 未入驻搜索量</div></div>
-      <div class="arr" style="color:#111">→</div>
-      <div class="pp pp-out lt"><div class="ppn">输出</div><div class="ppt" style="color:#111">招商 Leads</div></div>
-    </div>
-    <div class="detail-cards">
-      <div class="dc lt"><div class="dcl">数据来源</div><div class="dct" style="color:#111">灵犀搜索洞察 × SPU 商品库</div><div class="dcd" style="color:#777">灵犀提供关键词搜索 UV，SPU 基建提供商品在售状态</div></div>
-      <div class="dc lt"><div class="dcl">输出结果</div><div class="dct" style="color:#111">未入驻 SPU 按搜索量降序</div><div class="dcd" style="color:#777">搜索量越高 = 需求越大 = 招商优先级越高，直接是招商 leads 清单</div></div>
-      <div class="dc lt"><div class="dcl">关键依赖</div><div class="dct" style="color:#111">小红书 SPU 基建</div><div class="dcd" style="color:#777">搜索词 → 变体 → SPU 映射链路，判断用户在搜的货是否在平台在售</div></div>
+    <div class="p5body">
+      <div class="p5left">
+        <div class="score-formula">
+          <div class="sfl">优先级得分公式</div>
+          <div class="sff">得分 = <span class="hl">未覆盖需求量</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="hl">供给驱动系数</span></div>
+        </div>
+        <div class="ranklist">
+          <div class="rltit">赛道优先级排序</div>
+          <div class="ritem top1"><div class="ri-rank">01</div><div class="ri-name">隐形眼镜</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:95%"></div></div><div class="ri-score">95</div></div>
+          <div class="ritem"><div class="ri-rank">02</div><div class="ri-name">养生理疗</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:82%"></div></div><div class="ri-score">82</div></div>
+          <div class="ritem"><div class="ri-rank">03</div><div class="ri-name">健康监测</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:76%"></div></div><div class="ri-score">76</div></div>
+          <div class="ritem"><div class="ri-rank">04</div><div class="ri-name">食品零食</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:68%"></div></div><div class="ri-score">68</div></div>
+          <div class="ritem"><div class="ri-rank">05</div><div class="ri-name">孕产护理</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:55%"></div></div><div class="ri-score">55</div></div>
+          <div class="ritem"><div class="ri-rank">06</div><div class="ri-name">健身器材</div><div class="ri-bar-wrap"><div class="ri-bar" style="width:44%"></div></div><div class="ri-score">44</div></div>
+        </div>
+      </div>
+      <div class="p5right" id="chartWrap">
+        <!-- legend overlay -->
+        <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.92);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;z-index:10;font-size:11px;color:#555;box-shadow:0 2px 8px rgba(0,0,0,.08)">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;margin-bottom:2px">图例说明</div>
+          <div style="display:flex;align-items:center;gap:7px"><b style="font-weight:800;color:#111">X 轴</b>赛道总需求量（搜索量/阅读量）</div>
+          <div style="display:flex;align-items:center;gap:7px"><b style="font-weight:800;color:#111">Y 轴</b>未覆盖需求占比（缺口量÷总需求）</div>
+          <div style="height:1px;background:#eee;margin:2px 0"></div>
+          <div style="display:flex;align-items:center;gap:7px"><div style="width:22px;height:22px;border-radius:50%;background:rgba(100,100,100,.2);border:1.5px solid #bbb;flex-shrink:0"></div>气泡大小 = 站内 GMV</div>
+          <div style="height:1px;background:#eee;margin:2px 0"></div>
+          <div style="display:flex;align-items:center;gap:7px"><div style="width:9px;height:9px;border-radius:50%;background:#ef4444;flex-shrink:0"></div>占海渗透率 &lt;30%（招商机会大）</div>
+          <div style="display:flex;align-items:center;gap:7px"><div style="width:9px;height:9px;border-radius:50%;background:#f59e0b;flex-shrink:0"></div>占海渗透率 30–70%</div>
+          <div style="display:flex;align-items:center;gap:7px"><div style="width:9px;height:9px;border-radius:50%;background:#22c55e;flex-shrink:0"></div>占海渗透率 &gt;70%（已充分）</div>
+        </div>
+        <canvas id="bChart" style="position:absolute;top:0;left:0"></canvas>
+      </div>
     </div>
   </div>
-  <div class="pg" style="color:rgba(0,0,0,.15)">05 / 09</div>
+  <div class="pg" style="color:rgba(0,0,0,.15)">05 / 06</div>
 </section>
 
-<!-- ══ P6 内容型 ══ -->
+<!-- P6 Act 4 引货+验证 -->
 <section class="slide dk" id="p6">
-  <div class="track dk" style="height:100%">
-    <div class="tey">Act 2B · 内容型赛道</div>
-    <div class="th2">X 次曝光，没有对应的货品供给</div>
-    <div class="formula-box dk">
-      <div class="fl">核心度量公式</div>
-      <div class="ff">缺口量 = <span class="hl">Σ 阅读量(未入驻 SPU_j)</span></div>
+  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,1.8vh,16px)">
+    <div class="p6top">
+      <div class="ey">Act 4 · 引什么货 + 验证引对了吗</div>
+      <h2 style="font-size:var(--t2);font-weight:800;line-height:1.1">锁定 SPU Leads，并验证有没有带来真增量</h2>
     </div>
-    <div class="pipeline">
-      <div class="pp dk"><div class="ppn">来源</div><div class="ppt">灵犀笔记数据</div></div>
-      <div class="arr">→</div>
-      <div class="pp dk"><div class="ppn">映射</div><div class="ppt">笔记 → SPU</div></div>
-      <div class="arr">→</div>
-      <div class="pp dk"><div class="ppn">校验</div><div class="ppt">SPU 在售状态</div></div>
-      <div class="arr">→</div>
-      <div class="pp dk"><div class="ppn">加权</div><div class="ppt">× 阅读量</div></div>
-      <div class="arr">→</div>
-      <div class="pp pp-out dk"><div class="ppn">输出</div><div class="ppt">招商 Leads</div></div>
-    </div>
-    <div class="detail-cards">
-      <div class="dc dk"><div class="dcl">数据来源</div><div class="dct">灵犀内容洞察 × SPU 商品库</div><div class="dcd">灵犀提供笔记阅读量，SPU 基建提供商品在售状态</div></div>
-      <div class="dc dk"><div class="dcl">输出结果</div><div class="dct">未入驻 SPU 按阅读量加权降序</div><div class="dcd">阅读量越高 = 种草曝光越大 = 需求越强，优先招商这些货品</div></div>
-      <div class="dc dk"><div class="dcl">映射方式</div><div class="dct">挂载商品直接取 ID</div><div class="dcd">有商品挂载直接获取 SPU ID；无挂载笔记用 NLP 从内容识别品牌/货品词</div></div>
-    </div>
-  </div>
-  <div class="pg">06 / 09</div>
-</section>
-
-<!-- ══ P7 优先级 ══ -->
-<section class="slide lt" id="p7">
-  <div class="p7l">
-    <div class="ey">Act 3 · 优先级排序</div>
-    <h2>哪个赛道<br>优先引货？</h2>
-    <div class="p7formula">
-      <div class="pfl">优先级公式</div>
-      <div class="pff">得分 = <span class="hl">未覆盖需求量</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="hl">供给驱动系数</span></div>
-    </div>
-    <div class="legend">
-      <div class="ltit">气泡说明</div>
-      <div class="li"><div class="dot" style="background:#ef4444"></div>占海渗透率 &lt;30%（招商机会大）</div>
-      <div class="li"><div class="dot" style="background:#f59e0b"></div>占海渗透率 30–70%</div>
-      <div class="li"><div class="dot" style="background:#22c55e"></div>占海渗透率 &gt;70%（已充分覆盖）</div>
-      <div class="li"><div class="dot" style="width:14px;height:14px;background:rgba(100,100,100,.3);border:1.5px solid #aaa"></div>气泡大小 = 站内 GMV</div>
-    </div>
-  </div>
-  <div class="p7r">
-    <canvas id="bChart"></canvas>
-  </div>
-  <div class="pg" style="color:rgba(0,0,0,.15)">07 / 09</div>
-</section>
-
-<!-- ══ P8 Leads ══ -->
-<section class="slide dk" id="p8">
-  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,2vh,18px)">
-    <div class="p8h" style="flex-shrink:0">
-      <div class="ey" style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--r);margin-bottom:8px">Act 4A · 引什么货</div>
-      <h2 style="font-size:var(--t2);font-weight:800;line-height:1.1">锁定具体要引哪些 SPU</h2>
-    </div>
-    <div class="leads">
-      <div class="lcol">
-        <div class="lhead"><div class="ltag s">搜索型赛道</div><div class="lsub">按搜索量排序</div></div>
-        <div class="spu"><div class="sr">01</div><div class="sn">某益生菌 Pro 双歧杆菌</div><div class="sv">搜索量 120万</div><div class="ss out">未入驻</div></div>
-        <div class="spu"><div class="sr">02</div><div class="sn">某品牌鱼油 Omega-3</div><div class="sv">搜索量 89万</div><div class="ss out">未入驻</div></div>
-        <div class="spu"><div class="sr">03</div><div class="sn">某护眼营养素叶黄素</div><div class="sv">搜索量 67万</div><div class="ss out">未入驻</div></div>
-        <div class="spu"><div class="sr">04</div><div class="sn">某胶原蛋白肽饮品</div><div class="sv">搜索量 54万</div><div class="ss in">已入驻</div></div>
-        <div class="spu"><div class="sr">05</div><div class="sn">某辅酶 Q10 心脏营养</div><div class="sv">搜索量 41万</div><div class="ss out">未入驻</div></div>
+    <div class="p6body">
+      <div class="p6col leads">
+        <div class="chd">引什么货 — SPU Leads 清单</div>
+        <h3 style="font-size:var(--t3);font-weight:800;margin-bottom:4px">未入驻 SPU 按缺口量降序<br>直接是招商优先级</h3>
+        <div class="spu-row"><div class="sr">01</div><div class="sn">Swisse 胶原蛋白软糖</div><div class="sv">缺口 45万搜索</div><div class="ss out">未入驻</div></div>
+        <div class="spu-row"><div class="sr">02</div><div class="sn">BLACKMORES 鱼油 1000mg</div><div class="sv">缺口 32万搜索</div><div class="ss out">未入驻</div></div>
+        <div class="spu-row"><div class="sr">03</div><div class="sn">Now Foods 辅酶 Q10</div><div class="sv">缺口 28万搜索</div><div class="ss out">未入驻</div></div>
+        <div class="spu-row"><div class="sr">04</div><div class="sn">XX 网红辣条大礼包</div><div class="sv">缺口 2.3亿阅读</div><div class="ss out">未入驻</div></div>
+        <div class="spu-row"><div class="sr">05</div><div class="sn">YY 日本限定薯片</div><div class="sv">缺口 1.8亿阅读</div><div class="ss out">未入驻</div></div>
+        <div style="font-size:var(--xs);color:rgba(255,255,255,.3);text-align:center;margin-top:auto;padding-top:8px">每个 SPU 附带：全网销量 · 品牌背书 · 站外渗透率</div>
       </div>
-      <div class="lcol">
-        <div class="lhead"><div class="ltag c">内容型赛道</div><div class="lsub">按阅读量加权</div></div>
-        <div class="spu"><div class="sr">01</div><div class="sn">某网红麻辣零食大礼包</div><div class="sv">加权阅读 3.2亿</div><div class="ss out">未入驻</div></div>
-        <div class="spu"><div class="sr">02</div><div class="sn">某日本进口薯片</div><div class="sv">加权阅读 2.1亿</div><div class="ss out">未入驻</div></div>
-        <div class="spu"><div class="sr">03</div><div class="sn">某品牌冻干水果零食</div><div class="sv">加权阅读 1.8亿</div><div class="ss out">未入驻</div></div>
-        <div class="spu"><div class="sr">04</div><div class="sn">某韩国爆款辣条</div><div class="sv">加权阅读 1.3亿</div><div class="ss in">已入驻</div></div>
-        <div class="spu"><div class="sr">05</div><div class="sn">某手工饼干限定口味</div><div class="sv">加权阅读 0.9亿</div><div class="ss out">未入驻</div></div>
-      </div>
-    </div>
-    <div class="lnote" style="flex-shrink:0">每个未入驻 SPU = 一个招商线索 · 附带：<strong>全网销量 + 品牌背书程度 + 站外渗透率</strong> · 按优先级直接输出给 BD</div>
-  </div>
-  <div class="pg">08 / 09</div>
-</section>
-
-<!-- ══ P9 验证 ══ -->
-<section class="slide lt" id="p9">
-  <div style="display:flex;flex-direction:column;height:100%;padding:var(--p);padding-top:var(--pt);gap:clamp(10px,2vh,18px)">
-    <div style="flex-shrink:0">
-      <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:8px">Act 4B · 验证引对了吗</div>
-      <h2 style="font-size:var(--t2);font-weight:800;line-height:1.1">验证的不是总 GMV，<br>而是新货有没有带来新需求</h2>
-    </div>
-    <div class="vcards">
-      <div class="vc ok">
-        <div class="vi">✅</div>
-        <div class="vt">真增量</div>
-        <h3>赛道 GMV 增长<br>原有 Top SPU 稳定</h3>
-        <div class="vsigs">
-          <div class="vs">新 SPU 带来了之前没有被满足的需求</div>
-          <div class="vs">原有货品销售额没有被侵蚀</div>
-          <div class="vs">赛道整体盘子扩大</div>
+      <div class="p6col verify">
+        <div class="chd">验证引对了吗 — 看增量不看总 GMV</div>
+        <h3 style="font-size:var(--t3);font-weight:800;margin-bottom:4px">新货有没有带来新需求，<br>而不是 cannibalize 原有货品</h3>
+        <div class="vcase ok">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="vi">✅</span>
+            <div>
+              <div class="vt">真增量</div>
+              <h4>赛道 GMV ↑，原有 Top SPU 稳定</h4>
+            </div>
+          </div>
+          <div class="vd">新 SPU 带来了之前没被满足的需求，赛道总盘扩大 → 引对了，继续扩</div>
         </div>
-        <div class="va">引对了，继续扩</div>
-      </div>
-      <div class="vc wn">
-        <div class="vi">⚠️</div>
-        <div class="vt">Cannibalization</div>
-        <h3>赛道 GMV 增长<br>原有 SPU 同比下降</h3>
-        <div class="vsigs">
-          <div class="vs">新货品抢了原有货品的份额</div>
-          <div class="vs">赛道总盘没有增长，只是内部转移</div>
-          <div class="vs">不是真增量，重新评估引货策略</div>
+        <div class="vcase wn">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="vi">⚠️</span>
+            <div>
+              <div class="vt">Cannibalization</div>
+              <h4>赛道 GMV ↑，原有 SPU 同比 ↓</h4>
+            </div>
+          </div>
+          <div class="vd">新货品抢了原有份额，总盘没增长 → 重新评估引货策略</div>
         </div>
-        <div class="va">重新评估引货策略</div>
-      </div>
-      <div class="vc ng">
-        <div class="vi">❌</div>
-        <div class="vt">引货无效</div>
-        <h3>赛道 GMV<br>无明显变化</h3>
-        <div class="vsigs">
-          <div class="vs">新 SPU 没有激活额外需求</div>
-          <div class="vs">可能 Step 0 供给驱动性判断有误</div>
-          <div class="vs">或者引入的货品不是用户真正在找的</div>
+        <div class="vcase ng">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="vi">❌</span>
+            <div>
+              <div class="vt">引货无效</div>
+              <h4>赛道 GMV 无明显变化</h4>
+            </div>
+          </div>
+          <div class="vd">新 SPU 没激活额外需求 → 回到 Step 0 重新校验供给驱动性</div>
         </div>
-        <div class="va">回到 Step 0 重新校验</div>
       </div>
     </div>
   </div>
-  <div class="pg" style="color:rgba(0,0,0,.15)">09 / 09</div>
+  <div class="pg">06 / 06</div>
 </section>
 
 <script>
-// ── Scroll-snap nav ──
+// ── Nav ──
 const slides=[...document.querySelectorAll('.slide')];
 const nav=document.getElementById('nav');
-const darkSlides=new Set(['p1','p2','p4','p6','p8']);
+const isDk=id=>['p1','p2','p4','p6'].includes(id);
 
 slides.forEach((s,i)=>{
   const b=document.createElement('button');
-  b.className='nd'+(i===0?' on':'');
-  b.style.cssText=i===0
-    ?(darkSlides.has(s.id)?'background:#fff':'background:#333')
-    :(darkSlides.has(s.id)?'background:rgba(255,255,255,.2)':'background:rgba(0,0,0,.15)');
+  b.className='nd';
+  b.style.cssText=`background:${isDk(s.id)?'rgba(255,255,255,.2)':'rgba(0,0,0,.15)'}`;
   b.onclick=()=>s.scrollIntoView({behavior:'smooth'});
   nav.appendChild(b);
 });
-
 const dots=[...nav.querySelectorAll('.nd')];
+
 const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(!e.isIntersecting) return;
     const i=slides.indexOf(e.target);
     dots.forEach((d,j)=>{
-      const isDark=darkSlides.has(slides[j].id);
-      d.classList.toggle('on',i===j);
-      if(i===j){
-        d.style.background=isDark?'#fff':'#333';
-        d.style.transform='scale(1.6)';
-      } else {
-        d.style.background=isDark?'rgba(255,255,255,.2)':'rgba(0,0,0,.15)';
-        d.style.transform='scale(1)';
-      }
+      const active=i===j;
+      const dark=isDk(slides[j].id);
+      d.style.background=active?(dark?'#fff':'#333'):(dark?'rgba(255,255,255,.2)':'rgba(0,0,0,.15)');
+      d.style.transform=active?'scale(1.65)':'scale(1)';
     });
-    // update nav dot color based on current slide
-    const curDark=darkSlides.has(e.target.id);
-    nav.style.mixBlendMode=curDark?'normal':'normal';
   });
 },{threshold:0.5});
 slides.forEach(s=>io.observe(s));
@@ -529,103 +435,126 @@ document.addEventListener('keydown',e=>{
 
 // ── Bubble Chart ──
 (function(){
+  const wrap=document.getElementById('chartWrap');
   const canvas=document.getElementById('bChart');
-  if(!canvas) return;
-  const pr=window.devicePixelRatio||1;
-  const container=canvas.parentElement;
-  const W=container.clientWidth*0.95;
-  const H=container.clientHeight*0.92;
-  canvas.width=W*pr; canvas.height=H*pr;
-  canvas.style.width=W+'px'; canvas.style.height=H+'px';
-  const ctx=canvas.getContext('2d');
-  ctx.scale(pr,pr);
+  if(!wrap||!canvas) return;
 
-  const PAD={top:30,right:16,bottom:44,left:18};
-  const pw=W-PAD.left-PAD.right;
-  const ph=H-PAD.top-PAD.bottom;
+  function draw(){
+    const pr=window.devicePixelRatio||1;
+    const W=wrap.clientWidth, H=wrap.clientHeight;
+    canvas.width=W*pr; canvas.height=H*pr;
+    canvas.style.width=W+'px'; canvas.style.height=H+'px';
+    const ctx=canvas.getContext('2d');
+    ctx.scale(pr,pr);
 
-  const bubbles=[
-    {name:'隐形眼镜',   x:90,y:85,gmv:6.5,pen:12},
-    {name:'养生理疗',   x:82,y:74,gmv:8.0,pen:18},
-    {name:'健康监测',   x:86,y:62,gmv:7.2,pen:24},
-    {name:'孕产护理',   x:60,y:72,gmv:4.5,pen:32},
-    {name:'眼部护理',   x:68,y:52,gmv:4.8,pen:48},
-    {name:'保健品',     x:76,y:28,gmv:9.0,pen:72},
-    {name:'健身器材',   x:52,y:58,gmv:2.2,pen:22},
-    {name:'皮肤护理',   x:70,y:22,gmv:5.8,pen:82},
-    {name:'食品零食',   x:38,y:66,gmv:3.0,pen:20},
-    {name:'按摩器械',   x:45,y:38,gmv:1.5,pen:55},
-  ];
+    const PAD={top:28,right:20,bottom:48,left:52};
+    const pw=W-PAD.left-PAD.right;
+    const ph=H-PAD.top-PAD.bottom;
 
-  function tx(v){return PAD.left+v/100*pw}
-  function ty(v){return PAD.top+(1-v/100)*ph}
-  function bR(g){return 7+g*2.6}
-  function bColor(p){
-    if(p<30) return 'rgba(239,68,68,.80)';
-    if(p<70) return 'rgba(245,158,11,.82)';
-    return 'rgba(34,197,94,.80)';
+    const data=[
+      {name:'隐形眼镜', x:90,y:85,gmv:6.5,pen:12},
+      {name:'养生理疗', x:82,y:74,gmv:8.0,pen:18},
+      {name:'健康监测', x:86,y:62,gmv:7.2,pen:24},
+      {name:'孕产护理', x:60,y:70,gmv:4.5,pen:32},
+      {name:'眼部护理', x:68,y:50,gmv:4.8,pen:48},
+      {name:'保健品',   x:75,y:26,gmv:9.0,pen:72},
+      {name:'健身器材', x:50,y:56,gmv:2.2,pen:22},
+      {name:'皮肤护理', x:70,y:20,gmv:5.8,pen:82},
+      {name:'食品零食', x:36,y:65,gmv:3.0,pen:20},
+      {name:'按摩器械', x:44,y:36,gmv:1.5,pen:55},
+    ];
+
+    const tx=v=>PAD.left+v/100*pw;
+    const ty=v=>PAD.top+(1-v/100)*ph;
+    const bR=g=>8+g*2.5;
+    const bCol=p=>{
+      if(p<30) return 'rgba(239,68,68,.82)';
+      if(p<70) return 'rgba(245,158,11,.82)';
+      return 'rgba(34,197,94,.82)';
+    };
+
+    // bg
+    ctx.fillStyle='#eeeee8'; ctx.fillRect(0,0,W,H);
+
+    // quadrant backgrounds
+    const mx=tx(50),my=ty(50);
+    ctx.fillStyle='rgba(0,180,70,.07)';  ctx.fillRect(mx,PAD.top,W-mx-PAD.right,my-PAD.top);
+    ctx.fillStyle='rgba(37,99,235,.05)'; ctx.fillRect(mx,my,W-mx-PAD.right,H-my-PAD.bottom);
+    ctx.fillStyle='rgba(0,0,0,.02)';     ctx.fillRect(PAD.left,PAD.top,mx-PAD.left,my-PAD.top);
+    ctx.fillStyle='rgba(200,0,0,.04)';   ctx.fillRect(PAD.left,my,mx-PAD.left,H-my-PAD.bottom);
+
+    // midlines
+    ctx.setLineDash([5,5]); ctx.strokeStyle='rgba(0,0,0,.12)'; ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(mx,PAD.top);ctx.lineTo(mx,PAD.top+ph);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(PAD.left,my);ctx.lineTo(PAD.left+pw,my);ctx.stroke();
+    ctx.setLineDash([]);
+
+    // quadrant labels
+    ctx.font='700 11px Manrope,sans-serif';
+    ctx.fillStyle='rgba(0,140,60,.55)'; ctx.textAlign='left';
+    ctx.fillText('🔥 主动招商',mx+10,PAD.top+22);
+    ctx.fillStyle='rgba(37,99,235,.45)';
+    ctx.fillText('防内卷',mx+10,my+22);
+    ctx.fillStyle='rgba(0,0,0,.2)';
+    ctx.fillText('先种草验需求',PAD.left+6,PAD.top+22);
+    ctx.fillStyle='rgba(180,0,0,.3)';
+    ctx.fillText('观察',PAD.left+6,my+22);
+
+    // Y axis ticks & label
+    ctx.fillStyle='#aaa'; ctx.font='10px Space Mono,monospace'; ctx.textAlign='right';
+    [0,25,50,75,100].forEach(v=>{
+      const y=ty(v);
+      ctx.fillText(v+'%', PAD.left-8, y+4);
+      ctx.strokeStyle='rgba(0,0,0,.07)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(PAD.left,y);ctx.lineTo(PAD.left+pw,y);ctx.stroke();
+    });
+    // Y axis label
+    ctx.save();
+    ctx.translate(14,PAD.top+ph/2);
+    ctx.rotate(-Math.PI/2);
+    ctx.fillStyle='#888'; ctx.textAlign='center'; ctx.font='9px Space Mono,monospace';
+    ctx.fillText('未覆盖需求占比',0,0);
+    ctx.restore();
+
+    // X axis ticks
+    ctx.fillStyle='#aaa'; ctx.textAlign='center'; ctx.font='10px Space Mono,monospace';
+    ['低','中','高'].forEach((l,i)=>{
+      const x=tx(i===0?25:i===1?50:75);
+      ctx.fillText(l,x,PAD.top+ph+32);
+    });
+    ctx.fillStyle='#888'; ctx.font='9px Space Mono,monospace';
+    ctx.fillText('赛道总需求量 →',PAD.left+pw/2,PAD.top+ph+46);
+
+    // bubbles
+    data.forEach(d=>{
+      const cx=tx(d.x),cy=ty(d.y),r=bR(d.gmv);
+      ctx.shadowColor='rgba(0,0,0,.12)';ctx.shadowBlur=8;
+      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
+      ctx.fillStyle=bCol(d.pen);ctx.fill();
+      ctx.shadowBlur=0;
+      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
+      ctx.strokeStyle='rgba(255,255,255,.7)';ctx.lineWidth=1.5;ctx.stroke();
+      ctx.font='600 10px Manrope,sans-serif';
+      ctx.fillStyle='#333';ctx.textAlign='center';
+      ctx.fillText(d.name,cx,cy+r+13);
+    });
+
+    // tooltip
+    canvas.onmousemove=evt=>{
+      const rect=canvas.getBoundingClientRect();
+      const mx2=(evt.clientX-rect.left)*pr,my2=(evt.clientY-rect.top)*pr;
+      let hit=null;
+      data.forEach(d=>{
+        const cx=tx(d.x)*pr,cy=ty(d.y)*pr,r=bR(d.gmv)*pr;
+        if(Math.hypot(mx2-cx,my2-cy)<=r) hit=d;
+      });
+      canvas.title=hit?`${hit.name}\n总需求量：${hit.x}/100\n未覆盖占比：${hit.y}%\n站内GMV：${hit.gmv}亿\n占海渗透率：${hit.pen}%`:'';
+      canvas.style.cursor=hit?'pointer':'default';
+    };
   }
 
-  // quadrant backgrounds
-  const mx=tx(50),my=ty(50);
-  const regions=[
-    {x:mx,y:PAD.top,w:PAD.left+pw-mx,h:my-PAD.top,color:'rgba(0,200,83,.07)',label:'🔥 主动招商',lx:mx+10,ly:PAD.top+20,lc:'rgba(0,140,60,.6)'},
-    {x:mx,y:my,w:PAD.left+pw-mx,h:PAD.top+ph-my,color:'rgba(37,99,235,.06)',label:'防内卷',lx:mx+10,ly:my+20,lc:'rgba(37,99,235,.45)'},
-    {x:PAD.left,y:PAD.top,w:mx-PAD.left,h:my-PAD.top,color:'rgba(0,0,0,.02)',label:'先种草验需求',lx:PAD.left+8,ly:PAD.top+20,lc:'rgba(0,0,0,.2)'},
-    {x:PAD.left,y:my,w:mx-PAD.left,h:PAD.top+ph-my,color:'rgba(200,0,0,.04)',label:'观察',lx:PAD.left+8,ly:my+20,lc:'rgba(180,0,0,.3)'},
-  ];
-  regions.forEach(r=>{
-    ctx.fillStyle=r.color;
-    ctx.fillRect(r.x,r.y,r.w,r.h);
-  });
-
-  // midlines
-  ctx.setLineDash([5,5]);ctx.strokeStyle='rgba(0,0,0,.1)';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(mx,PAD.top);ctx.lineTo(mx,PAD.top+ph);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(PAD.left,my);ctx.lineTo(PAD.left+pw,my);ctx.stroke();
-  ctx.setLineDash([]);
-
-  // quadrant labels
-  ctx.font='700 11px Manrope,sans-serif';
-  regions.forEach(r=>{ctx.fillStyle=r.lc;ctx.fillText(r.label,r.lx,r.ly)});
-
-  // axis labels
-  ctx.fillStyle='#888';ctx.font='500 10px Space Mono,monospace';
-  ctx.textAlign='center';
-  ctx.fillText('← 赛道需求量（低）',PAD.left+pw*0.18,PAD.top+ph+32);
-  ctx.fillText('赛道需求量（高）→',PAD.left+pw*0.82,PAD.top+ph+32);
-  ctx.save();
-  ctx.translate(PAD.left-6,PAD.top+ph/2);
-  ctx.rotate(-Math.PI/2);
-  ctx.fillText('← 低  未覆盖需求占比  高 →',0,0);
-  ctx.restore();
-
-  // bubbles
-  bubbles.forEach(d=>{
-    const cx=tx(d.x),cy=ty(d.y),r=bR(d.gmv);
-    ctx.shadowColor='rgba(0,0,0,.15)';ctx.shadowBlur=10;
-    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
-    ctx.fillStyle=bColor(d.pen);ctx.fill();
-    ctx.shadowBlur=0;
-    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
-    ctx.strokeStyle='rgba(255,255,255,.65)';ctx.lineWidth=1.5;ctx.stroke();
-    ctx.font='500 10px Manrope,sans-serif';
-    ctx.fillStyle='#333';ctx.textAlign='center';
-    ctx.fillText(d.name,cx,cy+r+13);
-  });
-
-  // tooltip
-  canvas.addEventListener('mousemove',evt=>{
-    const rect=canvas.getBoundingClientRect();
-    const mx2=(evt.clientX-rect.left)*pr,my2=(evt.clientY-rect.top)*pr;
-    let hit=null;
-    bubbles.forEach(d=>{
-      const cx=tx(d.x)*pr,cy=ty(d.y)*pr,r=bR(d.gmv)*pr;
-      if(Math.hypot(mx2-cx,my2-cy)<=r) hit=d;
-    });
-    canvas.title=hit?`${hit.name}\n需求量：${hit.x}/100\n未覆盖占比：${hit.y}%\n站内GMV：${hit.gmv}亿\n占海渗透率：${hit.pen}%`:'';
-    canvas.style.cursor=hit?'pointer':'default';
-  });
+  draw();
+  window.addEventListener('resize',draw);
 })();
 </script>
 </body>
