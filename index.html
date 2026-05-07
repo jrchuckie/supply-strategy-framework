@@ -482,7 +482,58 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
       </div>
     </div>
   </div>
-  <div class="pg">06 / 06</div>
+  <div class="pg">06 / 07</div>
+</section>
+
+<!-- ── P7: 附录 大健康四级类目 Step 1 供给驱动系数全量表 ── -->
+<section class="slide" id="p7" style="background:#0f0f13;color:#e8e8f0;overflow:hidden;display:flex;flex-direction:column">
+  <!-- header -->
+  <div style="flex-shrink:0;background:linear-gradient(135deg,#1a1a2e,#16213e);padding:16px 36px 12px;border-bottom:1px solid #2a2a3e">
+    <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <span style="font-size:11px;font-weight:700;letter-spacing:2px;color:#FF2442;text-transform:uppercase">附录 · Appendix</span>
+      <h2 style="font-size:18px;font-weight:800;color:#fff;line-height:1.2">大健康行业 — 四级类目 Step 1 供给驱动系数全量表</h2>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:8px;flex-wrap:wrap;font-size:11px;color:#888">
+      <span>数据源：DS 15677 单商品 nitem 增量宽表</span>
+      <span>统计周期：2026-01 ~ 2026-04（近4个完整月）</span>
+      <span>指标：月度动销SKU数 × 月GMV 的 Pearson 相关系数</span>
+    </div>
+  </div>
+  <!-- legend + controls -->
+  <div style="flex-shrink:0;display:flex;align-items:center;gap:12px;padding:8px 36px;background:#13131c;border-bottom:1px solid #1e1e2e;flex-wrap:wrap">
+    <span style="padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600;background:#22c55e22;color:#22c55e;border:1px solid #22c55e55">✅ r≥0.6 强供给驱动</span>
+    <span style="padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600;background:#f59e0b22;color:#f59e0b;border:1px solid #f59e0b55">🟡 r∈[0.3,0.6) 弱相关</span>
+    <span style="padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600;background:#ef444422;color:#ef4444;border:1px solid #ef444455">❌ r<0.3 非供给瓶颈</span>
+    <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+      <input id="p7search" type="text" placeholder="搜索类目…" style="background:#1a1a2e;border:1px solid #2a2a3e;border-radius:5px;padding:4px 10px;color:#e8e8f0;font-size:12px;width:140px">
+      <select id="p7filter" style="background:#1a1a2e;border:1px solid #2a2a3e;border-radius:5px;padding:4px 8px;color:#e8e8f0;font-size:12px">
+        <option value="all">全部判断</option>
+        <option value="strong">✅ 强供给驱动</option>
+        <option value="weak">🟡 弱相关</option>
+        <option value="no">❌ 非供给瓶颈</option>
+      </select>
+      <span id="p7count" style="font-size:11px;color:#555"></span>
+    </div>
+  </div>
+  <!-- table -->
+  <div style="flex:1;overflow-y:auto;padding:0 36px 24px">
+    <table id="p7table" style="width:100%;border-collapse:collapse;font-size:12px;margin-top:8px">
+      <thead>
+        <tr style="position:sticky;top:0;z-index:10;background:#1a1a2e">
+          <th style="padding:8px 6px;text-align:left;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e">#</th>
+          <th style="padding:8px 6px;text-align:left;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e">四级类目</th>
+          <th style="padding:8px 6px;text-align:left;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e">一级类目</th>
+          <th onclick="p7Sort('r')" style="padding:8px 6px;text-align:right;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e;cursor:pointer" id="p7th-r">Pearson r ↕</th>
+          <th style="padding:8px 6px;text-align:center;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e">Step 1 判断</th>
+          <th onclick="p7Sort('gmv')" style="padding:8px 6px;text-align:right;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e;cursor:pointer" id="p7th-gmv" class="p7sorted">累计GMV(万) ↓</th>
+          <th onclick="p7Sort('sku')" style="padding:8px 6px;text-align:right;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e;cursor:pointer" id="p7th-sku">月均动销SKU ↕</th>
+          <th style="padding:8px 6px;text-align:right;color:#888;font-weight:600;white-space:nowrap;border-bottom:2px solid #2a2a3e">最新月SKU</th>
+        </tr>
+      </thead>
+      <tbody id="p7tbody"></tbody>
+    </table>
+  </div>
+  <div class="pg" style="color:#555">07 / 07</div>
 </section>
 
 <script>
@@ -522,7 +573,7 @@ body{height:100%;overflow-y:scroll;overflow-x:hidden;font-family:'Manrope',-appl
 // ── Nav ──
 const slides=[...document.querySelectorAll('.slide')];
 const nav=document.getElementById('nav');
-const isDk=id=>['p1','p2','p4','p6'].includes(id);
+const isDk=id=>['p1','p2','p4','p6','p7'].includes(id);
 slides.forEach((s,i)=>{
   const b=document.createElement('button');
   b.className='nd';
@@ -668,6 +719,70 @@ document.addEventListener('keydown',e=>{
   }
   draw();
   window.addEventListener('resize',draw);
+})();
+
+// ── P7 Table ──
+(function(){
+const P7DATA=[{"cat1":"保健食品/膳食营养补充食品","cat4":"其他膳食营养补充剂","r":0.9806,"total_gmv":140115177.17,"avg_sku":3324,"latest_sku":3064},{"cat1":"保健食品/膳食营养补充食品","cat4":"益生菌","r":0.3490,"total_gmv":51480272.75,"avg_sku":1682,"latest_sku":1642},{"cat1":"保健食品/膳食营养补充食品","cat4":"海外保健体重管理","r":0.9856,"total_gmv":26044954.87,"avg_sku":474,"latest_sku":429},{"cat1":"保健食品/膳食营养补充食品","cat4":"鱼油/深海鱼油","r":0.7144,"total_gmv":25089012.62,"avg_sku":838,"latest_sku":825},{"cat1":"保健食品/膳食营养补充食品","cat4":"普通植物提取物","r":0.9889,"total_gmv":18356466.28,"avg_sku":712,"latest_sku":673},{"cat1":"保健食品/膳食营养补充食品","cat4":"复合维生素/矿物质","r":0.7133,"total_gmv":17869570.38,"avg_sku":909,"latest_sku":878},{"cat1":"保健食品/膳食营养补充食品","cat4":"胶原蛋白","r":0.9517,"total_gmv":17813791.02,"avg_sku":529,"latest_sku":519},{"cat1":"保健食品/膳食营养补充食品","cat4":"钙铁锌/钙镁","r":0.8414,"total_gmv":14293138.05,"avg_sku":575,"latest_sku":559},{"cat1":"保健食品/膳食营养补充食品","cat4":"维生素D","r":0.9048,"total_gmv":14078775.68,"avg_sku":339,"latest_sku":335},{"cat1":"保健食品/膳食营养补充食品","cat4":"玫瑰提取物/玫瑰精油","r":-0.2920,"total_gmv":12931422.24,"avg_sku":57,"latest_sku":53},{"cat1":"保健食品/膳食营养补充食品","cat4":"叶黄素/蓝莓/越橘提取物","r":0.9492,"total_gmv":12320529.07,"avg_sku":317,"latest_sku":238},{"cat1":"保健食品/膳食营养补充食品","cat4":"口服美容营养品","r":0.4082,"total_gmv":11575045.80,"avg_sku":302,"latest_sku":254},{"cat1":"保健食品/膳食营养补充食品","cat4":"锌/铁/硒","r":0.9913,"total_gmv":10591342.17,"avg_sku":386,"latest_sku":359},{"cat1":"保健食品/膳食营养补充食品","cat4":"肽类","r":0.5514,"total_gmv":9564564.08,"avg_sku":157,"latest_sku":140},{"cat1":"保健食品/膳食营养补充食品","cat4":"辅酶Q10","r":0.8303,"total_gmv":8346646.64,"avg_sku":372,"latest_sku":383},{"cat1":"保健食品/膳食营养补充食品","cat4":"果蔬膳食纤维/白芸豆提取物","r":0.3946,"total_gmv":8190394.85,"avg_sku":306,"latest_sku":276},{"cat1":"保健食品/膳食营养补充食品","cat4":"B族维生素","r":0.7949,"total_gmv":6550113.43,"avg_sku":383,"latest_sku":365},{"cat1":"保健食品/膳食营养补充食品","cat4":"蓟类","r":0.8562,"total_gmv":5634959.30,"avg_sku":116,"latest_sku":103},{"cat1":"保健食品/膳食营养补充食品","cat4":"氨糖软骨素/骨胶原","r":0.3640,"total_gmv":4153803.59,"avg_sku":155,"latest_sku":151},{"cat1":"保健食品/膳食营养补充食品","cat4":"奶蓟草","r":0.1701,"total_gmv":3955385.51,"avg_sku":207,"latest_sku":181},{"cat1":"保健食品/膳食营养补充食品","cat4":"海外保健机能即饮","r":0.9638,"total_gmv":3698891.33,"avg_sku":89,"latest_sku":76},{"cat1":"保健食品/膳食营养补充食品","cat4":"膳食补充剂型饮料","r":0.3208,"total_gmv":3592273.56,"avg_sku":152,"latest_sku":161},{"cat1":"保健食品/膳食营养补充食品","cat4":"DHA/EPA/DPA亚麻酸","r":0.9757,"total_gmv":3161228.10,"avg_sku":89,"latest_sku":88},{"cat1":"保健食品/膳食营养补充食品","cat4":"维生素C","r":0.9596,"total_gmv":3029555.03,"avg_sku":300,"latest_sku":284},{"cat1":"保健食品/膳食营养补充食品","cat4":"特殊用途饮料","r":0.8313,"total_gmv":2563138.96,"avg_sku":26,"latest_sku":25},{"cat1":"保健食品/膳食营养补充食品","cat4":"乳清蛋白","r":0.6576,"total_gmv":2497894.15,"avg_sku":158,"latest_sku":161},{"cat1":"保健食品/膳食营养补充食品","cat4":"大豆异黄酮","r":0.3364,"total_gmv":2152590.68,"avg_sku":78,"latest_sku":74},{"cat1":"保健食品/膳食营养补充食品","cat4":"灵芝/参类/石斛提取物","r":-0.9131,"total_gmv":2101501.02,"avg_sku":86,"latest_sku":92},{"cat1":"保健食品/膳食营养补充食品","cat4":"钙镁锌","r":0.9802,"total_gmv":2099507.54,"avg_sku":93,"latest_sku":90},{"cat1":"保健食品/膳食营养补充食品","cat4":"酵素","r":0.9105,"total_gmv":2058956.23,"avg_sku":112,"latest_sku":103},{"cat1":"保健食品/膳食营养补充食品","cat4":"海外保健机能软糖","r":0.8627,"total_gmv":2057988.85,"avg_sku":119,"latest_sku":128},{"cat1":"保健食品/膳食营养补充食品","cat4":"骨胶原蛋白","r":-0.5452,"total_gmv":2036747.64,"avg_sku":71,"latest_sku":65},{"cat1":"保健食品/膳食营养补充食品","cat4":"氨基酸/支链氨基酸/谷氨酰胺","r":0.3609,"total_gmv":1928691.12,"avg_sku":109,"latest_sku":114},{"cat1":"保健食品/膳食营养补充食品","cat4":"褪黑素/γ-氨基丁酸/圣约翰草","r":0.0851,"total_gmv":1839862.88,"avg_sku":151,"latest_sku":131},{"cat1":"保健食品/膳食营养补充食品","cat4":"纳豆提取物","r":0.5224,"total_gmv":1760772.91,"avg_sku":25,"latest_sku":22},{"cat1":"保健食品/膳食营养补充食品","cat4":"其它植物提取物","r":0.5019,"total_gmv":1693354.36,"avg_sku":118,"latest_sku":118},{"cat1":"保健食品/膳食营养补充食品","cat4":"PQQ/吡咯喹啉醌","r":0.0870,"total_gmv":1658362.06,"avg_sku":36,"latest_sku":39},{"cat1":"保健食品/膳食营养补充食品","cat4":"NAD+前体营养补充剂","r":0.7505,"total_gmv":1534894.53,"avg_sku":62,"latest_sku":53},{"cat1":"OTC药品/国际医药","cat4":"白发脱发","r":0.9384,"total_gmv":1406258.87,"avg_sku":210,"latest_sku":191},{"cat1":"保健食品/膳食营养补充食品","cat4":"越橘/蓝莓提取物","r":0.9579,"total_gmv":1404153.40,"avg_sku":99,"latest_sku":67},{"cat1":"保健食品/膳食营养补充食品","cat4":"大豆分离蛋白/混合蛋白","r":0.8888,"total_gmv":1399330.81,"avg_sku":69,"latest_sku":80},{"cat1":"保健食品/膳食营养补充食品","cat4":"泛醇/泛醌/辅酶Q10","r":-0.7453,"total_gmv":1386354.16,"avg_sku":55,"latest_sku":50},{"cat1":"保健食品/膳食营养补充食品","cat4":"左旋肉碱","r":0.6790,"total_gmv":1344207.47,"avg_sku":70,"latest_sku":69},{"cat1":"保健食品/膳食营养补充食品","cat4":"保健品饮品","r":0.9562,"total_gmv":1304567.53,"avg_sku":18,"latest_sku":14},{"cat1":"保健食品/膳食营养补充食品","cat4":"胃部益生菌","r":0.0449,"total_gmv":1280894.88,"avg_sku":41,"latest_sku":38},{"cat1":"保健食品/膳食营养补充食品","cat4":"医学配方营养品","r":0.3540,"total_gmv":1219810.15,"avg_sku":57,"latest_sku":53},{"cat1":"保健食品/膳食营养补充食品","cat4":"DHA/EPA/DPA","r":0.4846,"total_gmv":1218335.09,"avg_sku":53,"latest_sku":59},{"cat1":"保健食品/膳食营养补充食品","cat4":"维生素/矿物质/营养包","r":-0.4515,"total_gmv":1195779.28,"avg_sku":116,"latest_sku":129},{"cat1":"保健食品/膳食营养补充食品","cat4":"蔓越莓","r":0.3287,"total_gmv":1117880.01,"avg_sku":83,"latest_sku":75},{"cat1":"保健食品/膳食营养补充食品","cat4":"茶多酚/茶类","r":0.5395,"total_gmv":1032759.69,"avg_sku":22,"latest_sku":23},{"cat1":"保健食品/膳食营养补充食品","cat4":"钙铁锌","r":-0.5606,"total_gmv":1025722.67,"avg_sku":58,"latest_sku":53},{"cat1":"保健食品/膳食营养补充食品","cat4":"葡萄籽提取物","r":0.8926,"total_gmv":870089.30,"avg_sku":78,"latest_sku":65},{"cat1":"保健食品/膳食营养补充食品","cat4":"镁","r":0.7948,"total_gmv":831773.80,"avg_sku":47,"latest_sku":49},{"cat1":"保健食品/膳食营养补充食品","cat4":"叶黄素","r":-0.0937,"total_gmv":806784.78,"avg_sku":53,"latest_sku":55},{"cat1":"保健食品/膳食营养补充食品","cat4":"褪黑素/γ-氨基丁酸","r":-0.0289,"total_gmv":732746.51,"avg_sku":75,"latest_sku":71},{"cat1":"保健食品/膳食营养补充食品","cat4":"蛋白棒","r":0.3414,"total_gmv":724131.01,"avg_sku":49,"latest_sku":57},{"cat1":"保健食品/膳食营养补充食品","cat4":"γ-氨基丁酸","r":0.8117,"total_gmv":700174.30,"avg_sku":13,"latest_sku":10},{"cat1":"保健食品/膳食营养补充食品","cat4":"螺旋藻/藻类提取物","r":0.6750,"total_gmv":628438.96,"avg_sku":27,"latest_sku":28},{"cat1":"保健食品/膳食营养补充食品","cat4":"虾青素","r":0.8203,"total_gmv":607912.61,"avg_sku":76,"latest_sku":57},{"cat1":"保健食品/膳食营养补充食品","cat4":"生物素","r":0.6661,"total_gmv":496112.09,"avg_sku":53,"latest_sku":44},{"cat1":"保健食品/膳食营养补充食品","cat4":"海外保健运动修复","r":0.7774,"total_gmv":486348.00,"avg_sku":16,"latest_sku":19},{"cat1":"保健食品/膳食营养补充食品","cat4":"姜黄素","r":0.8786,"total_gmv":463467.04,"avg_sku":39,"latest_sku":39},{"cat1":"OTC药品/国际医药","cat4":"抗菌消炎","r":0.1886,"total_gmv":462696.62,"avg_sku":249,"latest_sku":230},{"cat1":"OTC药品/国际医药","cat4":"癣症","r":0.2857,"total_gmv":437075.57,"avg_sku":235,"latest_sku":226},{"cat1":"OTC药品/国际医药","cat4":"安神补脑","r":0.7834,"total_gmv":407165.54,"avg_sku":187,"latest_sku":177},{"cat1":"保健食品/膳食营养补充食品","cat4":"铁","r":0.8004,"total_gmv":398872.53,"avg_sku":53,"latest_sku":56},{"cat1":"保健食品/膳食营养补充食品","cat4":"氨糖软骨素","r":0.9443,"total_gmv":351000.12,"avg_sku":32,"latest_sku":40},{"cat1":"保健食品/膳食营养补充食品","cat4":"叶酸","r":0.7273,"total_gmv":342200.52,"avg_sku":67,"latest_sku":75},{"cat1":"保健食品/膳食营养补充食品","cat4":"银杏/人参银杏","r":0.9200,"total_gmv":306465.62,"avg_sku":31,"latest_sku":28},{"cat1":"OTC药品/国际医药","cat4":"健脾益肾","r":0.9704,"total_gmv":279381.89,"avg_sku":136,"latest_sku":105},{"cat1":"保健食品/膳食营养补充食品","cat4":"维生素E","r":0.6182,"total_gmv":265704.67,"avg_sku":38,"latest_sku":38},{"cat1":"保健食品/膳食营养补充食品","cat4":"参类提取物","r":0.9054,"total_gmv":226494.49,"avg_sku":11,"latest_sku":9},{"cat1":"保健食品/膳食营养补充食品","cat4":"抗糖/寡糖/低聚糖/低GI","r":0.6199,"total_gmv":209669.73,"avg_sku":37,"latest_sku":39},{"cat1":"OTC药品/国际医药","cat4":"皮脂汗腺","r":0.8740,"total_gmv":208433.91,"avg_sku":110,"latest_sku":92},{"cat1":"OTC药品/国际医药","cat4":"眼","r":0.9675,"total_gmv":193922.21,"avg_sku":124,"latest_sku":113},{"cat1":"保健食品/膳食营养补充食品","cat4":"氨基葡萄糖","r":0.9917,"total_gmv":109649.37,"avg_sku":27,"latest_sku":25}];
+
+function p7Label(r){
+  if(r===null||r===undefined)return['❓','数据不足','#888','other'];
+  if(r>=0.6)return['✅','强供给驱动','#22c55e','strong'];
+  if(r>=0.3)return['🟡','弱相关','#f59e0b','weak'];
+  return['❌','非供给瓶颈','#ef4444','no'];
+}
+let p7SortKey='gmv',p7SortDir=-1;
+window.p7Sort=function(k){
+  if(p7SortKey===k)p7SortDir*=-1;else{p7SortKey=k;p7SortDir=-1;}
+  ['r','gmv','sku'].forEach(x=>{
+    const el=document.getElementById('p7th-'+x);
+    if(el)el.style.color=x===k?'#FF2442':'#888';
+  });
+  p7Render();
+};
+function p7Render(){
+  const q=(document.getElementById('p7search')||{}).value?.toLowerCase()||'';
+  const f=(document.getElementById('p7filter')||{}).value||'all';
+  let rows=P7DATA.filter(d=>{
+    if(q&&!d.cat4.toLowerCase().includes(q))return false;
+    if(f!=='all'){const[,,, type]=p7Label(d.r);if(type!==f)return false;}
+    return true;
+  });
+  rows.sort((a,b)=>{
+    let va,vb;
+    if(p7SortKey==='r'){va=a.r??-99;vb=b.r??-99;}
+    else if(p7SortKey==='gmv'){va=a.total_gmv;vb=b.total_gmv;}
+    else{va=a.avg_sku;vb=b.avg_sku;}
+    return p7SortDir*(va-vb);
+  });
+  const cnt=document.getElementById('p7count');
+  if(cnt)cnt.textContent=`共 ${rows.length} 条`;
+  const tbody=document.getElementById('p7tbody');
+  if(!tbody)return;
+  tbody.innerHTML=rows.map((d,i)=>{
+    const[icon,label,color]=p7Label(d.r);
+    const rStr=d.r!==null?(d.r>=0?'+':'')+d.r.toFixed(3):'N/A';
+    const gmv=(d.total_gmv/10000).toLocaleString('zh-CN',{minimumFractionDigits:1,maximumFractionDigits:1});
+    const rowBg=i%2===0?'transparent':'rgba(255,255,255,0.02)';
+    return`<tr style="background:${rowBg};border-bottom:1px solid #1a1a2e">
+      <td style="padding:7px 6px;color:#555;font-size:11px">${i+1}</td>
+      <td style="padding:7px 6px;font-weight:600;color:#e8e8f0">${d.cat4}</td>
+      <td style="padding:7px 6px;color:#666;font-size:11px">${d.cat1.replace('保健食品/膳食营养补充食品','保健食品').replace('OTC药品/国际医药','OTC药品')}</td>
+      <td style="padding:7px 6px;text-align:right;font-family:monospace;color:${color};font-weight:700">${rStr}</td>
+      <td style="padding:7px 6px;text-align:center"><span style="background:${color}22;color:${color};border:1px solid ${color}44;border-radius:3px;padding:1px 7px;font-size:10px;font-weight:600;white-space:nowrap">${icon} ${label}</span></td>
+      <td style="padding:7px 6px;text-align:right;font-family:monospace;color:#ccc">${gmv}</td>
+      <td style="padding:7px 6px;text-align:right;font-family:monospace;color:#ccc">${d.avg_sku.toLocaleString()}</td>
+      <td style="padding:7px 6px;text-align:right;font-family:monospace;color:#aaa">${d.latest_sku.toLocaleString()}</td>
+    </tr>`;
+  }).join('');
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  p7Render();
+  document.getElementById('p7search')?.addEventListener('input',p7Render);
+  document.getElementById('p7filter')?.addEventListener('change',p7Render);
+});
+// 也立即执行一次（以防DOMContentLoaded已过）
+p7Render();
 })();
 </script>
 </body>
