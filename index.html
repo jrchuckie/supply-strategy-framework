@@ -55,6 +55,77 @@ body {
   page-break-after: always;
 }
 
+/* ── Presentation Mode ── */
+body.present-mode {
+  background: #000;
+  overflow: hidden;
+}
+body.present-mode .nav { display: none; }
+body.present-mode .deck {
+  display: block;
+  padding: 0;
+  gap: 0;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+body.present-mode .slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  border-radius: 0;
+  box-shadow: none;
+  display: none !important;
+  overflow-y: auto;
+}
+body.present-mode .slide.active-slide {
+  display: flex !important;
+}
+/* scale-to-fit via transform */
+body.present-mode .deck-scaler {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform-origin: center center;
+}
+
+/* presenter controls overlay */
+.present-bar {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  padding: 10px 24px;
+  z-index: 9999;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--c-text-muted);
+}
+body.present-mode .present-bar { display: flex; }
+.present-bar button {
+  background: none;
+  border: 1px solid var(--c-border);
+  color: var(--c-text-light);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+}
+.present-bar button:hover { background: rgba(200,168,112,0.15); }
+.present-counter {
+  margin-left: auto;
+  color: var(--c-accent);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+
 /* ── Slide Nav ── */
 .nav {
   position: sticky;
@@ -642,6 +713,7 @@ body {
   padding: 8px 12px;
   border-bottom: 1px solid var(--c-border-subtle);
   vertical-align: top;
+  word-break: keep-all;
 }
 #s08 .app-table tbody tr:last-child td { border-bottom: none; }
 #s08 .app-table tbody tr:hover { background: rgba(200,168,112,0.04); }
@@ -666,10 +738,8 @@ body {
   border: 1px solid var(--c-border-subtle);
   padding: 2px 6px;
   border-radius: 2px;
-  max-width: 180px;
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
+  word-break: keep-all;
 }
 
 /* ── Responsive ── */
@@ -696,6 +766,7 @@ body {
   <a href="#s06">Step 3 · 优先级排序</a>
   <a href="#s07">Step 4 · 引货+验证</a>
   <a href="#s08">附录 · 数据明细</a>
+    <button onclick="enterPresent()" style="margin-left:auto;background:none;border:1px solid rgba(200,168,112,0.4);color:var(--c-accent);font-family:var(--f-mono);font-size:11px;padding:4px 14px;border-radius:3px;cursor:pointer;letter-spacing:0.08em;white-space:nowrap;">▶ 演示模式</button>
 </nav>
 
 <div class="deck">
@@ -899,6 +970,9 @@ body {
     </div>
     <!-- Bubble chart simulation -->
     <div class="bubble-area" id="bubbleChart">
+      <!-- 四象限辅助线 -->
+      <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(200,168,112,0.2);pointer-events:none;"></div>
+      <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:rgba(200,168,112,0.2);pointer-events:none;"></div>
       <div class="axis-label axis-x">未覆盖需求量 →</div>
       <div class="axis-label axis-y">↑ 供给驱动系数 r</div>
       <!-- Bubbles positioned by data -->
@@ -1331,8 +1405,60 @@ function sortByCol(key) {
   applySort();
 }
 
+
+// ── Presentation Mode ──────────────────────────
+const SLIDES = Array.from(document.querySelectorAll('.slide'));
+let currentSlide = 0;
+
+function enterPresent() {
+  document.body.classList.add('present-mode');
+  showSlide(0);
+  document.getElementById('slideCounter').textContent = `1 / ${SLIDES.length}`;
+}
+
+function exitPresent() {
+  document.body.classList.remove('present-mode');
+  SLIDES.forEach(s => s.classList.remove('active-slide'));
+}
+
+function showSlide(idx) {
+  if (idx < 0 || idx >= SLIDES.length) return;
+  SLIDES.forEach(s => s.classList.remove('active-slide'));
+  SLIDES[idx].classList.add('active-slide');
+  currentSlide = idx;
+  document.getElementById('slideCounter').textContent = `${idx + 1} / ${SLIDES.length}`;
+  const title = SLIDES[idx].querySelector('.kicker,h2,h3');
+  document.getElementById('slideTitle').textContent = title ? title.textContent.trim() : '';
+}
+
+function nextSlide() { showSlide(currentSlide + 1); }
+function prevSlide() { showSlide(currentSlide - 1); }
+
+document.addEventListener('keydown', e => {
+  if (!document.body.classList.contains('present-mode')) {
+    if (e.key === 'F5' || (e.key === 'p' && e.ctrlKey)) { e.preventDefault(); enterPresent(); }
+    return;
+  }
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+    e.preventDefault(); nextSlide();
+  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+    e.preventDefault(); prevSlide();
+  } else if (e.key === 'Escape') {
+    exitPresent();
+  }
+});
+
 // Init
 filterTable();
 </script>
+
+<!-- Presenter Bar -->
+<div class="present-bar" id="presentBar">
+  <button onclick="prevSlide()">← 上一页</button>
+  <button onclick="nextSlide()">下一页 →</button>
+  <span id="slideTitle" style="color:var(--c-text-light);font-size:12px;"></span>
+  <span class="present-counter" id="slideCounter">1 / 7</span>
+  <button onclick="exitPresent()" style="border-color:rgba(224,92,74,0.5);color:#e05c4a;">✕ 退出</button>
+</div>
 </body>
 </html>
