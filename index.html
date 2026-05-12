@@ -207,7 +207,7 @@ html,body{height:100%;overflow:hidden;font-family:'Manrope',-apple-system,'PingF
 </head>
 <body>
 <nav id="nav"></nav>
-<div id="deck">
+<div id="deck" tabindex="0">
 
 <!-- P1 封面 -->
 <section class="slide dk" id="p1">
@@ -751,25 +751,62 @@ slides.forEach((s,i)=>{
 });
 updateDots();
 
-// 键盘
+// 键盘 — 同时绑 document 和 deck，确保任何焦点状态都能响应
+const deck=document.getElementById('deck');
 let busy=false;
-document.addEventListener('keydown',e=>{
-  if(busy)return;
-  if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();if(cur<slides.length-1){busy=true;goTo(cur+1,1);setTimeout(()=>busy=false,400);}}
-  if(e.key==='ArrowUp'){e.preventDefault();if(cur>0){busy=true;goTo(cur-1,-1);setTimeout(()=>busy=false,400);}}
-});
 
-// 触摸/滚轮
+function handleKey(e){
+  if(busy)return;
+  // P7 附录页面内滚动时，不触发翻页（除非在边界）
+  if(cur===slides.length-1){
+    const pane=document.querySelector('#pane-cat:not([style*="none"]),#pane-spu:not([style*="display: none"])');
+    if(pane){
+      const atBottom=pane.scrollHeight-pane.scrollTop-pane.clientHeight<10;
+      const atTop=pane.scrollTop<10;
+      if(e.key==='ArrowDown'&&!atBottom)return;
+      if(e.key==='ArrowUp'&&!atTop)return;
+    }
+  }
+  if(e.key==='ArrowDown'||e.key===' '){
+    e.preventDefault();
+    if(cur<slides.length-1){busy=true;goTo(cur+1,1);setTimeout(()=>busy=false,400);}
+  }
+  if(e.key==='ArrowUp'){
+    e.preventDefault();
+    if(cur>0){busy=true;goTo(cur-1,-1);setTimeout(()=>busy=false,400);}
+  }
+}
+document.addEventListener('keydown',handleKey);
+deck.addEventListener('keydown',handleKey);
+
+// 自动获取焦点
+deck.focus();
+
+// 滚轮 — 绑在 document + deck 两处
 let lastWheel=0;
-document.addEventListener('wheel',e=>{
+function handleWheel(e){
+  // P7 附录允许内部滚动，边界才翻页
+  const isP7=cur===slides.length-1;
+  if(isP7){
+    const pane=document.querySelector('#pane-cat:not([style*="display: none"]),#pane-spu:not([style*="display: none"])');
+    if(pane){
+      const atBottom=pane.scrollHeight-pane.scrollTop-pane.clientHeight<10;
+      const atTop=pane.scrollTop<10;
+      if(e.deltaY>0&&!atBottom)return;
+      if(e.deltaY<0&&!atTop)return;
+    }
+  }
   e.preventDefault();
   const now=Date.now();
-  if(now-lastWheel<600)return;
+  if(now-lastWheel<700)return;
   lastWheel=now;
   if(e.deltaY>30&&cur<slides.length-1)goTo(cur+1,1);
   if(e.deltaY<-30&&cur>0)goTo(cur-1,-1);
-},{passive:false});
+}
+document.addEventListener('wheel',handleWheel,{passive:false});
+deck.addEventListener('wheel',handleWheel,{passive:false});
 
+// 触摸
 let ts=0;
 document.addEventListener('touchstart',e=>{ts=e.touches[0].clientY;},{passive:true});
 document.addEventListener('touchend',e=>{
@@ -778,6 +815,13 @@ document.addEventListener('touchend',e=>{
   if(dy>0&&cur<slides.length-1)goTo(cur+1,1);
   if(dy<0&&cur>0)goTo(cur-1,-1);
 },{passive:true});
+
+// 点击左右边缘也可翻页（备用）
+deck.addEventListener('click',e=>{
+  const x=e.clientX/window.innerWidth;
+  if(x>0.9&&cur<slides.length-1)goTo(cur+1,1);
+  if(x<0.1&&cur>0)goTo(cur-1,-1);
+});
 
 // ── Bubble Chart ──
 (function(){
